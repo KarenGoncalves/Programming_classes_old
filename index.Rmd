@@ -1,0 +1,23 @@
+---
+title: ""
+author: "Karen Cristine Goncalves, PhD."
+output:
+    html_document:
+        theme: darkly
+---
+
+
+## Unix/Bash/Terminal
+<br>
+
+1. [Class 1 - Basics](/basic_commands.html)
+
+<br><br><br><br><br>
+
+## R 
+
+Coming soon
+<br><br><br><br><br>
+
+## Statistics
+Coming soon

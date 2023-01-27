@@ -1,0 +1,8 @@
+name: "Programming classes"
+navbar:
+  title: "Programming classes"
+  left:
+    - text: "Home"
+      href: index.html
+html_document:
+  theme: darkly
