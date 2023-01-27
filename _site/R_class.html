@@ -9,10 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Karen Cristine Goncalves, PhD." />
+<meta name="author" content="Karen Cristine Goncalves" />
 
+<meta name="date" content="2019-10-12" />
 
-<title>index.knit</title>
+<title>R Class for graphs</title>
 
 <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -243,7 +244,9 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        
+        <li>
+  <a href="index.html">Home</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -256,30 +259,212 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">R Class for graphs</h1>
+<h4 class="author">Karen Cristine Goncalves</h4>
+<h4 class="date">2019-10-12</h4>
 
 </div>
 
 
-<div id="classes" class="section level1 tabset tabset-pill tabset-fade">
-<h1 class="tabset tabset-pill tabset-fade">Classes</h1>
-<div id="unixbashterminal" class="section level2">
-<h2>Unix/Bash/Terminal</h2>
-<p><br></p>
-<ol style="list-style-type: decimal">
-<li><a href="./unix/basic_commands.html">Class 1 - Basics</a></li>
-</ol>
-<p><br><br><br><br><br></p>
+<style>
+.code {
+background-color: grey
+}
+</style>
+<div id="slide1" class="section level2">
+<h2>Sintax</h2>
+<ul>
+<li>Functions: <span class="code"><code>word()</code></span>
+<ul>
+<li>Get help - <span class="code"><code>help("word")</code></span> or
+<span class="code"><code>?word</code></span></li>
+</ul></li>
+<li><span class="code"><code>Variable = this</code></span> or <span
+class="code"><code>Variable \&lt;\- this</code></span></li>
+<li>Comparisons:
+<ul>
+<li><span class="code"><code>x \&gt; y</code></span> - is x greater than
+y? (x and y are numbers or )</li>
+<li><span class="code"><code>x \&gt;= y</code></span> - is x greater or
+equal to y? (x and y are numbers or )</li>
+<li><span class="code"><code>x \&lt; y</code></span> - is x less than
+y?</li>
+<li><span class="code"><code>x \&lt;= y</code></span> - is x less or
+equal y?</li>
+<li><span class="code"><code>x == y</code></span> - is x equal to y?
+(Note that you need to use 2 “=” signs)</li>
+<li><span class="code"><code>x != y</code></span> - is x different from
+y?
+<ul>
+<li>The exclamation point negates the comparison, so it is similar to
+<span class="code"><code>! x == y</code></span></li>
+</ul></li>
+</ul></li>
+</ul>
 </div>
-<div id="r" class="section level2">
-<h2>R</h2>
-<ol style="list-style-type: decimal">
-<li><a href="./r/basis.html">Class 1 - basics</a>
-<br><br><br><br><br></li>
-</ol>
+<div id="slide2" class="section level2">
+<h2>Sintax - Run the commands below</h2>
+<div id="section" class="section level3">
+<h3><b></h3>
+<div class="code">
+<p>variable = 1 Variable</p>
+<p>variable2 &lt;- 2 variable2</p>
+<p>1 == 2 1 == variable</p>
+<p>1 &gt; 2 1 &lt;= 2</p>
+<p>variable2 != 1</p>
 </div>
-<div id="statistics" class="section level2">
-<h2>Statistics</h2>
-<p>Coming soon</p>
+</div>
+<div id="section-1" class="section level3">
+<h3></b></h3>
+</div>
+</div>
+<div id="slide3" class="section level2">
+<h2>Data types</h2>
+<ul>
+<li><p>Character - anything between quotes (single ’, or double “), also
+called string</p></li>
+<li><p>Numeric - numbers, with or withou decimals</p></li>
+<li><p>Logical - TRUE or T and FALSE or F</p></li>
+<li><p>Factor - categories</p></li>
+<li><p>How to know? Ask: class(variable)</p></li>
+</ul>
+</div>
+<div id="slide4" class="section level2">
+<h2>Data types - Run the commands below</h2>
+<div id="section-2" class="section level3">
+<h3><b></h3>
+<div class="code">
+<p>variable = 1 variable2 = “I am a character” variable3 = F variable4 =
+factor(“class”)</p>
+<p>class(variable) class(variable2) class(variable3)
+class(variable4)</p>
+</div>
+</div>
+<div id="section-3" class="section level3">
+<h3></b></h3>
+</div>
+</div>
+<div id="slide5" class="section level2">
+<h2>Data types - Conversion</h2>
+<ul>
+<li>From numeric
+<ul>
+<li>To factor - <span class="code">as.factor(1)</span></li>
+<li>To character - <span class="code">as.character(1)</span></li>
+<li>To logical - <span class="code">as.logical(1)</span></li>
+</ul></li>
+<li>From categorical/factor
+<ul>
+<li>To numeric - <span class="code">as.numeric(factor(“class”))</span>
+<ul>
+<li>Returns the number of the category</li>
+</ul></li>
+<li>To character - <span
+class="code">as.character(factor(“class”))</span></li>
+</ul></li>
+<li>From logical
+<ul>
+<li>To factor - not possible, returns <code>NA</code> (not
+available)</li>
+<li>To character - <span class="code">as.character(FALSE)</span></li>
+<li>To numeric - <span class="code">as.logical(FALSE)</span></li>
+</ul></li>
+</ul>
+</div>
+<div id="slide6" class="section level2">
+<h2>Collections of data</h2>
+<ul>
+<li>Vector - values of a single type separated by “,” inside
+<code>c()</code>
+<ul>
+<li><span class="code">c(1, 2, 3, 4, 5)</span></li>
+<li>It’s class will be the type of data inside</li>
+</ul></li>
+<li>Matrix - vector of 2 dimensions
+<ul>
+<li><span class="code">matrix(c(1, 2, 3, 4, 5, 6), nrow=2,
+ncol=3)</span></li>
+</ul></li>
+<li>Data frame - a table, with several vectors of the same size, each as
+a column
+<ul>
+<li><span class="code">data.frame(c(1, 2), c(3, 4), c(5, 6))</span></li>
+</ul></li>
+<li>List - a mix of anything
+<ul>
+<li><span class="code">list(c(1, 2, 3, 4, 5), matrix(c(1, 2, 3, 4, 5,
+6), nrow=2, ncol=3), data.frame(c(1, 2), c(3, 4), c(5, 6)),
+F)</span></li>
+</ul></li>
+</ul>
+</div>
+<div id="slide7" class="section level2">
+<h2>Collections of data - Run the commands below</h2>
+<div id="section-4" class="section level3">
+<h3><b></h3>
+<div class="code">
+<p>variable = c(1, 2, 3, 4, 5, 6) class(variable)</p>
+<p>variable2 = matrix(c(1, 2, 3, 4, 5, 6), nrow=2, ncol=3)
+class(variable2)</p>
+<p>variable3 = data.frame(c(1, 2), c(3, 4), c(5, 6))
+class(variable3)</p>
+<p>list(variable, variable2, variable3, F, 1)</p>
+</div>
+</div>
+<div id="section-5" class="section level3">
+<h3></b></h3>
+</div>
+</div>
+<div id="slide8" class="section level2">
+<h2>Your PC</h2>
+<ul>
+<li>Find where you are - get working directory (folder)
+<ul>
+<li><span class="code"><code>getwd()</code></span></li>
+</ul></li>
+<li>Change folders - set working directory
+<ul>
+<li><span class="code"><code>setwd("myFolder")</code></span></li>
+</ul></li>
+<li>See the contents of the folder
+<ul>
+<li><span class="code"><code>list.files()</code></span></li>
+</ul></li>
+</ul>
+</div>
+<div id="slide9" class="section level2">
+<h2>Load files</h2>
+<ul>
+<li>Save tables in excel in format:
+<ul>
+<li>csv - comma separated values or semi-colon separated values</li>
+<li>txt or tsv - tab separated values</li>
+</ul></li>
+<li>Load the data with the function <code>read.csv</code> or
+<code>read.delim</code>, adding:
+<ul>
+<li>Name of the file, with location if not in the current folder</li>
+<li>Optionals:
+<ul>
+<li><code>header=F</code> or <code>header=T</code> - first line has the
+names of the columns or not?</li>
+<li><code>sep="\t"</code> for tab separated columns</li>
+<li><code>row.names=1</code> - which column has the name of the
+rows</li>
+<li><code>skip=2</code> - how many rows to disconsider (here, 2)</li>
+</ul></li>
+</ul></li>
+</ul>
+<div id="section-6" class="section level3">
+<h3><b></h3>
+<div class="code">
+<p>file_csv = read.csv(“myFile.csv”) # optional - header=F, row.names=2,
+sep=“;” file_txt = read.delim(“myFile.txt”) # optional - header=F,
+row.names=2, sep=” ”</p>
+</div>
+</div>
+<div id="section-7" class="section level3">
+<h3></b></h3>
 </div>
 </div>
 

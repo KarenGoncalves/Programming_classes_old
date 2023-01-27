@@ -1,22 +1,20 @@
 ---
 title: ""
 author: "Karen Cristine Goncalves, PhD."
-output:
-    html_document:
-        theme: darkly
 ---
 
+# Classes {.tabset .tabset-pill .tabset-fade}
 
 ## Unix/Bash/Terminal
 <br>
 
-1. [Class 1 - Basics](/basic_commands.html)
+1. [Class 1 - Basics](./unix/basic_commands.html)
 
 <br><br><br><br><br>
 
 ## R 
 
-Coming soon
+1. [Class 1 - basics](./r/basis.html)
 <br><br><br><br><br>
 
 ## Statistics
