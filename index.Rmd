@@ -1,6 +1,6 @@
 ---
-title: ""
-author: "Karen Cristine Goncalves, PhD."
+title: "<span style='display:none'>Programming classes</span>"
+author: "<span style='display:none'>Karen Cristine Goncalves, PhD.</span>"
 ---
 
 # Classes {.tabset .tabset-pill .tabset-fade}
