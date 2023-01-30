@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Connecting to the server and tranfering files</title>
+  <title>Dealing with the server</title>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -20,7 +20,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Connecting to the server and tranfering files',
+                title: 'Dealing with the server',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -3297,13 +3297,25 @@ rsync username@cedar.computecanada.ca:/home/username/file_in_server ./
 <li>Transfer new file to your computer using <code>rsync</code></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Resources</h2></hgroup><article  id="resources">
+</article></slide><slide class=""><hgroup><h2>Run jobs</h2></hgroup><article  id="slide9">
 
 <ul class = 'build'>
-<li><a href='https://docs.alliancecan.ca/wiki/SSH' title=''>How to connect to the server</a></li>
-<li><a href='https://docs.alliancecan.ca/wiki/Getting_started_with_the_new_national_systems' title=''>List of webinars (5-10min) on how to use the server</a></li>
-<li><a href='https://docs.alliancecan.ca/wiki/Storage_and_file_management' title=''>Types of folders in the server</a></li>
-<li><a href='https://docs.alliancecan.ca/wiki/Transferring_data' title=''>How to transfer data</a></li>
+<li>Information needed
+
+<ul class = 'build'>
+<li><code>--account acount_name</code> - <code>def-laboidp</code> or <code>def-desgagne</code> or <code>def-germain1</code></li>
+<li><code>--time=d-HH:MM:SS</code> - time required for the script, eg. 12hs: –time=12:00:00</li>
+<li><code>--mem=1G</code> - memory required (here, 1G, default 254M)</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Run jobs - srun</h2></hgroup><article  id="slide9">
+
+<p><code>srun NEEDED_INFO script/command</code></p>
+
+<ul class = 'build'>
+<li>sbatch - <code>sbatch script</code> or <code>sbatch NEEDED_INFO script</code></li>
+<li>salloc - <code>salloc NEEDED_INFO</code></li>
 </ul></article></slide>
 
 
