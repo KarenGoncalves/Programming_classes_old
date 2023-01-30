@@ -1,0 +1,98 @@
+---
+title: "Dealing with the server"
+author: "Karen Cristine Goncalves"
+date: "2023-01-29"
+output: 
+    ioslides_presentation	
+---
+
+<style>
+.code {
+background-color: grey;
+color: black
+}
+
+p, li {
+line-height: 1em;
+font-size: 0.8em
+word-wrap: true
+}
+</style>
+
+## Logging in {#slide1}
+
+<center>
+![](../unix/MobaxTerm_SSHsession.jpg){width=60%}
+</center>
+- Click on `Session` -> `SSH`
+- Add the `Remote Host` : cedar.computecanada.ca
+- Click on `Specify username` then add yours
+- Click OK: will ask your password (when you type, nothing will appear, but it is writing)
+
+## Logging in {#slide2}
+
+<center>
+![](../unix/MobaxTerm_ssh.jpg){width=60%}
+</center>
+
+- <span class="code">`ssh cedar.computecanada.ca`</span>
+	- Will ask your user name then your password (what you type won't appear on the screen)
+- <span class="code">`ssh YOUR_USERNAME@cedar.computecanada.ca`</span>
+	- Replace `YOUR_USERNAME` with your username, in my case: `karencgs`
+	- Will ask your password (what you type won't appear on the screen)
+
+## Server organization {#slide3}
+
+- In the server, type (do not consider what comes after #):
+
+### <b>
+<div class="code">
+```
+pwd # after you log in, should be /home/username/
+whoami # username
+echo "$SCRATCH"
+echo "$HOME"
+ls $HOME/projects/
+```
+</div>
+### </b>
+
+- `$HOME` :  Store scripts, software files, things you use frequently without necessarily modifying them
+- `$SCRATCH` : Use to run scripts, submit jobs (scripts that take too long or use a lot of resources)
+- `/projects/account/username` : Use as medium to long term storage (raw data, final results of analyses)
+
+## Transfer files to server {#slide4}
+
+<center>
+![](../unix/MobaxTerm_transferSFTP.jpg){width=60%}
+</center>
+
+- In MobaxTerm, after logging in to the server, click on the left panel on the world button (SFTP)
+- Under the "Quick connect" bar on the left, there are buttons for upload, download, etc.
+- Under the buttons is a bar to put the path to the desired folder
+- Once you are in the folder you want, click on a file and click the button for download to select where you want to save it
+
+## Transfer files to server {#slide5}
+
+- `rsync` : transfer to and from server
+	- To enter path to server, you need to add the log in info
+	- Path to file(s) to transfer
+	- Path to destination
+	
+### <b>
+<div class="code">
+```
+rsync file_in_computer username@cedar.computecanada.ca:/home/username/
+# Will ask for password to server
+# copies file_in_computer to the server in the folder /home/username
+
+rsync username@cedar.computecanada.ca:/home/username/file_in_server ./
+# Will ask for password to server
+# copies /home/username/file_in_server from the server my computer
+
+```
+</div>
+### </b>
+
+
+

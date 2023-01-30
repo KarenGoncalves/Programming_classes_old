@@ -19,7 +19,7 @@ background-color: grey
  - The first word in a command is what you are asking the computer to do (a function)
  - Spaces are used to separate file names, commands, etc. 
  - Some commands allow you to customize their output with options
-	- These are single letters, a word, or several words preceeded by `-` or `--`
+	- These are single letters, a word, or several words preceded by `-` or `--`
  - You can get help for a command by using the help option (either `-h` , `--help` ) or the command `man` (for manual)
 	
 ### <b>
@@ -54,10 +54,10 @@ background-color: grey
 
 ### <b>
 <div class="code">
-
-`echo "This is good"`
-
-`echo 'This is good'`
+```
+echo "This is good"
+echo 'This is good'
+```
 </div>
 ### </b>
 
@@ -85,6 +85,7 @@ background-color: grey
 	- If used alone, opens your home folder
 	- The name of the folder to which you want to go comes after `cd` 
 		- `cd` , `cd ~` and `cd $HOME` are synonyms
+	- `cd -` - takes you to the previous folder
  - <span class="code">`pwd`</span>
 	- acronym for "print working directory" (directory = folder)
 	- equivalent to the R function `getwd()` or python's `os.getcwd()`

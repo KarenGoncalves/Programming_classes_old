@@ -1,4 +1,5 @@
 name: "Programming classes"
+source: ../
 navbar:
   title: "Programming classes"
 output:
