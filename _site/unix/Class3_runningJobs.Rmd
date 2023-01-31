@@ -1,0 +1,25 @@
+---
+title: "Class3_RunningJobs"
+output: ioslides_presentation
+date: "2023-01-30"
+---
+
+## Run jobs  {#slide1}
+
+- Information needed
+	- `--account acount_name` - `def-laboidp` or `def-desgagne` or `def-germain1`
+	- `--time=d-HH:MM:SS` - time required for the script, eg. 12hs: --time=12:00:00
+	- `--mem=1G` - memory required (here, 1G, default 254M)
+	
+## Run jobs - srun {#slide2}
+
+`srun NEEDED_INFO script/command`
+
+
+
+- sbatch - `sbatch script` or `sbatch NEEDED_INFO script`
+- salloc - `salloc NEEDED_INFO`
+
+## Resources
+
+- [How to run jobs](https://docs.alliancecan.ca/wiki/Running_jobs)

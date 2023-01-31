@@ -8,7 +8,7 @@ author: "<span style='display:none'>Karen Cristine Goncalves, PhD.</span>"
 ## Unix/Bash/Terminal
 <br>
 
-1. [Class 1 - Basics](./unix/basic_commands.html)
+1. [Class 1 - Basics](./unix/Class1_BasicCommands.html)
 1. [Class 2 - Connecting to the server and tranfering files](./unix/basic_commands.html)
 
 <br><br><br><br><br>
