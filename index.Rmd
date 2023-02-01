@@ -9,7 +9,7 @@ author: "<span style='display:none'>Karen Cristine Goncalves, PhD.</span>"
 <br>
 
 1. [Class 1 - Basics](./unix/Class1_BasicCommands.html)
-1. [Class 2 - Connecting to the server and tranfering files](./unix/basic_commands.html)
+1. [Class 2 - Connecting to the server and tranfering files](./unix/Class2_Connection_FileTransfer.html)
 
 <br><br><br><br><br>
 
