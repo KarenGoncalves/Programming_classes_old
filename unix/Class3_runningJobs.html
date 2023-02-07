@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Class3_RunningJobs</title>
+  <title>Class 3 - Running Jobs</title>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -20,7 +20,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Class3_RunningJobs',
+                title: 'Class 3 - Running Jobs',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -29,6 +29,14 @@
 
       // Author information
       presenters: [
+            {
+        name:  'Karen Cristine Goncalves' ,
+        company: '',
+        gplus: '',
+        twitter: '',
+        www: '',
+        github: ''
+      },
             ]
     };
   </script>
@@ -3133,30 +3141,140 @@ ul.task-list{list-style: none;}
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>Run jobs</h2></hgroup><article  id="slide1">
+<style>
+.code {
+background-color: grey;
+color: black
+}
 
-<ul>
-<li>Information needed
+p, li {
+line-height: 1.1em;
+font-size: 0.75em;
+word-wrap: true
+}
+</style>
 
-<ul>
-<li><code>--account acount_name</code> - <code>def-laboidp</code> or <code>def-desgagne</code> or <code>def-germain1</code></li>
-<li><code>--time=d-HH:MM:SS</code> - time required for the script, eg. 12hs: –time=12:00:00</li>
-<li><code>--mem=1G</code> - memory required (here, 1G, default 254M)</li>
+<slide class=""><hgroup><h2>Run jobs</h2></hgroup><article  id="run-jobs">
+
+<p>Cannot run/execute any of those commands from <code>~</code></p>
+
+<p>The three possibilities:</p>
+
+<ul class = 'build'>
+<li><code>srun</code> - Use to submit a script to be executed in real time (the process of running the job will be printed in the screen instead of saved into a file)</li>
+<li><code>sbatch</code> - Use to submit a script to be executed later</li>
+<li><code>salloc</code> - Use to <code>alloc</code>ate resources for a job in real time.
+
+<ul class = 'build'>
+<li>Basically, you ask for memory and CPUS for a determinate amount of time and when the &ldquo;allocate&rdquo; the resources to you, you work in real time in a computer more potent than yours.</li>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Run jobs - srun</h2></hgroup><article  id="slide2">
+</article></slide><slide class=""><hgroup><h2>Run jobs - srun</h2></hgroup><article  id="run-jobs---srun">
 
-<p><code>srun NEEDED_INFO script/command</code></p>
+<p><span class="code">
+<code>srun NEEDED_INFO script/command</code></span></p>
 
-<ul>
-<li>sbatch - <code>sbatch script</code> or <code>sbatch NEEDED_INFO script</code></li>
-<li>salloc - <code>salloc NEEDED_INFO</code></li>
+<ul class = 'build'>
+<li>Before running <code>srun</code>, need to load software required need to the session
+
+<ul class = 'build'>
+<li>Adding <code>module load software</code> to the script does not work</li>
+</ul></li>
+<li>Information needed
+
+<ul class = 'build'>
+<li><span class="code">
+<code>--account=acount_name</code></span> - <span class="code">
+<code>def-laboidp</code></span> or <span class="code">
+<code>def-desgagne</code></span> or <span class="code"><code>def-germain1</code></li>
+<li><span class="code">
+<code>--time=d-HH:MM:SS</code></span> - time required for the script, eg. 12hs: <code>--time=12:00:00</code></li>
+<li><span class="code">
+<code>--mem=1G</code></span> - memory required (here, 1G, default 254M)</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>srun - exammple</h2></hgroup><article  id="srun---exammple">
+
+<h3><b></h3>
+
+<div class="code">
+<pre >module load StdEnv/2020 blast+ # load the softwares
+cd $SCRATCH
+
+srun --account=def-desgagne --time=01:00:00 --mem=1024M\
+ blastp -query prots.fasta\
+ -db $myDatabase\
+ -out prots_Databased.txt\
+ -outfmt &#39;7&#39; # output in table format</pre></div>
+
+<p></b></p>
+
+<ul class = 'build'>
+<li><p>The file <code>prots.fasta</code> is in the current folder, or its path is given in full</p>
+
+<ul class = 'build'>
+<li>same for the output <code>prots_Database.txt</code></li>
+</ul></li>
+<li><p>When you use <code>\</code> to separate one command in several lines, add a space in the next line to separate the words ## Note on blast</p></li>
+<li><p><code>$myDatabase</code></p>
+
+<ul class = 'build'>
+<li>Add the full path, without the extension</li>
+<li>Use right type of database (the first letter of the extension indicates the type of database)
+
+<ul class = 'build'>
+<li><code>.p*</code> - protein database</li>
+<li><code>.n*</code> - nucleotide database</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Run jobs - sbatch</h2></hgroup><article  id="run-jobs---sbatch">
+
+<p><span class="code">
+<code>sbatch script</code></span> or <span class="code">
+<code>sbatch NEEDED_INFO script</code></span> - Used to submit a script to be executed later. - Essentials for the script: - First line indicates the program that translates the script to computer language: <span class="code">
+<code>#!/bin/sh</code></span> - Lines starting with <code>#SBATCH</code> tell the scheduler what we need for this job</p>
+
+</article></slide><slide class=""><hgroup><h2>sbatch - script example</h2></hgroup><article  id="sbatch---script-example">
+
+<h3><b></h3>
+
+<div class="code">
+<pre >#!/bin/sh
+#SBATCH --account=def-desgagne
+#SBATCH --time=01:00:00 
+#SBATCH --mem=1024M
+
+module load StdEnv/2020 blast+
+
+myDatabase=/database/path
+
+cd $SCRATCH
+
+blastp -query prots.fasta\
+ -db $myDatabase\
+ -out prots_Databased.txt\
+ -outfmt &#39;7&#39; # output in table format</pre></div>
+
+<p></b></p>
+
+<ul class = 'build'>
+<li></article></slide><slide class=""><hgroup><h2>Run jobs - sbatch</h2></hgroup><article  id="run-jobs---sbatch-1"></li>
+<li>salloc - <span class="code">
+<code>salloc NEEDED_INFO</code></span>
+
+<ul class = 'build'>
+<li>Used to allocate resources for a job in real time.</li>
+<li>Basically, you ask for memory and CPUS for a determinate amount of time and when the &ldquo;allocate&rdquo; the resources to you, you work in real time in a computer more potent than yours.</li>
+</ul></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Resources</h2></hgroup><article  id="resources">
 
-<ul>
+<ul class = 'build'>
 <li><a href='https://docs.alliancecan.ca/wiki/Running_jobs' title=''>How to run jobs</a></li>
 </ul></article></slide>
 

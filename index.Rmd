@@ -3,6 +3,13 @@ title: "<span style='display:none'>Programming classes</span>"
 author: "<span style='display:none'>Karen Cristine Goncalves, PhD.</span>"
 ---
 
+<style>
+
+p, li {
+font-size: 1.3em
+}
+</style>
+
 # Classes {.tabset .tabset-pill .tabset-fade}
 
 ## Unix/Bash/Terminal
@@ -10,13 +17,13 @@ author: "<span style='display:none'>Karen Cristine Goncalves, PhD.</span>"
 
 1. [Class 1 - Basics](./unix/Class1_BasicCommands.html)
 1. [Class 2 - Connecting to the server and tranfering files](./unix/Class2_Connection_FileTransfer.html)
-
+1. [Class 3 - Running jobs ](./unix/Class2_runningJobs.html)
 <br><br><br><br><br>
 
 ## R 
 
 1. [Class 1 - basics](./r/basis.html)
-<br><br><br><br><br>
 
 ## Statistics
+
 Coming soon
