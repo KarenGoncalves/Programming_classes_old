@@ -2,8 +2,9 @@
 title: "Class 3 - Running Jobs"
 author: "Karen Cristine Goncalves"
 date: "2023-01-30"
-output:
-    ioslides_presentation:
+font-family: serif
+output: 
+    slidy_presentation:
         incremental: true
 ---
 
@@ -14,8 +15,8 @@ color: black
 }
 
 p, li {
-line-height: 1.1em;
-font-size: 0.75em;
+line-height: 1.4em;
+font-size: 1.2em;
 word-wrap: true
 }
 </style>
@@ -63,6 +64,7 @@ srun --account=def-desgagne --time=01:00:00 --mem=1024M\
 - The file ` prots.fasta ` is in the current folder, or its path is given in full
 	- same for the output ` prots_Database.txt `
 - When you use ` \ ` to separate one command in several lines, add a space in the next line to separate the words
+
 ## Note on blast
 
 - ` $myDatabase ` 
@@ -75,6 +77,7 @@ srun --account=def-desgagne --time=01:00:00 --mem=1024M\
 
 
 <span class="code">`sbatch script`</span> or <span class="code">`sbatch NEEDED_INFO script`</span> 
+
 - Used to submit a script to be executed later.
 - Essentials for the script:
 	- First line indicates the program that translates the script to computer language: <span class="code">`#!/bin/sh`</span>
@@ -103,12 +106,14 @@ blastp -query prots.fasta\
 ```
 </div></b>
 
-- 
-## Run jobs - sbatch 
+- Note that here the "module load" line is INSIDE the script
 
-- salloc - <span class="code">`salloc NEEDED_INFO`</span> 
-	- Used to allocate resources for a job in real time. 
-	- Basically, you ask for memory and CPUS  for a determinate amount of time and when the "allocate" the resources to you, you work in real time in a computer more potent than yours.
+## Run jobs - salloc 
+
+salloc - <span class="code">`salloc NEEDED_INFO`</span> 
+
+- Used to allocate resources for a job in real time. 
+- Basically, you ask for memory and CPUS  for a determinate amount of time and when the "allocate" the resources to you, you work in real time in a computer more potent than yours.
 
 ## Resources
 

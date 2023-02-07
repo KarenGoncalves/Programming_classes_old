@@ -6,14 +6,14 @@ author: "<span style='display:none'>Karen Cristine Goncalves, PhD.</span>"
 <style>
 
 p, li {
-font-size: 1.3em
+font-size: 1.3em;
+line-height: 1.75em
 }
 </style>
 
 # Classes {.tabset .tabset-pill .tabset-fade}
 
 ## Unix/Bash/Terminal
-<br>
 
 1. [Class 1 - Basics](./unix/Class1_BasicCommands.html)
 1. [Class 2 - Connecting to the server and tranfering files](./unix/Class2_Connection_FileTransfer.html)

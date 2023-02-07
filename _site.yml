@@ -2,9 +2,9 @@ name: "Programming classes"
 source: ./
 navbar:
   title: "Programming classes"
-  left:
-	- text: "Karen Goncalves"
-	  href: "https://karengoncalves.github.io/Karen/"
+  right:
+    - text: "Karen Goncalves"
+      href: "https://karengoncalves.github.io/Karen/"
 output:
   html_document:
     theme: darkly
