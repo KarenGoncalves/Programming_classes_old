@@ -3265,19 +3265,18 @@ ls $HOME/projects/</pre></div>
 </article></slide><slide class=""><hgroup><h2>Transfer files to server</h2></hgroup><article  id="slide7">
 
 <ul class = 'build'>
-<li><code>rsync</code> : transfer to and from server
+<li><code>rsync</code> : FROM <strong>YOUR COMPUTER</strong> TO THE SERVER!!!! - Never from the server to your computer (for security)
 
 <ul class = 'build'>
-<li>To enter path to server, you need to add the log in info</li>
-<li>Path to file(s) to transfer</li>
-<li>Path to destination</li>
-</ul></li>
-</ul>
+<li><p>To enter path to server, you need to add the log in info</p></li>
+<li><p>Path to file(s) to transfer</p></li>
+<li><p>Path to destination</p>
 
 <h3><b></h3>
 
 <div class="code">
-<pre >rsync file_in_computer username@cedar.computecanada.ca:/home/username/
+<pre ># Type the following in your computer&#39;s terminal (not in the server!!!)
+rsync file_in_computer username@cedar.computecanada.ca:/home/username/
 # Will ask for password to server
 # copies file_in_computer to the server in the folder /home/username
 
@@ -3286,7 +3285,9 @@ rsync username@cedar.computecanada.ca:/home/username/file_in_server ./
 # copies /home/username/file_in_server from the server my computer
 </pre></div>
 
-<h3></b></h3>
+<h3></b></h3></li>
+</ul></li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Exercise - transfer fasta file</h2></hgroup><article  id="slide8">
 
