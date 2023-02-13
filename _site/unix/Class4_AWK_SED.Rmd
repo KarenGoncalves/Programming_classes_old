@@ -1,0 +1,134 @@
+---
+title: "Class 4 - AWK command"
+author: "Karen Cristine Goncalves"
+date: "2023-02-13"
+font-family: serif
+output: 
+    slidy_presentation:
+        incremental: true
+---
+
+<style>
+.code {
+background-color: grey;
+color: black;
+font-size: 2;
+font-weight: bold;
+line-height: 2.3em;
+}
+
+p, li {
+line-height: 1.4em;
+font-size: 1.6em;
+word-wrap: true
+}
+</style>
+
+## AWK - print specific columns
+
+- Always put commands inside single quotes <span class="code">`''`</span>
+- Use <span class="code">`{print}`</span> to indicate lines or columns you want to see
+- Indicate a column number using <span class="code">`$N`</span> (replace N with the number)
+- If you want to see several columns, separate them with a <span class="code">`,`</span>: 
+	- <span class="code">`{print $N,$X}`</span>
+- To indicate the whole line, use <span class="code">`$0`</span>
+
+## AWK - print specific columns
+
+
+### <b>
+<div class="code">
+`# Print second column of the file blastp_results.txt`<br>
+`awk '{print $2}' blastp_results.txt`<br>
+`# Print second and third columns of the file blastp_results.txt`<br>
+`awk '{print $2,$3}' blastp_results.txt`
+</div></b>
+
+
+## AWK - print line with specific word
+
+Inside the <span class="code">`''`</span> add the word your searching for in <span class="code">`//`</span>
+
+### <b>
+<div class="code">
+`# Print lines containing "#" in blastp_results.txt`<br>
+`awk '/#/ {print }' blastp_results.txt`
+</div></b>
+
+- Note that when you do not specify the column, or when you use <span class="code">`$0`</span>, you print the whole line
+
+## AWK - indicate how to read the input and write the output
+
+- NR - number of records (normally number of lines): 
+	- <span class="code">`awk 'NR > 1 {print}' blastp_results.txt`</span>
+		- will print all but the first line
+	- <span class="code">`awk 'NR == 1 {print $1} NR > 1 {print $2}' blastp_results.txt`</span>
+		-  will print the first column for line 1 and the second column for the other lines
+- NF - number of fields (normally columns):
+	- <span class="code">`awk '{print $NF}' blastp_results.txt`</span>
+		- will print the last column the file
+
+
+## AWK - indicate how to read the input and write the output
+
+Note the these can be specified by adding `BEGIN {}`:
+
+- FS - field separator - column delimiter
+	- <span class="code">`awk 'BEGIN {FS=","} {print $2}' blastp_results.csv`</span>
+		- Indicates the columns in the file blastp_results.csv are separated by commas and asks for the second column
+		- Outside the `''` `-F","` or `--field-separator=","` are the same
+- OFS - output field separator - column delimiter for the output
+	- <span class="code">`awk 'BEGIN {OFS=","} {print}' blastp_results.txt`</span>
+		- Changes the separation of columns from space (default for awk) to commas
+
+## AWK - indicate how to read the input and write the output
+
+Note the these can be specified by adding `BEGIN {}`:
+
+- RS - record separator
+	- <span class="code">`awk 'BEGIN {RS=">"} {print $1}' myFasta.fasta`</span>
+		- Tells awk that new entries are indicated with a ">" symbol
+- ORS - record separator for the output
+	- <span class="code">`awk 'BEGIN {ORS=">"} {print $1}' myFasta.txt`</span>
+		- Tells awk that new entries in the output will start with the ">" symbol
+
+## AWK example
+
+### <b>
+<div class="code">
+`# Change fasta to a table format`<br>
+`awk 'BEGIN {FS = "\n";\`<br>
+` RS=">";\`<br>
+` OFS="\t";\`<br>
+` ORS="\n"}\`<br>
+` {print $1,$2}' ~/blastClass/myFasta.fasta`<br>
+</div></b>
+
+## AWK - print with one condition
+
+- Conditions come after a `if` and inside `()`
+
+### <b>
+<div class="code">
+`# Print line if column 3 has a value greater than 80`<br>
+`awk ' {if ($3 > 80) print}' ~/blastClass/myFasta.fasta`<br>
+</div></b>
+
+## AWK - print with multiple conditions conditions
+
+- When the conditions must all be met, separate them with `&&`
+
+### <b>
+<div class="code">
+`# Print line if column 3 has a value greater than 80 AND column 4 has a value greater than 150`<br>
+`awk ' {if ($3 > 80 && $4 > 150) print}' ~/blastClass/myFasta.fasta`<br>
+</div></b>
+
+- When only one condition must be met, separate them with `||`
+
+### <b>
+<div class="code">
+`# Print line if column 3 has a value greater than 80 OR column 4 has a value greater than 150`<br>
+`awk ' {if ($3 > 80 || $4 > 150) print}' ~/blastClass/myFasta.fasta`<br>
+</div></b>
+
