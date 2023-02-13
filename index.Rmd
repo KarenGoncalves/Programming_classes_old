@@ -18,6 +18,7 @@ line-height: 1.75em
 1. [Class 1 - Basics](./unix/Class1_BasicCommands.html)
 1. [Class 2 - Connecting to the server and tranfering files](./unix/Class2_Connection_FileTransfer.html)
 1. [Class 3 - Running jobs ](./unix/Class3_runningJobs.html)
+1. [Class 3 - Running jobs ](./unix/Class4_AWK.html)
 <br><br><br><br><br>
 
 ## R 
