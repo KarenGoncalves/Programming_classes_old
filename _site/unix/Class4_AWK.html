@@ -449,7 +449,9 @@ your searching for in <span class="code"><code>//</code></span></p>
 <h3 id="section-1"><b></h3>
 <div class="code">
 <p><code># Print lines containing &quot;#&quot; in blastp_results.txt</code><br>
-<code>awk &#39;/#/ {print }&#39; blastp_results.txt</code></p>
+<code>awk &#39;/#/ {print}&#39; blastp_results.txt</code> <br><br>
+<code># Print lines containing &quot;#&quot; in blastp_results.txt</code><br>
+<code>awk &#39;!/#/ {print}&#39; blastp_results.txt</code></p>
 </div>
 <p></b></p>
 <ul class="incremental">
@@ -527,10 +529,24 @@ symbol</li>
 </div>
 <div id="awk-example" class="slide section level2">
 <h1>AWK example</h1>
+<ul class="incremental">
+<li>Sequence length</li>
+</ul>
 <h3 id="section-2"><b></h3>
 <div class="code">
-<p><code># Change fasta to a table format</code><br>
-<code>awk &#39;BEGIN {FS = &quot;\n&quot;;\</code><br> <code>RS=&quot;&gt;&quot;;\</code><br>
+<p><code>awk &#39;BEGIN {FS = &quot;\n&quot;;\</code><br> <code>RS=&quot;&gt;&quot;}\</code><br>
+<code>{print $1, length($2)}&#39; ~/blastClass/myFasta.fasta</code><br></p>
+</div>
+<p></b></p>
+</div>
+<div id="awk-example-1" class="slide section level2">
+<h1>AWK example</h1>
+<ul class="incremental">
+<li>Change fasta to a table format</li>
+</ul>
+<h3 id="section-3"><b></h3>
+<div class="code">
+<p><code>awk &#39;BEGIN {FS = &quot;\n&quot;;\</code><br> <code>RS=&quot;&gt;&quot;;\</code><br>
 <code>OFS=&quot;\t&quot;;\</code><br> <code>ORS=&quot;\n&quot;}\</code><br>
 <code>{print $1,$2}&#39; ~/blastClass/myFasta.fasta</code><br></p>
 </div>
@@ -542,35 +558,49 @@ symbol</li>
 <li>Conditions come after a <code>if</code> and inside
 <code>()</code></li>
 </ul>
-<h3 id="section-3"><b></h3>
+<h3 id="section-4"><b></h3>
 <div class="code">
 <p><code># Print line if column 3 has a value greater than 80</code><br>
-<code>awk &#39; {if ($3 &gt; 80) print}&#39; ~/blastClass/myFasta.fasta</code><br></p>
+<code>awk &#39;{if ($3 &gt; 80) print}&#39; ~/blastClass/myFasta.fasta</code><br></p>
 </div>
 <p></b></p>
 </div>
-<div id="awk---print-with-multiple-conditions-conditions" class="slide section level2">
-<h1>AWK - print with multiple conditions conditions</h1>
+<div id="awk---print-with-multiple-conditions" class="slide section level2">
+<h1>AWK - print with multiple conditions</h1>
 <ul class="incremental">
 <li>When the conditions must all be met, separate them with
 <code>&amp;&amp;</code></li>
 </ul>
-<h3 id="section-4"><b></h3>
+<h3 id="section-5"><b></h3>
 <div class="code">
 <p><code># Print line if column 3 has a value greater than 80 AND column 4 has a value greater than 150</code><br>
-<code>awk &#39; {if ($3 &gt; 80 &amp;&amp; $4 &gt; 150) print}&#39; ~/blastClass/myFasta.fasta</code><br></p>
+<code>awk &#39;{if ($3 &gt; 80 &amp;&amp; $4 &gt; 150) print}&#39; ~/blastClass/myFasta.fasta</code><br></p>
 </div>
 <p></b></p>
+</div>
+<div id="awk---print-with-multiple-conditions-1" class="slide section level2">
+<h1>AWK - print with multiple conditions</h1>
 <ul class="incremental">
 <li>When only one condition must be met, separate them with
 <code>||</code></li>
 </ul>
-<h3 id="section-5"><b></h3>
+<h3 id="section-6"><b></h3>
 <div class="code">
 <p><code># Print line if column 3 has a value greater than 80 OR column 4 has a value greater than 150</code><br>
-<code>awk &#39; {if ($3 &gt; 80 || $4 &gt; 150) print}&#39; ~/blastClass/myFasta.fasta</code><br></p>
+<code>awk &#39;{if ($3 &gt; 80 || $4 &gt; 150) print}&#39; ~/blastClass/myFasta.fasta</code><br></p>
 </div>
 <p></b></p>
+</div>
+<div id="resources" class="slide section level2">
+<h1>Resources</h1>
+<ul class="incremental">
+<li><a href="https://www.gnu.org/software/gawk/manual/html_node/Options.html">AWK
+manual</a></li>
+<li><a href="https://www.geeksforgeeks.org/awk-command-unixlinux-examples/">AWK
+examples</a></li>
+<li><a href="https://www.shortcutfoo.com/app/dojos/awk/cheatsheet">AWK
+cheatsheet</a></li>
+</ul>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->

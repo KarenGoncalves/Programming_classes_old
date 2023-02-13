@@ -52,7 +52,10 @@ Inside the <span class="code">`''`</span> add the word your searching for in <sp
 ### <b>
 <div class="code">
 `# Print lines containing "#" in blastp_results.txt`<br>
-`awk '/#/ {print }' blastp_results.txt`
+`awk '/#/ {print}' blastp_results.txt`
+<br><br>
+`# Print lines containing "#" in blastp_results.txt`<br>
+`awk '!/#/ {print}' blastp_results.txt`
 </div></b>
 
 - Note that when you do not specify the column, or when you use <span class="code">`$0`</span>, you print the whole line
@@ -94,9 +97,21 @@ Note the these can be specified by adding `BEGIN {}`:
 
 ## AWK example
 
+- Sequence length
+
 ### <b>
 <div class="code">
-`# Change fasta to a table format`<br>
+`awk 'BEGIN {FS = "\n";\`<br>
+` RS=">"}\`<br>
+` {print $1, length($2)}' ~/blastClass/myFasta.fasta`<br>
+</div></b>
+
+## AWK example
+
+- Change fasta to a table format
+
+### <b>
+<div class="code">
 `awk 'BEGIN {FS = "\n";\`<br>
 ` RS=">";\`<br>
 ` OFS="\t";\`<br>
@@ -111,24 +126,32 @@ Note the these can be specified by adding `BEGIN {}`:
 ### <b>
 <div class="code">
 `# Print line if column 3 has a value greater than 80`<br>
-`awk ' {if ($3 > 80) print}' ~/blastClass/myFasta.fasta`<br>
+`awk '{if ($3 > 80) print}' ~/blastClass/myFasta.fasta`<br>
 </div></b>
 
-## AWK - print with multiple conditions conditions
+## AWK - print with multiple conditions 
 
 - When the conditions must all be met, separate them with `&&`
 
 ### <b>
 <div class="code">
 `# Print line if column 3 has a value greater than 80 AND column 4 has a value greater than 150`<br>
-`awk ' {if ($3 > 80 && $4 > 150) print}' ~/blastClass/myFasta.fasta`<br>
+`awk '{if ($3 > 80 && $4 > 150) print}' ~/blastClass/myFasta.fasta`<br>
 </div></b>
+
+
+## AWK - print with multiple conditions 
 
 - When only one condition must be met, separate them with `||`
 
 ### <b>
 <div class="code">
 `# Print line if column 3 has a value greater than 80 OR column 4 has a value greater than 150`<br>
-`awk ' {if ($3 > 80 || $4 > 150) print}' ~/blastClass/myFasta.fasta`<br>
+`awk '{if ($3 > 80 || $4 > 150) print}' ~/blastClass/myFasta.fasta`<br>
 </div></b>
 
+## Resources 
+
+- [AWK manual](https://www.gnu.org/software/gawk/manual/html_node/Options.html)
+- [AWK examples](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/)
+- [AWK cheatsheet](https://www.shortcutfoo.com/app/dojos/awk/cheatsheet)
