@@ -552,13 +552,25 @@ symbol</li>
 </div>
 <p></b></p>
 </div>
+<div id="awk---replace-word" class="slide section level2">
+<h1>AWK - replace word</h1>
+<ul class="incremental">
+<li>Replace the letter N in the sequence line by <code>&#39;*&#39;</code></li>
+</ul>
+<h3 id="section-4"><b></h3>
+<div class="code">
+<p><code>awk &#39;BEGIN {FS = &quot;\n&quot;;\</code><br> <code>RS=&quot;&gt;&quot;}\</code><br>
+<code>{newSeq=gensub(/N/, &quot;*&quot;, $2); print $1, newSeq}&#39; ~/blastClass/myFasta.fasta</code><br></p>
+</div>
+<p></b></p>
+</div>
 <div id="awk---print-with-one-condition" class="slide section level2">
 <h1>AWK - print with one condition</h1>
 <ul class="incremental">
 <li>Conditions come after a <code>if</code> and inside
 <code>()</code></li>
 </ul>
-<h3 id="section-4"><b></h3>
+<h3 id="section-5"><b></h3>
 <div class="code">
 <p><code># Print line if column 3 has a value greater than 80</code><br>
 <code>awk &#39;{if ($3 &gt; 80) print}&#39; ~/blastClass/myFasta.fasta</code><br></p>
@@ -571,7 +583,7 @@ symbol</li>
 <li>When the conditions must all be met, separate them with
 <code>&amp;&amp;</code></li>
 </ul>
-<h3 id="section-5"><b></h3>
+<h3 id="section-6"><b></h3>
 <div class="code">
 <p><code># Print line if column 3 has a value greater than 80 AND column 4 has a value greater than 150</code><br>
 <code>awk &#39;{if ($3 &gt; 80 &amp;&amp; $4 &gt; 150) print}&#39; ~/blastClass/myFasta.fasta</code><br></p>
@@ -584,7 +596,7 @@ symbol</li>
 <li>When only one condition must be met, separate them with
 <code>||</code></li>
 </ul>
-<h3 id="section-6"><b></h3>
+<h3 id="section-7"><b></h3>
 <div class="code">
 <p><code># Print line if column 3 has a value greater than 80 OR column 4 has a value greater than 150</code><br>
 <code>awk &#39;{if ($3 &gt; 80 || $4 &gt; 150) print}&#39; ~/blastClass/myFasta.fasta</code><br></p>
@@ -600,6 +612,8 @@ manual</a></li>
 examples</a></li>
 <li><a href="https://www.shortcutfoo.com/app/dojos/awk/cheatsheet">AWK
 cheatsheet</a></li>
+<li><a href="https://www.tutorialspoint.com/awk/awk_string_functions.htm">AWK -
+working with text</a></li>
 </ul>
 </div>
 

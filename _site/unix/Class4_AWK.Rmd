@@ -119,6 +119,17 @@ Note the these can be specified by adding `BEGIN {}`:
 ` {print $1,$2}' ~/blastClass/myFasta.fasta`<br>
 </div></b>
 
+## AWK - replace word
+
+- Replace the letter N in the sequence line by `'*'`
+
+### <b>
+<div class="code">
+`awk 'BEGIN {FS = "\n";\`<br>
+` RS=">"}\`<br>
+` {newSeq=gensub(/N/, "*", $2); print $1, newSeq}' ~/blastClass/myFasta.fasta`<br>
+</div></b>
+
 ## AWK - print with one condition
 
 - Conditions come after a `if` and inside `()`
@@ -155,3 +166,4 @@ Note the these can be specified by adding `BEGIN {}`:
 - [AWK manual](https://www.gnu.org/software/gawk/manual/html_node/Options.html)
 - [AWK examples](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/)
 - [AWK cheatsheet](https://www.shortcutfoo.com/app/dojos/awk/cheatsheet)
+- [AWK - working with text](https://www.tutorialspoint.com/awk/awk_string_functions.htm)
