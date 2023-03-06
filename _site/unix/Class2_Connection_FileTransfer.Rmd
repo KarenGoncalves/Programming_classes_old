@@ -3,8 +3,8 @@ title: "Connecting to the server and tranfering files"
 author: "Karen Cristine Goncalves"
 date: "2023-01-29"
 output:
-    ioslides_presentation:
-        incremental: true
+    slidy_presentation:
+        incremental: true	
 ---
 
 <style>
