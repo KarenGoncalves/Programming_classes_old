@@ -20,7 +20,7 @@ line-height: 2em
 }
 </style>
 
-## Basics {#slide1}
+## Basics
 
  - Commands are separated by a new line (Enter, Return) or a semicolon (;)
  - The first word in a command is what you are asking the computer to do (a function)
@@ -40,12 +40,9 @@ man ls
 ### </b>
 
 
-## About spaces and file names {#slide2}
+## About spaces and file names
 
- - Put name in quotes if it has spaces (test code below)
-
-### <b>
-<div class="code">
+ Put name in quotes if it has spaces (test code below)
 
 ```
 touch Programming Class.txt
@@ -54,24 +51,17 @@ ls
 touch "Programming Class.txt"
 ls
 ```
-</div>
-### </b>
 
- 
- - Quotes are NORMALLY (not always) interchangeable  (test code below)
+Quotes are NORMALLY (not always) interchangeable  (test code below)
 
-### <b>
-<div class="code">
 ```
 echo "This is good"
 echo 'This is good'
 ```
-</div>
-### </b>
 
-- Do not start with one quote type and end with another
+Do not start with one quote type and end with another
 
-## Shortcuts {#slide3}
+## Shortcuts - part 1
 
 
  - <span class="code">`~` </span>or <span class="code">`$HOME` </span>: your home folder (can be defined by the user)
@@ -80,14 +70,15 @@ echo 'This is good'
  - <span class="code">`Ctrl+C`</span>: cancel a command
  - In MobaxTerm, find and modify useful shortcuts by clicking on Settings -> Keyboard shortcuts
 
-## Shortcuts {#slide4}
+## Shortcuts - part 2
+
  - <span class="code">`whoami`</span>
 	- prints your username (if saved in the computer)
 - Use `tab` to complete words 
 - In a current command or in a text file, move the cursor faster by using `Ctrl+Arrow` (right or left arrow in a command line, in a text file up and down arrow too) (this works everywhere!!!)
 
 
-## Basic commands {#slide5}
+## Basic commands - part 1
 
 		
  - <span class="code">`cd`</span>
@@ -97,7 +88,7 @@ echo 'This is good'
 		- `cd` , `cd ~` and `cd $HOME` are synonyms
 	- `cd -` - takes you to the previous folder
 
-## Basic commands {#slide6}
+## Basic commands - part 2
 
  - <span class="code">`pwd`</span>
 	- acronym for "print working directory" (directory = folder)
@@ -105,43 +96,33 @@ echo 'This is good'
 	- prints the full path to your current folder
 	- A full path always starts from the root (/)
 
-##  Basic commands {#slide7}
+##  Basic commands - part 3
 
  - <span class="code">`ls`</span>
 	- lists the contents of your current folder
-	- Check [slide 2](#2) where we used this command
+	- Check <a href="#(4)">`slide 2`</a> where we used this command
  - Use <span class="code">`>`</span> after a command to save the output
 	
-### <b>
-<div class="code">
 ```
 pwd > myFolder
 cat myFolder
 ```
-</div>	
-
-### </b>
 
 - Use <span class="code">`>>`</span> to add the current output to a previous file
 	
-### <b>
-<div class="code">
 ```
 ls >> myFolder
 cat myFolder
 ```
-</div>	
-### </b>
 
+## Managing text files - part 1
 
-## Managing text files {#slide8}
-
-- <span class="code">`cat`</span> : prints the contents of the file to the screen (check [slide 5](#5))
+- <span class="code">`cat`</span> : prints the contents of the file to the screen (check <a href="#(9)">`slide 9`</a>
 	- Do not use it with files are that not text (images, pdfs, compressed files) or is too big
 	- If several files names are put after the command, one file is printed followed by the next (conCATenation)
 - <span class="code">`head`</span> and <span class="code">`tail`</span>: prints to the screen the first/last 10 lines of the file 
 
-## Managing text files {#slide9}
+## Managing text files - part 2
 
 - <span class="code">`less`</span> : opens the file as "read-only"
 	- Search for a word in a file inside less by typing "/" followed by the word
@@ -149,34 +130,31 @@ cat myFolder
 - <span class="code">`more`</span> : opens the file as "read-only", when the file is closed, prints it to the screen
 
 
-## Managing text files {#slide10}
+## Managing text files - part 3
 
 - <span class="code">`nano`</span> : open a text file to edit it.
 - <span class="code">`grep`</span> : searches for a word/phrase in the file and prints the lines that match
 	- Can search for several phrases (one per line) in a file by using the option `-f`
 	- If you don't care about the upper/lower case, use the option `-i` or `--ignore-case`
 
-## Managing text files {#slide11}
+## Managing text files - part 4
 
-### <b>
-<div class="code">
-\# <span style="color: white">Search for lines that have the word programming in the file myFolder created in [slide7](#7)</span>
+Search for lines that have the word programming in the file myFolder created in <a href="#(9)">`slide 9`</a></span>
 
-`grep "Programming" myFolder`
-	
-</div>	
-### </b>
+```
+grep "Programming" myFolder
+```
 
 - <span class="code">`wc`</span> : word count. Counts the number of characters, words and lines in a file
-- <span class="code">`echo`</span> : repeats the text that follows it (check [slide 2](#2))
+- <span class="code">`echo`</span> : repeats the text that follows it (check <a href="#(4)">`slide 4`</a>)
 
-## Exercise {#slide12}
+## Exercise
 
 - Save a fasta file into your home folder with the name myFasta.fa
 - Use `grep` to find all the lines with sequence IDs.
 	- Note - put the word or phrase you will search for inside `""`
 
-## Exercise - Solution {#slide13}
+## Exercise - Solution
 
 - Save a fasta file into your home folder with the name myFasta.fa
 - Use `grep` to find all the lines with sequence IDs.
@@ -193,7 +171,7 @@ cat myFolder
 
 - Normally, if you just search for one word, the quotes are not needed, by in this case, the symbol `">"` could also mean "send the output to", which would replace the myFasta.fa file
 
-## Managing files {#slide14}
+## Managing files - part 1
 
 - <span class="code">`cp`</span> : acronym for copy
 	- <span class="code">`cp file file2`</span> : creates a copy of the file "file" and saves it in the file "file2"
@@ -203,7 +181,7 @@ cat myFolder
 		- If folder2 doesn't exist, it will be created to hold the same files as "folder"
 		- If folder2 exists, a copy of "folder" will be created inside of folder2
 
-## Managing files {#slide15}
+## Managing files - part 2
 
 - <span class="code">`mv`</span> : acronym for move. Move file from one place to another
 	- <span class="code">`mv file file2`</span> : renames "file" as "file2"
@@ -213,13 +191,13 @@ cat myFolder
 		- If folder2 doesn't exist, it is the same as renaming "folder" as "folder2"
 		- If folder2 exists, "folder" is moved to that folder
 
-## Managing files {#slide16}
+## Managing files - part 3
 
 - <span class="code">`rm`</span> : acronym for remove. Deletes files. **They are PERMANENTELY deleted, there is no trash bin here!!!!!!!**
 	- <span class="code">`rm file file2`</span> : deletes both files
 	- <span class="code">`rm file file2 -i`</span> : asks the user if they really want to delete each file, if `y` is pressed, the file is deleted (`-i` for interactive)
 
-## Managing folders {#slide17}
+## Managing folders
 
 - <span class="code">`mkdir`</span> : acronym for "make directory". Creates new folders with the specified names. 
 	- Gives an error if something with the same name already exists in the current folder. 

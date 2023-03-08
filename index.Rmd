@@ -5,7 +5,7 @@ author: "<span style='display:none'>Karen Cristine Goncalves, PhD.</span>"
 
 <style>
 
-p, li {
+p, ol {
 font-size: 1.3em;
 line-height: 1.75em
 }
@@ -18,7 +18,13 @@ line-height: 1.75em
 1. [Class 1 - Basics](./unix/Class1_BasicCommands.html)
 1. [Class 2 - Connecting to the server and tranfering files](./unix/Class2_Connection_FileTransfer.html)
 1. [Class 3 - Running jobs ](./unix/Class3_runningJobs.html)
-1. [Class 3 - Running jobs ](./unix/Class4_AWK.html)
+1. [Class 4 - Running blast ](./unix/Class4_blast.html)
+	- Scripts for the class:
+	  - [myTry.sh](./unix/scripts_for_class/myTry.sh)
+	  - [myGeneralBlast.sh](./unix/scripts_for_class/myGeneralBlast.sh)
+	  - [sbatch_blast.sh](./unix/scripts_for_class/sbatch_blast.sh)
+	  - [myGeneralBlast.sh](./unix/scripts_for_class/create_master_blast.sh)
+1. [Class 5 - Filtering tables with AWK ](./unix/Class5_AWK.html)
 <br><br><br><br><br>
 
 ## R 

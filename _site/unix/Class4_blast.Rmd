@@ -1,0 +1,251 @@
+---
+title: "Class 4 - Running blast on the server"
+author: "Karen Cristine Goncalves"
+date: "2023-03-06"
+output:
+    slidy_presentation:
+        incremental: true	
+---
+
+<style>
+.code {
+background-color: rgba(0,0,0,0.1);
+border: 0.75px solid blue;
+color: #0066ff;
+font-weight: bold;
+}
+
+a {
+color: purple;
+  text-decoration-line: underline;
+}
+p, li {
+line-height: 1em;
+font-size: 0.75em
+word-wrap: true
+}
+</style>
+
+## Logging in {#slide1}
+
+<center>
+![](../unix/MobaxTerm_SSHsession.jpg){width=40%}
+</center>
+- Click on `Session` -> `SSH`
+	
+	- Add the <span class = "code">`Remote Host`</span> : cedar.computecanada.ca
+	- Click on <span class = "code">`Specify username`</span> then add yours, you can save your user name and password in the 
+	- Click OK: will ask your password (when you type, nothing will appear, but it is writing)
+	
+- <span class="code">`ssh YOUR_USERNAME@cedar.computecanada.ca`</span>
+	- Replace `YOUR_USERNAME` with your username, in my case: `karencgs`
+
+## Running commands in the server
+
+When you log in, you are one of hundreds or thousands of people that are sharing the computer in the server, so you should simply run commands that you know or think that could take too much time.
+
+Place files you want to use and you scripts in your <span class = "code">`Home`</span> folder 
+
+- To move them, use : <span class = "code">`mv myFile ~`</span>
+
+To run a command, you need to ask for resources, like time and memory, and wait for them to be available.
+
+- You need to be in <span class = "code">`$SCRATCH or in ~/projects/username`</span> to be able to submit a job
+
+## Running commands in the server - part 2
+
+Go to `$SCRATCH` and write a simple script in nano:
+
+- <span class = "code">`cd $SCRATCH; nano $HOME/myTry.sh`</span>
+
+```
+#!/bin/sh
+
+echo ">seq1
+ATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGC
+>seq2
+GCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCAT" > $HOME/myFasta.fa
+
+grep ">" $HOME/myFasta.fa
+```
+
+
+## Running commands in the server - part 3
+
+Give the script the right permissions and submit your script to the queue of jobs
+
+```
+chmod u=rwx $HOME/myTry.sh
+srun --time=00:01:00 sh $HOME/myTry.sh
+```
+
+- `srun` is one of the commands to submit a script
+- `--time` is the option to tell how much time you need to execute the commands in the script
+	- Time format: D-HH:MM:SS (D=day, H=hour, M=minute, S=second)
+- Other options:
+	- `--account=def-projectName` - if you are associated with different accounts (def-desgagne, def-laboidp, def-germain1), you need to specify the one that will be billed for the current job. Replace `def-projectName` with the correct account
+	- `--mem=XXG` or `--mem-per-cpu=XXG` - specify how much memory the script needs. For a small blast (less than 100 query sequences), 2G is enough
+	- `--cpus-per-task=XX` - how many processors you need (big blast jobs run faster if using many cpus)
+	
+## Running blast - part 1
+
+- First, you need to load the software (modules) needed into your session (every time you log in, or in your script)
+	- <span class = "code">`module load StdEnv/2020 gcc/9.3.0 blast+`</span>
+		- Pay attention to the upper and lower cases!!
+- Write the blast script
+
+```
+#!/bin/sh
+blastp -query $HOME/myProtein.fa -db $HOME/database -outfmt 7 -out $HOME/myBlastpResult.txt
+```
+
+- `-query` - use this option to specify the file which you want to blast (here, I want to blast myProtein.fa)
+- `-db` -  use this option to specify the database you want to search (need to be the full path, but omit the extension)
+	- If I create a protein database in `$HOME` called "proteins", several files will be created, I just put `$HOME/proteins` in the script
+	- Go to the [github.com/KarenGoncalves/Amaryllidaceae_database/wiki/Search-by-sequence-using-blast-in-the-command-line](github.com/KarenGoncalves/Amaryllidaceae_database/wiki/Search-by-sequence-using-blast-in-the-command-line) to get the path to the databases
+- `-outfmt 7` - specifies the type of output, here I want a table, if you don't specify, you get something similar to the webpage result
+- `-out` - use this option to specify where to save the output (similar to `> myBlastpResult`)
+
+## Running blast - part 2
+
+A more general script could take arguments from the command line every time
+
+This is called `$HOME/myGeneralBlast.sh`
+
+```
+#!/bin/sh
+blastp -query $1 -db $2 -outfmt 7 -out $3
+```
+
+To run it, we need to do:
+
+```
+chmod u=rwx $HOME/myGeneralBlast.sh
+sh $HOME/myGeneralBlast.sh $HOME/myProtein.fa $HOME/database $HOME/myBlastpResult.txt
+```
+
+## Running blast - part 3
+
+You can (MUST) write a script to run blast by submitting a job. Ex. <span class="code">`$HOME/srun_blast.sh`</span>:
+
+```
+#!/bin/sh
+
+module load StdEnv/2020 gcc/9.3.0 blast+
+
+blastp -query $1 -db $2 -outfmt 7 -out $3
+```
+
+Again, give the permissions and submit the job:
+
+```
+chmod u=rwx $HOME/srun_blast.sh
+cd $SCRATCH
+srun --time=00:10:00 --mem=2G\
+ sh $HOME/srun_blast.sh $HOME/myProtein.fa $HOME/database $HOME/myBlastpResult.txt
+```
+
+- Note that with `srun` you cannot close your session until the job is finished, so if your script takes too long to run or stays too long in the queue, you must either wait for it to finish or cancel it and submit another time
+
+## Running blast with sbatch - part 1
+
+With `sbatch`, once your job is in the queue, you can close your session or continue doing other things in it.
+
+You can use the same script you used for `srun`:
+
+<span class="code">`$HOME/srun_blast.sh`</span>:
+
+```
+#!/bin/sh
+
+module load StdEnv/2020 gcc/9.3.0 blast+
+
+blastp -query $1 -db $2 -outfmt 7 -out $3
+```
+
+Again, give the permissions and submit the job:
+
+```
+chmod u=rwx $HOME/srun_blast.sh
+cd $SCRATCH
+sbatch --time=00:10:00 --mem=2G\
+ sh $HOME/srun_blast.sh $HOME/myProtein.fa $HOME/database $HOME/myBlastpResult.txt
+```
+
+## Running blast with sbatch - part 2
+
+Another option is to write the resources request in the script itself.
+
+<span class="code">`$HOME/sbatch_blast.sh`</span>:
+
+```
+#!/bin/sh
+#SBATCH --time=00:10:00
+#SBATCH --mem=2G
+
+module load StdEnv/2020 gcc/9.3.0 blast+
+
+blastp -query $HOME/myProtein.fa\
+ -db $HOME/database -outfmt 7\
+ -out $HOME/myBlastResult.txt
+```
+
+- The lines that start with "#SBATCH" are the instructions to the queue. Other possible instructions:
+	- `#SBATCH --account=def-project` - same as the account information for <a href="#(6)">`srun`</a>
+
+- Unlike `srun`, with `sbatch` you need to either give the full path to each file in their names OR you need to add the line `cd myFolder` (where myFolder is the full path to folder where have your files)
+	- This is because, with `sbatch`, it is like you are logging in again
+
+## Creating a master blast script - part 1
+
+You can use `echo` to write a script that takes the values from the command line and outputs a blast script ready to submit with sbatch.
+
+Ex. `$HOME/create_master_blast.sh`
+
+```
+#!/bin/sh
+
+### Variables ###
+myQuery=$1
+database=$2
+output=$3
+scriptName=$4
+
+## Create script ##
+echo '#!/bin/sh
+#SBATCH --time=00:10:00
+#SBATCH --mem=2G
+
+module load StdEnv/2020 gcc/9.3.0 blast+
+
+blastp -query' $myQuery '\
+ -db' $database '-outfmt 7\
+ -out' $output > $scriptName
+ 
+## Give permissions ##
+chmod u=rwx $scriptName
+```
+
+
+## Creating a master blast script - part 2
+
+The <a href="#(12)">script</a> has 3 blocks:
+
+1. Variables - we save the values from the command line into variables that echo will use. We need to give 4 values: the input sequence path, the path to the database, the path to where we want the output and the name we want to give to the script.
+
+2. The body of the script, in which we use echo to put write the file
+
+3. The permissions - we give the right permissions to the new script directly inside the one that created it.
+
+Now, all we need to do is:
+
+```
+sh $HOME/create_master_blast.sh\
+ $HOME/myProtein.fa\
+ $HOME/database\
+ $HOME/myBlastResult.txt\
+ $HOME/master_blast.sh
+ 
+sbatch $HOME/master_blast.sh # srun sh $HOME/master_blast.sh also works
+```
+
