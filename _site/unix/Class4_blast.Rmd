@@ -102,7 +102,7 @@ blastp -query $HOME/myProtein.fa -db $HOME/database -outfmt 7 -out $HOME/myBlast
 - `-query` - use this option to specify the file which you want to blast (here, I want to blast myProtein.fa)
 - `-db` -  use this option to specify the database you want to search (need to be the full path, but omit the extension)
 	- If I create a protein database in `$HOME` called "proteins", several files will be created, I just put `$HOME/proteins` in the script
-	- Go to the [github.com/KarenGoncalves/Amaryllidaceae_database/wiki/Search-by-sequence-using-blast-in-the-command-line](github.com/KarenGoncalves/Amaryllidaceae_database/wiki/Search-by-sequence-using-blast-in-the-command-line) to get the path to the databases
+	- Go to the [github.com/KarenGoncalves/Amaryllidaceae_database/wiki/Search-by-sequence-using-blast-in-the-command-line](https://github.com/KarenGoncalves/Amaryllidaceae_database/wiki/Search-by-sequence-using-blast-in-the-command-line) to get the path to the databases
 - `-outfmt 7` - specifies the type of output, here I want a table, if you don't specify, you get something similar to the webpage result
 - `-out` - use this option to specify where to save the output (similar to `> myBlastpResult`)
 
