@@ -23,7 +23,7 @@ line-height: 1.75em
 	  - [myTry.sh](./unix/scripts_for_class/myTry.sh)
 	  - [myGeneralBlast.sh](./unix/scripts_for_class/myGeneralBlast.sh)
 	  - [sbatch_blast.sh](./unix/scripts_for_class/sbatch_blast.sh)
-	  - [myGeneralBlast.sh](./unix/scripts_for_class/create_master_blast.sh)
+	  - [create_master_blast.sh](./unix/scripts_for_class/create_master_blast.sh)
 1. [Class 5 - Filtering tables with AWK ](./unix/Class5_AWK.html)
 <br><br><br><br><br>
 
