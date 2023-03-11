@@ -54,7 +54,7 @@ Inside the <span class="code">`''`</span> add the word your searching for in <sp
 `# Print lines containing "#" in blastp_results.txt`<br>
 `awk '/#/ {print}' blastp_results.txt`
 <br><br>
-`# Print lines containing "#" in blastp_results.txt`<br>
+`# Print lines NOT containing "#" in blastp_results.txt`<br>
 `awk '!/#/ {print}' blastp_results.txt`
 </div></b>
 
@@ -140,14 +140,29 @@ Note the these can be specified by adding `BEGIN {}`:
 `awk '{if ($3 > 80) print}' ~/blastClass/myFasta.fasta`<br>
 </div></b>
 
+- Or they go outside the `{}`
+
+<div class="code">
+```
+# Print line if column 3 has a value greater than 80
+awk '$3 > 80 {print}' ~/blastClass/myFasta.fasta
+```
+</div></b>
+
+
 ## AWK - print with multiple conditions 
 
 - When the conditions must all be met, separate them with `&&`
 
 ### <b>
 <div class="code">
-`# Print line if column 3 has a value greater than 80 AND column 4 has a value greater than 150`<br>
-`awk '{if ($3 > 80 && $4 > 150) print}' ~/blastClass/myFasta.fasta`<br>
+```
+# Print line if column 3 has a value greater than 80 AND column 4 has a value greater than 150
+awk '{if ($3 > 80 && $4 > 150) print}' ~/blastClass/myFasta.fasta
+	
+# This also gives the same result
+awk '$3 > 80 && $4 > 150 {print}' ~/blastClass/myFasta.fasta
+```
 </div></b>
 
 
