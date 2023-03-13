@@ -498,7 +498,7 @@ by commas and asks for the second column</li>
 </ul></li>
 <li>OFS - output field separator - column delimiter for the output
 <ul class="incremental">
-<li><span class="code"><code>awk &#39;BEGIN {OFS=&quot;,&quot;} {print}&#39; blastp_results.txt</code></span>
+<li><span class="code"><code>awk &#39;BEGIN {OFS=&quot;,&quot;} {print $1,$2}&#39; blastp_results.txt</code></span>
 <ul class="incremental">
 <li>Changes the separation of columns from space (default for awk) to
 commas</li>
