@@ -81,7 +81,7 @@ Note the these can be specified by adding `BEGIN {}`:
 		- Indicates the columns in the file blastp_results.csv are separated by commas and asks for the second column
 		- Outside the `''` `-F","` or `--field-separator=","` are the same
 - OFS - output field separator - column delimiter for the output
-	- <span class="code">`awk 'BEGIN {OFS=","} {print}' blastp_results.txt`</span>
+	- <span class="code">`awk 'BEGIN {OFS=","} {print $1,$2,$3}' blastp_results.txt`</span>
 		- Changes the separation of columns from space (default for awk) to commas
 
 ## AWK - indicate how to read the input and write the output
