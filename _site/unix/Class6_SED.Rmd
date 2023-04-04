@@ -1,7 +1,7 @@
 ---
 title: "Class 6 - sed command"
 author: "Karen Cristine Goncalves"
-date: "2023-02-13"
+date: "2023-04-04"
 font-family: serif
 output: 
     slidy_presentation:
@@ -122,7 +122,7 @@ Use the option `-E`: `sed -E ''`
 
 ## Resources 
 
-- [AWK manual](https://www.gnu.org/software/gawk/manual/html_node/Options.html)
-- [AWK examples](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/)
-- [AWK cheatsheet](https://www.shortcutfoo.com/app/dojos/awk/cheatsheet)
-- [AWK - working with text](https://www.tutorialspoint.com/awk/awk_string_functions.htm)
+- [SED utilities](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sed.html)
+- [SED command examples](https://linuxconfig.org/learning-linux-commands-sed)
+- [More SED examples](https://www.makeuseof.com/sed-examples/)
+- [Even more SED examples](https://linuxhint.com/50_sed_command_examples/)
