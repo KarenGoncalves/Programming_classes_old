@@ -25,6 +25,7 @@ line-height: 1.75em
 	  - [sbatch_blast.sh](./unix/scripts_for_class/sbatch_blast.sh)
 	  - [create_master_blast.sh](./unix/scripts_for_class/create_master_blast.sh)
 1. [Class 5 - Filtering tables with AWK ](./unix/Class5_AWK.html)
+1. [Class 6 - SED commans ](./unix/Class6_SED.html)
 <br><br><br><br><br>
 
 ## R 
