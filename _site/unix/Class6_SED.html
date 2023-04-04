@@ -6,8 +6,8 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <meta name="author" content="Karen Cristine Goncalves" />
-  <meta name="date" content="2023-01-30" />
-  <title>Class 3 - Running Jobs</title>
+  <meta name="date" content="2023-02-13" />
+  <title>Class 6 - sed command</title>
   <style type="text/css">
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -394,159 +394,143 @@ list-style-type: none;
 </head>
 <body>
 <div class="slide titlepage">
-  <h1 class="title">Class 3 - Running Jobs</h1>
+  <h1 class="title">Class 6 - sed command</h1>
   <p class="author">
 Karen Cristine Goncalves
   </p>
-  <p class="date">2023-01-30</p>
+  <p class="date">2023-02-13</p>
 </div>
 <div class="slide section level2">
 
 <style>
 .code {
 background-color: grey;
-color: black
+color: black;
+font-size: 2;
+font-weight: bold;
+line-height: 2.3em;
 }
 p, li {
 line-height: 1.4em;
-font-size: 1.2em;
+font-size: 1.6em;
 word-wrap: true
 }
 </style>
 </div>
-<div id="run-jobs" class="slide section level2">
-<h1>Run jobs</h1>
-<p>Cannot run/execute any of those commands from <code>~</code></p>
-<p>The three possibilities:</p>
+<div id="sed" class="slide section level2">
+<h1>SED</h1>
 <ul class="incremental">
-<li><code>srun</code> - Use to submit a script to be executed in real
-time (the process of running the job will be printed in the screen
-instead of saved into a file)</li>
-<li><code>sbatch</code> - Use to submit a script to be executed
-later</li>
-<li><code>salloc</code> - Use to <code>alloc</code>ate resources for a
-job in real time.
+<li>Always start with <code>sed</code></li>
+<li>Put commands inside single quotes <code>&#39;&#39;</code>
 <ul class="incremental">
-<li>Basically, you ask for memory and CPUS for a determinate amount of
-time and when the “allocate” the resources to you, you work in real time
-in a computer more potent than yours.</li>
+<li>If you want to use a variable, use <code>&quot;&quot;</code></li>
 </ul></li>
 </ul>
 </div>
-<div id="run-jobs---srun" class="slide section level2">
-<h1>Run jobs - srun</h1>
-<p><span class="code"><code>srun NEEDED_INFO script/command</code></span></p>
-<ul class="incremental">
-<li>Before running <code>srun</code>, need to load software required
-need to the session
-<ul class="incremental">
-<li>Adding <code>module load software</code> to the script does not
-work</li>
-</ul></li>
-<li>Information needed
-<ul class="incremental">
-<li><span class="code"><code>--account=acount_name</code></span> - <span class="code"><code>def-laboidp</code></span> or <span class="code"><code>def-desgagne</code></span> or
-<span class="code"><code>def-germain1</code></li>
-<li><span class="code"><code>--time=d-HH:MM:SS</code></span> - time
-required for the script, eg. 12hs: <code>--time=12:00:00</code></li>
-<li><span class="code"><code>--mem=1G</code></span> - memory required
-(here, 1G, default 254M)</li>
-</ul></li>
-</ul>
-</div>
-<div id="srun---exammple" class="slide section level2">
-<h1>srun - exammple</h1>
-<h3 id="section"><b></h3>
-<div class="code">
-<pre><code>module load StdEnv/2020 blast+ # load the softwares
-cd $SCRATCH
+<div id="sed---delete-specific-lines" class="slide section level2">
+<h1>SED - delete specific lines</h1>
+<pre><code># delete lines 1 to 10 in ~/blastClass/prots.fasta
+wc -l ~/blastClass/prots.fasta
+sed &#39;1,10d&#39; ~/blastClass/prots.fasta | wc -l
 
-srun --account=def-desgagne --time=01:00:00 --mem=1024M\
- blastp -query prots.fasta\
- -db $myDatabase\
- -out prots_Databased.txt\
- -outfmt &#39;7&#39; # output in table format</code></pre>
+
+# delete all lines appearing after the line containing Lychi
+sed &#39;/Lychi/q&#39; ~/blastClass/prots.fasta | less
+
+# delete lines containing the word &quot;partial&quot;
+sed &#39;/partial/d&#39; ~/blastClass/prots.fasta | less</code></pre>
+<p>In the second case, if the word is not found in the file, the whole
+file will be printed.</p>
 </div>
-<p></b></p>
+<div id="sed---replace-words" class="slide section level2">
+<h1>SED - replace words</h1>
+<pre><code># In each line of the ~/blastClass/prots.fasta file, replace the first &quot;_&quot; (separates then species from the protein ID)
+sed &#39;s/_/ protein /&#39; ~/blastClass/prots.fasta | less
+
+# In the ~/blastClass/prots.fasta file, replace all &quot;_&quot; (separates then species from the protein ID)
+sed &#39;s/_/-/g&#39; ~/blastClass/prots.fasta | less
+</code></pre>
+<p><code>sed &#39;s/WORD_SEARCHED/REPLACEMENT/g&#39; input_file</code></p>
 <ul class="incremental">
-<li>The file <code>prots.fasta</code> is in the current folder, or its
-path is given in full
-<ul class="incremental">
-<li>same for the output <code>prots_Database.txt</code></li>
-</ul></li>
-<li>When you use <code>\</code> to separate one command in several
-lines, add a space in the next line to separate the words</li>
+<li><code>s</code> - substitute</li>
+<li><code>g</code> - global (everywhere)</li>
 </ul>
 </div>
-<div id="note-on-blast" class="slide section level2">
-<h1>Note on blast</h1>
+<div id="sed---replace-words-in-specific-lines" class="slide section level2">
+<h1>SED - replace words in specific lines</h1>
+<p>Try the command with and without the number <code>1</code></p>
+<pre><code># In line 1 of the ~/blastClass/prots.fasta file, replace the first &quot;Agapanthus&quot;
+sed &#39;1 s/Agapanthus/Ag_/&#39; ~/blastClass/prots.fasta | less
+
+# In line 1 of the ~/blastClass/prots.fasta file, replace all &quot;Agapanthus_africanus&quot; 
+sed &#39;1 s/Agapanthus/Ag_/g&#39; ~/blastClass/prots.fasta | less</code></pre>
+<p><code>sed &#39;LINE_NUMBER s/WORD_SEARCHED/REPLACEMENT/g&#39; input_file</code></p>
 <ul class="incremental">
-<li><code>$myDatabase</code>
+<li>LINE_NUMBER - a digit indicating the number of the line where you
+want the replacement to occur</li>
+<li><code>s</code> - substitute</li>
+<li><code>g</code> - global (everywhere)</li>
+</ul>
+</div>
+<div id="sed---print-only-lines-replaced" class="slide section level2">
+<h1>SED - print only lines replaced</h1>
+<pre><code># Replace PF0 with PFAMID PF0, and see which proteins have a match in PFAM
+sed -n &#39;s/PF0/PFAMID PF0/p&#39;  ~/blastClass/prots.fasta | less</code></pre>
 <ul class="incremental">
-<li>Add the full path, without the extension</li>
-<li>Use right type of database (the first letter of the extension
-indicates the type of database)
+<li><code>-n</code> - do not print lines</li>
+<li><code>/p</code> - print lines where replacement occurred
 <ul class="incremental">
-<li><code>.p*</code> - protein database</li>
-<li><code>.n*</code> - nucleotide database</li>
-</ul></li>
+<li>Without <code>-n</code>, every line would be printing, with lines
+replaced being printed twice (once automatically, then because you asked
+to see the replacement)</li>
 </ul></li>
 </ul>
 </div>
-<div id="run-jobs---sbatch" class="slide section level2">
-<h1>Run jobs - sbatch</h1>
-<p><span class="code"><code>sbatch script</code></span> or <span class="code"><code>sbatch NEEDED_INFO script</code></span></p>
+<div id="sed---write-the-result-to-a-file" class="slide section level2">
+<h1>SED - write the result to a file</h1>
+<p>Use <code>w filename</code></p>
+<pre><code># Replace the &quot;&gt;&quot; in the ~/blastClass/prots.fasta file and save result to ~/blastClass/protsSED.fasta
+sed &quot;s/&gt;/Fasta entry /w $HOME/blastClass/protsSED.fasta&quot; ~/blastClass/prots.fasta</code></pre>
 <ul class="incremental">
-<li>Used to submit a script to be executed later.</li>
-<li>Essentials for the script:
-<ul class="incremental">
-<li>First line indicates the program that translates the script to
-computer language: <span class="code"><code>#!/bin/sh</code></span></li>
-<li>Lines starting with <code>#SBATCH</code> tell the scheduler what we
-need for this job</li>
-</ul></li>
+<li><code>w</code> - write to file $HOME/blastClass/protsSED.fasta</li>
 </ul>
 </div>
-<div id="sbatch---script-example" class="slide section level2">
-<h1>sbatch - script example</h1>
-<h3 id="section-1"><b></h3>
-<div class="code">
-<pre><code>#!/bin/sh
-#SBATCH --account=def-desgagne
-#SBATCH --time=01:00:00 
-#SBATCH --mem=1024M
-
-module load StdEnv/2020 blast+
-
-myDatabase=/database/path
-
-cd $SCRATCH
-
-blastp -query prots.fasta\
- -db $myDatabase\
- -out prots_Databased.txt\
- -outfmt &#39;7&#39; # output in table format</code></pre>
-</div>
-<p></b></p>
+<div id="sed---work-with-text-with-regular-expressions-regex" class="slide section level2">
+<h1>SED - work with text with REGular EXpressions (REGEX)</h1>
+<p>Use the option <code>-E</code>: <code>sed -E &#39;&#39;</code></p>
+<p><code>$</code> - line end; <code>^</code> Line begins</p>
+<p><code>[]</code> - when any character in a list is accepted in the
+search, put the list inside the <code>[]</code></p>
 <ul class="incremental">
-<li>Note that here the “module load” line is INSIDE the script</li>
-</ul>
-</div>
-<div id="run-jobs---salloc" class="slide section level2">
-<h1>Run jobs - salloc</h1>
-<p>salloc - <span class="code"><code>salloc NEEDED_INFO</code></span></p>
-<ul class="incremental">
-<li>Used to allocate resources for a job in real time.</li>
-<li>Basically, you ask for memory and CPUS for a determinate amount of
-time and when the “allocate” the resources to you, you work in real time
-in a computer more potent than yours.</li>
+<li>Ex. <code>sed -En &#39;/&gt;[ABC]/p&#39; ~/blastClass/prots.fasta</code>
+will print lines for proteins of species that start with A, B or C</li>
+<li><code>[A-Z]</code> - any upper case letter of the alphabet</li>
+<li><code>[a-z]</code> - any lower case letter of the alphabet</li>
+<li><code>[0-9]</code> - any number (in grep, same as
+<code>\d</code>)</li>
+<li><code>[A-Za-z0-9]</code> - any letter or number</li>
+<li><code>.</code> - any character. Ex.:
+<code>sed -En &#39;/&gt;A.a/p&#39; ~/blastClass/prots.fasta</code></li>
+<li><code>*</code> - find anything 0 or more times. Ex.: remove anything
+after the space -
+<code>sed -En &#39;s/ .+$//g&#39; ~/blastClass/prots.fasta | less</code></li>
+<li><code>+</code> - find the previous character or <code>[]</code> one
+or more times.</li>
+<li><code>{Ns,NE}</code> - find the previous character at least
+<b>Ns</b> times and maximum <b>NE</b> times</li>
 </ul>
 </div>
 <div id="resources" class="slide section level2">
 <h1>Resources</h1>
 <ul class="incremental">
-<li><a href="https://docs.alliancecan.ca/wiki/Running_jobs">How to run
-jobs</a></li>
+<li><a href="https://www.gnu.org/software/gawk/manual/html_node/Options.html">AWK
+manual</a></li>
+<li><a href="https://www.geeksforgeeks.org/awk-command-unixlinux-examples/">AWK
+examples</a></li>
+<li><a href="https://www.shortcutfoo.com/app/dojos/awk/cheatsheet">AWK
+cheatsheet</a></li>
+<li><a href="https://www.tutorialspoint.com/awk/awk_string_functions.htm">AWK -
+working with text</a></li>
 </ul>
 </div>
 

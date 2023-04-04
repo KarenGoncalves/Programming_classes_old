@@ -433,27 +433,20 @@ or columns you want to see</li>
 </div>
 <div id="awk---print-specific-columns-1" class="slide section level2">
 <h1>AWK - print specific columns</h1>
-<h3 id="section"><b></h3>
-<div class="code">
-<p><code># Print second column of the file blastp_results.txt</code><br>
-<code>awk &#39;{print $2}&#39; blastp_results.txt</code><br>
-<code># Print second and third columns of the file blastp_results.txt</code><br>
-<code>awk &#39;{print $2,$3}&#39; blastp_results.txt</code></p>
-</div>
-<p></b></p>
+<pre><code># Print second column of the file blastp_results.txt
+awk &#39;{print $2}&#39; blastp_results.txt
+# Print second and third columns of the file blastp_results.txt
+awk &#39;{print $2,$3}&#39; blastp_results.txt</code></pre>
 </div>
 <div id="awk---print-line-with-specific-word" class="slide section level2">
 <h1>AWK - print line with specific word</h1>
 <p>Inside the <span class="code"><code>&#39;&#39;</code></span> add the word
 your searching for in <span class="code"><code>//</code></span></p>
-<h3 id="section-1"><b></h3>
-<div class="code">
-<p><code># Print lines containing &quot;#&quot; in blastp_results.txt</code><br>
-<code>awk &#39;/#/ {print}&#39; blastp_results.txt</code> <br><br>
-<code># Print lines NOT containing &quot;#&quot; in blastp_results.txt</code><br>
-<code>awk &#39;!/#/ {print}&#39; blastp_results.txt</code></p>
-</div>
-<p></b></p>
+<pre><code># Print lines containing &quot;#&quot; in blastp_results.txt
+awk &#39;/#/ {print}&#39; blastp_results.txt
+
+# Print lines NOT containing &quot;#&quot; in blastp_results.txt
+awk &#39;!/#/ {print}&#39; blastp_results.txt</code></pre>
 <ul class="incremental">
 <li>Note that when you do not specify the column, or when you use <span class="code"><code>$0</code></span>, you print the whole line</li>
 </ul>
@@ -492,13 +485,12 @@ other lines</li>
 <ul class="incremental">
 <li>Indicates the columns in the file blastp_results.csv are separated
 by commas and asks for the second column</li>
-<li>Outside the <code>&#39;&#39;</code> <code>-F&quot;,&quot;</code> or
-<code>--field-separator=&quot;,&quot;</code> are the same</li>
+<li>Outside the <code>&#39;&#39;</code> <span class="code"><code>-F&quot;,&quot;</code></span> or <span class="code"><code>--field-separator=&quot;,&quot;</code></span> are the same</li>
 </ul></li>
 </ul></li>
 <li>OFS - output field separator - column delimiter for the output
 <ul class="incremental">
-<li><span class="code"><code>awk &#39;BEGIN {OFS=&quot;,&quot;} {print $1,$2}&#39; blastp_results.txt</code></span>
+<li><span class="code"><code>awk &#39;BEGIN {OFS=&quot;,&quot;} {print $1,$2,$3}&#39; blastp_results.txt</code></span>
 <ul class="incremental">
 <li>Changes the separation of columns from space (default for awk) to
 commas</li>
@@ -532,50 +524,39 @@ symbol</li>
 <ul class="incremental">
 <li>Sequence length</li>
 </ul>
-<h3 id="section-2"><b></h3>
-<div class="code">
-<p><code>awk &#39;BEGIN {FS = &quot;\n&quot;;\</code><br> <code>RS=&quot;&gt;&quot;}\</code><br>
-<code>{print $1, length($2)}&#39; ~/blastClass/myFasta.fasta</code><br></p>
-</div>
-<p></b></p>
+<pre><code>awk &#39;BEGIN {FS = &quot;\n&quot;; RS=&quot;&gt;&quot;}\
+ {print $1, length($2)}&#39; ~/blastClass/myFasta.fasta</code></pre>
 </div>
 <div id="awk-example-1" class="slide section level2">
 <h1>AWK example</h1>
 <ul class="incremental">
 <li>Change fasta to a table format</li>
 </ul>
-<h3 id="section-3"><b></h3>
-<div class="code">
-<p><code>awk &#39;BEGIN {FS = &quot;\n&quot;;\</code><br> <code>RS=&quot;&gt;&quot;;\</code><br>
-<code>OFS=&quot;\t&quot;;\</code><br> <code>ORS=&quot;\n&quot;}\</code><br>
-<code>{print $1,$2}&#39; ~/blastClass/myFasta.fasta</code><br></p>
-</div>
-<p></b></p>
+<pre><code>awk &#39;BEGIN {FS = &quot;\n&quot;; RS=&quot;&gt;&quot;;\
+ OFS=&quot;\t&quot;; ORS=&quot;\n&quot;}\
+ {print $1,$2}&#39; ~/blastClass/myFasta.fasta</code></pre>
 </div>
 <div id="awk---replace-word" class="slide section level2">
 <h1>AWK - replace word</h1>
 <ul class="incremental">
 <li>Replace the letter N in the sequence line by <code>&#39;*&#39;</code></li>
 </ul>
-<h3 id="section-4"><b></h3>
-<div class="code">
-<p><code>awk &#39;BEGIN {FS = &quot;\n&quot;;\</code><br> <code>RS=&quot;&gt;&quot;}\</code><br>
-<code>{newSeq=gensub(/N/, &quot;*&quot;, $2); print $1, newSeq}&#39; ~/blastClass/myFasta.fasta</code><br></p>
-</div>
-<p></b></p>
+<pre><code>awk &#39;BEGIN {FS = &quot;\n&quot;; RS=&quot;&gt;&quot;}\
+ {newSeq=gensub(/N/, &quot;*&quot;, $2); print $1, newSeq}&#39; ~/blastClass/myFasta.fasta</code></pre>
 </div>
 <div id="awk---print-with-one-condition" class="slide section level2">
 <h1>AWK - print with one condition</h1>
 <ul class="incremental">
-<li>Conditions come after a <code>if</code> and inside
-<code>()</code></li>
+<li>Conditions inside <code>{}</code> come after <code>if</code> and
+inside <code>()</code> OR they go outside the <code>{}</code></li>
 </ul>
-<h3 id="section-5"><b></h3>
-<div class="code">
-<p><code># Print line if column 3 has a value greater than 80</code><br>
-<code>awk &#39;{if ($3 &gt; 80) print}&#39; ~/blastClass/myFasta.fasta</code><br></p>
-</div>
-<p></b></p>
+<pre><code># Print line if column 3 has a value greater than 80
+awk &#39;{if ($3 &gt; 80) print}&#39; ~/blastClass/myFasta.fasta</code></pre>
+<ul class="incremental">
+<li>Or they go outside the <code>{}</code></li>
+</ul>
+<pre><code># Print line if column 3 has a value greater than 80
+awk &#39;$3 &gt; 80 {print}&#39; ~/blastClass/myFasta.fasta</code></pre>
 </div>
 <div id="awk---print-with-multiple-conditions" class="slide section level2">
 <h1>AWK - print with multiple conditions</h1>
@@ -583,10 +564,13 @@ symbol</li>
 <li>When the conditions must all be met, separate them with
 <code>&amp;&amp;</code></li>
 </ul>
-<h3 id="section-6"><b></h3>
+<h3 id="section"><b></h3>
 <div class="code">
-<p><code># Print line if column 3 has a value greater than 80 AND column 4 has a value greater than 150</code><br>
-<code>awk &#39;{if ($3 &gt; 80 &amp;&amp; $4 &gt; 150) print}&#39; ~/blastClass/myFasta.fasta</code><br></p>
+<pre><code># Print line if column 3 has a value greater than 80 AND column 4 has a value greater than 150
+awk &#39;{if ($3 &gt; 80 &amp;&amp; $4 &gt; 150) print}&#39; ~/blastClass/myFasta.fasta
+    
+# This also gives the same result
+awk &#39;$3 &gt; 80 &amp;&amp; $4 &gt; 150 {print}&#39; ~/blastClass/myFasta.fasta</code></pre>
 </div>
 <p></b></p>
 </div>
@@ -596,12 +580,10 @@ symbol</li>
 <li>When only one condition must be met, separate them with
 <code>||</code></li>
 </ul>
-<h3 id="section-7"><b></h3>
-<div class="code">
-<p><code># Print line if column 3 has a value greater than 80 OR column 4 has a value greater than 150</code><br>
-<code>awk &#39;{if ($3 &gt; 80 || $4 &gt; 150) print}&#39; ~/blastClass/myFasta.fasta</code><br></p>
-</div>
-<p></b></p>
+<pre><code># Print line if column 3 has a value greater than 80 OR column 4 has a value greater than 150
+awk &#39;{if ($3 &gt; 80 || $4 &gt; 150) print}&#39; ~/blastClass/myFasta.fasta
+
+awk &#39;$3 &gt; 80 || $4 &gt; 150 { print }&#39; ~/blastClass/myFasta.fasta</code></pre>
 </div>
 <div id="resources" class="slide section level2">
 <h1>Resources</h1>

@@ -1,0 +1,128 @@
+---
+title: "Class 6 - sed command"
+author: "Karen Cristine Goncalves"
+date: "2023-02-13"
+font-family: serif
+output: 
+    slidy_presentation:
+        incremental: true
+---
+
+<style>
+.code {
+background-color: grey;
+color: black;
+font-size: 2;
+font-weight: bold;
+line-height: 2.3em;
+}
+
+p, li {
+line-height: 1.4em;
+font-size: 1.6em;
+word-wrap: true
+}
+</style>
+
+## SED
+
+- Always start with `sed `
+- Put commands inside single quotes `''`
+	- If you want to use a variable, use `""`
+
+## SED - delete specific lines
+
+```
+# delete lines 1 to 10 in ~/blastClass/prots.fasta
+wc -l ~/blastClass/prots.fasta
+sed '1,10d' ~/blastClass/prots.fasta | wc -l
+
+
+# delete all lines appearing after the line containing Lychi
+sed '/Lychi/q' ~/blastClass/prots.fasta | less
+
+# delete lines containing the word "partial"
+sed '/partial/d' ~/blastClass/prots.fasta | less
+```
+
+In the second case, if the word is not found in the file, the whole file will be printed.
+
+## SED - replace words 
+
+```
+# In each line of the ~/blastClass/prots.fasta file, replace the first "_" (separates then species from the protein ID)
+sed 's/_/ protein /' ~/blastClass/prots.fasta | less
+
+# In the ~/blastClass/prots.fasta file, replace all "_" (separates then species from the protein ID)
+sed 's/_/-/g' ~/blastClass/prots.fasta | less
+
+```
+
+`sed 's/WORD_SEARCHED/REPLACEMENT/g' input_file`
+
+- `s` - substitute
+- `g` - global (everywhere)
+
+## SED - replace words in specific lines
+
+Try the command with and without the number `1`
+```
+# In line 1 of the ~/blastClass/prots.fasta file, replace the first "Agapanthus"
+sed '1 s/Agapanthus/Ag_/' ~/blastClass/prots.fasta | less
+
+# In line 1 of the ~/blastClass/prots.fasta file, replace all "Agapanthus_africanus" 
+sed '1 s/Agapanthus/Ag_/g' ~/blastClass/prots.fasta | less
+```
+
+`sed 'LINE_NUMBER s/WORD_SEARCHED/REPLACEMENT/g' input_file`
+
+- LINE_NUMBER - a digit indicating the number of the line where you want the replacement to occur
+- `s` - substitute
+- `g` - global (everywhere)
+
+## SED - print only lines replaced
+
+```
+# Replace PF0 with PFAMID PF0, and see which proteins have a match in PFAM
+sed -n 's/PF0/PFAMID PF0/p'  ~/blastClass/prots.fasta | less
+```
+
+- `-n` - do not print lines
+- `/p` - print lines where replacement occurred
+	- Without `-n`, every line would be printing, with lines replaced being printed twice (once automatically, then because you asked to see the replacement)
+
+## SED - write the result to a file
+
+Use `w filename`
+
+```
+# Replace the ">" in the ~/blastClass/prots.fasta file and save result to ~/blastClass/protsSED.fasta
+sed "s/>/Fasta entry /w $HOME/blastClass/protsSED.fasta" ~/blastClass/prots.fasta
+```
+
+- `w` - write to file $HOME/blastClass/protsSED.fasta
+
+## SED - work with text with REGular EXpressions (REGEX)
+
+Use the option `-E`: `sed -E ''`
+
+`$` - line end; `^` Line begins
+
+`[]` - when any character in a list is accepted in the search, put the list inside the `[]`
+	
+- Ex. `sed -En '/>[ABC]/p' ~/blastClass/prots.fasta` will print lines for proteins of species that start with A, B or C
+- `[A-Z]` - any upper case letter of the alphabet
+- `[a-z]` - any lower case letter of the alphabet
+- `[0-9]` - any number (in grep, same as `\d`)
+- `[A-Za-z0-9]` - any letter or number
+- `.` - any character. Ex.: `sed -En '/>A.a/p' ~/blastClass/prots.fasta`
+- `*` - find anything 0 or more times. Ex.: remove anything after the space -  `sed -En 's/ .+$//g' ~/blastClass/prots.fasta | less`
+- `+` - find the previous character or `[]` one or more times. 
+- `{Ns,NE}` - find the previous character at least <b>Ns</b> times and maximum <b>NE</b> times
+
+## Resources 
+
+- [AWK manual](https://www.gnu.org/software/gawk/manual/html_node/Options.html)
+- [AWK examples](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/)
+- [AWK cheatsheet](https://www.shortcutfoo.com/app/dojos/awk/cheatsheet)
+- [AWK - working with text](https://www.tutorialspoint.com/awk/awk_string_functions.htm)

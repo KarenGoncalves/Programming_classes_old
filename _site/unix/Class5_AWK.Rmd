@@ -36,27 +36,24 @@ word-wrap: true
 ## AWK - print specific columns
 
 
-### <b>
-<div class="code">
-`# Print second column of the file blastp_results.txt`<br>
-`awk '{print $2}' blastp_results.txt`<br>
-`# Print second and third columns of the file blastp_results.txt`<br>
-`awk '{print $2,$3}' blastp_results.txt`
-</div></b>
-
+```
+# Print second column of the file blastp_results.txt
+awk '{print $2}' blastp_results.txt
+# Print second and third columns of the file blastp_results.txt
+awk '{print $2,$3}' blastp_results.txt
+```
 
 ## AWK - print line with specific word
 
 Inside the <span class="code">`''`</span> add the word your searching for in <span class="code">`//`</span>
 
-### <b>
-<div class="code">
-`# Print lines containing "#" in blastp_results.txt`<br>
-`awk '/#/ {print}' blastp_results.txt`
-<br><br>
-`# Print lines NOT containing "#" in blastp_results.txt`<br>
-`awk '!/#/ {print}' blastp_results.txt`
-</div></b>
+```
+# Print lines containing "#" in blastp_results.txt
+awk '/#/ {print}' blastp_results.txt
+
+# Print lines NOT containing "#" in blastp_results.txt
+awk '!/#/ {print}' blastp_results.txt
+```
 
 - Note that when you do not specify the column, or when you use <span class="code">`$0`</span>, you print the whole line
 
@@ -79,7 +76,7 @@ Note the these can be specified by adding `BEGIN {}`:
 - FS - field separator - column delimiter
 	- <span class="code">`awk 'BEGIN {FS=","} {print $2}' blastp_results.csv`</span>
 		- Indicates the columns in the file blastp_results.csv are separated by commas and asks for the second column
-		- Outside the `''` `-F","` or `--field-separator=","` are the same
+		- Outside the `''` <span class="code">`-F","`</span> or <span class="code">`--field-separator=","`</span> are the same
 - OFS - output field separator - column delimiter for the output
 	- <span class="code">`awk 'BEGIN {OFS=","} {print $1,$2,$3}' blastp_results.txt`</span>
 		- Changes the separation of columns from space (default for awk) to commas
@@ -99,56 +96,47 @@ Note the these can be specified by adding `BEGIN {}`:
 
 - Sequence length
 
-### <b>
-<div class="code">
-`awk 'BEGIN {FS = "\n";\`<br>
-` RS=">"}\`<br>
-` {print $1, length($2)}' ~/blastClass/myFasta.fasta`<br>
-</div></b>
+```
+awk 'BEGIN {FS = "\n"; RS=">"}\
+ {print $1, length($2)}' ~/blastClass/myFasta.fasta
+```
+
 
 ## AWK example
 
 - Change fasta to a table format
 
-### <b>
-<div class="code">
-`awk 'BEGIN {FS = "\n";\`<br>
-` RS=">";\`<br>
-` OFS="\t";\`<br>
-` ORS="\n"}\`<br>
-` {print $1,$2}' ~/blastClass/myFasta.fasta`<br>
-</div></b>
+```
+awk 'BEGIN {FS = "\n"; RS=">";\
+ OFS="\t"; ORS="\n"}\
+ {print $1,$2}' ~/blastClass/myFasta.fasta
+```
+
 
 ## AWK - replace word
 
 - Replace the letter N in the sequence line by `'*'`
 
-### <b>
-<div class="code">
-`awk 'BEGIN {FS = "\n";\`<br>
-` RS=">"}\`<br>
-` {newSeq=gensub(/N/, "*", $2); print $1, newSeq}' ~/blastClass/myFasta.fasta`<br>
-</div></b>
+```
+awk 'BEGIN {FS = "\n"; RS=">"}\
+ {newSeq=gensub(/N/, "*", $2); print $1, newSeq}' ~/blastClass/myFasta.fasta
+```
 
 ## AWK - print with one condition
 
-- Conditions come after a `if` and inside `()`
+- Conditions inside `{}` come after `if` and inside `()` OR they go outside the `{}`
 
-### <b>
-<div class="code">
-`# Print line if column 3 has a value greater than 80`<br>
-`awk '{if ($3 > 80) print}' ~/blastClass/myFasta.fasta`<br>
-</div></b>
+```
+# Print line if column 3 has a value greater than 80
+awk '{if ($3 > 80) print}' ~/blastClass/myFasta.fasta
+```
 
 - Or they go outside the `{}`
 
-<div class="code">
 ```
 # Print line if column 3 has a value greater than 80
 awk '$3 > 80 {print}' ~/blastClass/myFasta.fasta
 ```
-</div></b>
-
 
 ## AWK - print with multiple conditions 
 
@@ -170,11 +158,13 @@ awk '$3 > 80 && $4 > 150 {print}' ~/blastClass/myFasta.fasta
 
 - When only one condition must be met, separate them with `||`
 
-### <b>
-<div class="code">
-`# Print line if column 3 has a value greater than 80 OR column 4 has a value greater than 150`<br>
-`awk '{if ($3 > 80 || $4 > 150) print}' ~/blastClass/myFasta.fasta`<br>
-</div></b>
+```
+# Print line if column 3 has a value greater than 80 OR column 4 has a value greater than 150
+awk '{if ($3 > 80 || $4 > 150) print}' ~/blastClass/myFasta.fasta
+
+awk '$3 > 80 || $4 > 150 { print }' ~/blastClass/myFasta.fasta
+```
+
 
 ## Resources 
 
