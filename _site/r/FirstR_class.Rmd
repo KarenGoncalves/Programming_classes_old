@@ -1,0 +1,72 @@
+---
+title: "To do before the first class"
+subtitle: Download softwares, create project and create data table
+author: "Karen Cristine Goncalves"
+date: "2023-08-10"
+font-family: serif
+autosize: true
+incremental: true
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+    font_adjustment: -1
+---
+
+<style>
+
+body {
+ max-height: 700px;
+ max-width: 1200px
+}
+.code {
+background-color: grey;
+color: black;
+size: 0.9em;
+}
+
+h1, h2, h3 {
+color: blue;
+}
+
+
+a {color : red }
+</style>
+
+## First things first, download and install:
+
+- R software
+	- Windows
+		- [R 4.3.1](https://cloud.r-project.org/bin/windows/base/R-4.3.1-win.exe)
+		- [Rtools](https://cloud.r-project.org/bin/windows/Rtools/rtools43/rtools.html)
+	- MacOS
+		- [R 4.3.1](https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-4.3.1-arm64.pkg)
+	- If you use Linux
+		- [select the right type](https://cloud.r-project.org/bin/linux/) and follow the instructions there (open the terminal and paste the codes)
+
+### RStudio
+
+- [Windows](https://download1.rstudio.org/electron/windows/RStudio-2023.06.1-524.exe)
+- [MacOS 11+](https://download1.rstudio.org/electron/macos/RStudio-2023.06.1-524.dmg)
+- [Ubuntu 20 or 22/Debian 11](https://download1.rstudio.org/electron/jammy/amd64/rstudio-2023.06.1-524-amd64.deb)
+- [Fedora 19/RedHat 7](https://download1.rstudio.org/electron/centos7/x86_64/rstudio-2023.06.1-524-x86_64.rpm)
+- For other operating systems, visit [posit.co](https://posit.co/download/rstudio-desktop/)
+
+## Create a project named `"R_classes"`
+
+By creating a project, you can be sure that your input and output will all be in the same folder (called a directory in programming)
+
+### Follow one of the tutorials below to create a project:
+
+- [Watch the following video to see how to create a project](https://www.youtube.com/embed/pyJMWlDptYw)
+- [Follow the instructions here](https://intro2r.com/rsprojs.html)
+	- if you are lazy like me, just look at the figures in the article
+
+### Create 4 folders in the project folder
+
+1. Inputs
+1. Outputs
+1. Plots
+1. Scripts
+
+> - Note: try not to use non-english symbols, spaces or dashes (`"-"`) in file or folder names
