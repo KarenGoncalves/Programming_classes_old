@@ -3,14 +3,14 @@ title: "R class - basics"
 author: "Karen Cristine Goncalves"
 date: "2019-10-12"
 font-family: serif
-output: ioslides_presentation	
+output: slidy_presentation	
 autosize: true
 incremental: true
 ---
 
 <style>
 .code {
-background-color: grey;
+background-color: grey50;
 color: black;
 size: 0.9em;
 }
@@ -18,11 +18,84 @@ size: 0.9em;
 </style>
 
 
+## Variables
+
+To work with your files, create new data and work with it, etc., you will want to save your things into R's memory. These things are variables. 
+
+Every person you know is stored in your brain as a variable (their names); every contact in your cellphone is a variable that stores their names, phone number, email, etc.
+
+## Variables - save your things in R
+
+How to create a variable in R:
+
+- Start with the name you want
+- Use `=` or `<-` to separate the name from the value you want it to store
+
+![](media/Create_variable.png){width=100%}
+
+## Variable names
+
+- Cannot start with numbers
+- Cannot have symbols, eg. `*(),\/"';:<>{}[]~!@#$%^+=`
+- Cannot have space
+
+- Give variables meaningful names, you do not know who will need to look at your scripts or when you will go back to them
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+library(tidyverse)
+badNames = c("x, y, z, counts", "bacteriacountsforday5", "microplate")
+goodNames = c("rawCountsRNAseq, fluorescenceTableDay1", "bacteriaCountsForDay5", "microplateFluorescence, microplateConcentration, microplateOD")
+explanation = c("x, y, z don't tell us what the data there has, so you will not know later what you used",
+		"Could be a good name, but is difficult to read, use upper and lower case or _ to improve readability",
+		"Does not tell what kind of data is stored")
+
+data.frame(badNames, explanation, goodNames) %>%
+	kableExtra::kable(format = "html", 
+			  col.names = c("Bad names", "Why?", "Good names")) %>% 
+	kableExtra::kable_classic()
+
+```
+
+## Functions - work with your data
+
+You use R to do something with your data:
+
+- Calculate stats, eg. mean, standard deviation
+- Know if two or more groups are different with T-test or ANOVA. 
+
+You do these things using functions.
+
+They are simply a bunch of code stored in a variable with an specific name
+
+You use them by typing the name followed by `()`. 
+
+Most of the time, you need to put something inside the `()`, eg. a table, a column in a table, several numbers, etc. 
+
+If you do not know how to use a function, ask for help (which is also a function!):
+
+- `help("mean")` or `?mean` will open a page in your browser (if you are using R) or the tab "Help" (if you are using RStudio) with an explanation of what the function does and how to use it
+
+## Functions - examples
+
+You load files into R using functions: `read.delim()`, `read.csv()`, `read_csv()` (this is different to the previous one)
+
+- Eg. myFile.txt is in the "Input" folder of my project, it is a table with column names (headers) and row names, the columns are separated by tabs (`"\t"`)
+	- `myFile <- read.delim(file = "Input/myFile.txt", header = T, row.names = 1)`
+	1. `"Input/myFile.txt"` = where the file is stored, has to be inside `"` or `'`
+	2. `header = T` or `header = TRUE` are the same thing, but all CAPS always
+	3. `row.names = 1` tells R which column has the  information that identifies each row as a different thing, you can use any column here, or you can omit this
+	- Each of the three things above (arguments) are separated from each other inside the function by `,` (try writing a function without commas and see what happens)
+	- `read.delim()` was made to read tables with columns separated by tabs, so you do not need to tell it.
+		- If the columns were separated by something else, like `;`, you would write: `myFile <- read.delim(file = "Input/myFile.txt", header = T, row.names = 1, sep = ";")`
+
+## Exercise
+
+Load your dataset (from the preparatory slides ["To do before the first class"](./r/Before_1stClass.html)) and save it to the variable `"myFirstInput"`
+
+
 ## Sintax {#slide1}
 
-- Functions:  <span class="code">`word()`</span>
-	- Get help - <span class="code">`help("word")`</span> or <span class="code">`?word`</span>
-- <span class="code">`Variable = this`</span> or <span class="code">`Variable <- this`</span>
 - <span class="code">`x > y`</span> - is x greater than y? (x and y are numbers or )
 - <span class="code">`x >= y`</span> - is x greater or equal to y? (x and y are numbers or )
 - <span class="code">`x < y`</span> - is x less than y?
