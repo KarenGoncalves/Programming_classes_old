@@ -54,7 +54,7 @@ By creating a project, you can be sure that your input and output will all be in
 
 ### Follow one of the tutorials below to create a project:
 
-- [Watch the following video to see how to create a project](https://www.youtube.com/embed/pyJMWlDptYw)
+- [Watch the following video to see how to create a project](media/Create_project.mp4)
 - [Follow the instructions here](https://intro2r.com/rsprojs.html)
 	- if you are lazy like me, just look at the figures in the article
 
@@ -95,7 +95,7 @@ Where:
 > - Measurement1/2/3/4/5/6 are the proteins/genes measured (several repetitions of the same assay go one per line)
 
 > - If you have nothing, [click here to download an example dataset](./r/Class1_exampleData.txt)
-> - Save the table in excel as `*.txt` (text; tab-delimited) in the `input` folder 
+> - Save the table in excel as `*.txt` (text; tab-delimited) in the `Input` folder 
 	
 	
 	
