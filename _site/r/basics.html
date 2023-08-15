@@ -1432,11 +1432,8 @@ Karen Cristine Goncalves
 <div class="slide section level2">
 
 <style>
-.code {
-background-color: grey50;
-color: black;
-size: 0.9em;
-}
+a {color: red}
+h1, h2, h3 { color: blue}
 </style>
 </div>
 <div id="variables" class="slide section level2">
@@ -1461,12 +1458,14 @@ the value you want it to store</li>
 <div id="variable-names" class="slide section level2">
 <h1>Variable names</h1>
 <ul>
-<li><p>Cannot start with numbers</p></li>
-<li><p>Cannot have symbols, eg.
-<code>*(),\/&quot;&#39;;:&lt;&gt;{}[]~!@#$%^+=</code></p></li>
-<li><p>Cannot have space</p></li>
-<li><p>Give variables meaningful names, you do not know who will need to
-look at your scripts or when you will go back to them</p></li>
+<li>Cannot start with numbers</li>
+<li>Cannot have symbols, eg.
+<code>*(),\/&quot;&#39;;:&lt;&gt;{}[]~!@#$%^+=</code></li>
+<li>Cannot have space</li>
+</ul>
+<ul class="incremental">
+<li>Give variables meaningful names, you do not know who will need to
+look at your scripts or when you will go back to them</li>
 </ul>
 <table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1528,16 +1527,19 @@ microplateFluorescence, microplateConcentration, microplateOD
 <li>Calculate stats, eg. mean, standard deviation</li>
 <li>Know if two or more groups are different with T-test or ANOVA.</li>
 </ul>
-<p>You do these things using functions.</p>
-<p>They are simply a bunch of code stored in a variable with an specific
-name</p>
-<p>You use them by typing the name followed by <code>()</code>.</p>
-<p>Most of the time, you need to put something inside the
-<code>()</code>, eg. a table, a column in a table, several numbers,
-etc.</p>
-<p>If you do not know how to use a function, ask for help (which is also
-a function!):</p>
-<ul>
+<ul class="incremental">
+<li>You do these things using functions.<br> They are simply a bunch of
+code stored in a variable with an specific name.<br> You use them by
+typing the <strong>name</strong> followed by
+<strong><code>()</code></strong>. <br> Most of the time, you need to put
+something inside the <code>()</code>, eg. a table, a column in a table,
+several numbers, etc.</li>
+</ul>
+<ul class="incremental">
+<li>If you do not know how to use a function, ask for help (which is
+also a function!):</li>
+</ul>
+<ul class="incremental">
 <li><code>help(&quot;mean&quot;)</code> or <code>?mean</code> will open a page in
 your browser (if you are using R) or the tab “Help” (if you are using
 RStudio) with an explanation of what the function does and how to use
@@ -1552,10 +1554,8 @@ the previous one)</p>
 <ul>
 <li>Eg. myFile.txt is in the “Input” folder of my project, it is a table
 with column names (headers) and row names, the columns are separated by
-tabs (<code>&quot;\t&quot;</code>)
-<ul>
-<li><code>myFile &lt;- read.delim(file = &quot;Input/myFile.txt&quot;, header = T, row.names = 1)</code></li>
-</ul>
+tabs
+(<code>&quot;\t&quot;</code>)<br><code>myFile &lt;- read.delim(file = &quot;Input/myFile.txt&quot;, header = T, row.names = 1)</code>
 <ol style="list-style-type: decimal">
 <li><code>&quot;Input/myFile.txt&quot;</code> = where the file is stored, has to
 be inside <code>&quot;</code> or <code>&#39;</code></li>
@@ -1573,208 +1573,121 @@ without commas and see what happens)</li>
 separated by tabs, so you do not need to tell it.
 <ul>
 <li>If the columns were separated by something else, like
-<code>;</code>, you would write:
+<code>;</code>, you would write:<br>
 <code>myFile &lt;- read.delim(file = &quot;Input/myFile.txt&quot;, header = T, row.names = 1, sep = &quot;;&quot;)</code></li>
 </ul></li>
 </ul></li>
 </ul>
 </div>
-<div id="exercise" class="slide section level2">
-<h1>Exercise</h1>
-<p>Load your dataset (from the preparatory slides <a href="./r/Before_1stClass.html">“To do before the first class”</a>)</p>
-</div>
-<div id="slide1" class="slide section level2">
-<h1>Sintax</h1>
-<ul>
-<li><span class="code"><code>x &gt; y</code></span> - is x greater than
-y? (x and y are numbers or )</li>
-<li><span class="code"><code>x &gt;= y</code></span> - is x greater or
-equal to y? (x and y are numbers or )</li>
-<li><span class="code"><code>x &lt; y</code></span> - is x less than
-y?</li>
-<li><span class="code"><code>x &lt;= y</code></span> - is x less or
-equal y?</li>
-<li><span class="code"><code>x == y</code></span> - is x equal to y?
-(Note that you need to use 2 “=” signs)</li>
-<li><span class="code"><code>x != y</code></span> - is x different from
-y?
-<ul>
-<li>The exclamation point negates the comparison, so it is similar to
-<span class="code"><code>! x == y</code></span></li>
-</ul></li>
+<div id="exercise---load-table-into-r" class="slide section level2">
+<h1>Exercise - load table into R</h1>
+<p>Load your dataset (from the preparatory slides
+<a href="../r/Before_1stClass.html" style="color: red"> To do before the
+first class</a>) and save it to the variable
+<code>&quot;myFirstInput&quot;</code></p>
+<ul class="incremental">
+<li>Comma-separated values: <br>
+<code>myInput = read.csv(&quot;Input/myData.csv&quot;, header = T)</code></li>
+<li>Comma-separated values: <br>
+<code>myInput = read.delim(&quot;Input/myData.csv&quot;, header = T, sep = &quot;,&quot;)</code></li>
 </ul>
 </div>
-<div id="slide2" class="slide section level2">
-<h1>Sintax - Run the commands below</h1>
-<h3 id="section"><b></h3>
-<div class="code">
-<pre><code>variable = 1
-variable
+<div id="functions-to-check-your-table" class="slide section level2">
+<h1>Functions to check your table</h1>
+<p>If you want to see that the file is okay, you can check if the
+beginning and end of the table looks right:</p>
+<ul class="incremental">
+<li><code>head(myInput)</code> - will print the first 10 rows of a
+table.</li>
+<li><code>tail(myInput)</code> - will print the last 10 rows of a
+table.</li>
+<li>For both, you can change the number of lines printed by adding
+<code>n=x</code>, where <code>x</code> is the number of lines you want
+to see</li>
+</ul>
+<pre><code>&gt; `head(myInput, n=5)`</code></pre>
+</div>
+<div id="functions-to-check-your-table-1" class="slide section level2">
+<h1>Functions to check your table</h1>
+<p>If you want to see that the file is okay, you can check if the
+beginning and end of the table looks right:</p>
+<ul>
+<li><code>head(myInput)</code> - will print the first 10 rows of a
+table.</li>
+<li><code>tail(myInput)</code> - will print the last 10 rows of a table.
+<ul>
+<li>For both, you can change the number of lines printed by adding
+<code>n=x</code>, where <code>x</code> is the number of lines you want
+to see &gt; <code>head(myInput, n=5)</code></li>
+</ul></li>
+<li><code>str(myInput)</code> - will show the
+<u><strong>str</strong></u>ucture of your table
+<ul>
+<li>Its class (data.frame or tibble are types of tables)</li>
+<li>The number of rows (observations) and columns (variables)</li>
+<li>The type of data inside each column and the their first few
+values</li>
+</ul></li>
+</ul>
+<ul class="incremental">
+<li><code>summary(myInput)</code> - if the values are numbers, will
+calculate the quantiles and mean of each column</li>
+</ul>
+</div>
+<div id="know-the-types-of-data" class="slide section level2">
+<h1>Know the types of data</h1>
+<p>If you enter a text in a column that has numeric data, the column
+will be treated as text (character) - With numeric columns,
+<code>summary()</code> acts as in the previous slide - With text
+columns, there are 2 options: - character: will print the length, class
+and mode (most common value) of the column - factor (categories): will
+print each category and their frequency</p>
+<ul class="incremental">
+<li>Characters cannot be transformed into numbers, factors (categories)
+can!</li>
+<li>That is because factors have levels (category 1, category 2, …), and
+to save space, R simply remember the level of each line</li>
+</ul>
+<pre><code>&gt; - So when you do `as.numeric(myFactor)`&lt;br&gt;this `category 1, category 2, category 3` becomes this `1, 2, 3`. </code></pre>
+<ul class="incremental">
+<li>Note: <code>as.numeric(X)</code> is a function that transforms the
+data in X into numbers, <em>if it is possible</em>.</li>
+</ul>
+</div>
+<div id="exercise---playing-with-datasets-already-in-r" class="slide section level2">
+<h1>Exercise - playing with datasets already in R</h1>
+<p>R has datasets already loaded for classes like these.</p>
+<ul>
+<li>Check what the <strong><code>PlantGrowth</code></strong> dataset
+looks like</li>
+</ul>
+<ul class="incremental">
+<li><code>head(PlantGrowth)</code></li>
+<li><code>summary(PlantGrowth)</code></li>
+</ul>
+<ul>
+<li>Save <strong><code>PlantGrowth</code></strong> into your environment
+with a new name</li>
+</ul>
+<ul class="incremental">
+<li><code>myPlantGrowth = PlantGrowth</code></li>
+</ul>
+</div>
+<div id="column-selection" class="slide section level2">
+<h1>Column selection</h1>
+<p>To select a column in a table in R, you cannot click it as in excel,
+but you can call it by its name or position in the table. All the
+commands below select the column “weight” in the data frame
+“PlantGrowth”</p>
+<pre><code># Use this to return a table with a single column
+PlantGrowth[1]
+PlantGrowth[&quot;weight&quot;]
 
-variable2 &lt;- 2
-variable2
-
-1 == 2
-1 == variable
-1 &gt; 2
-1 &lt;= 2
-variable2 != 1</code></pre>
-</div>
-<h3 id="section-1"></b></h3>
-</div>
-<div id="slide3" class="slide section level2">
-<h1>Data types</h1>
-<ul>
-<li><p>Character - anything between quotes (single <code>&#39;</code>, or
-double <code>&quot;</code>), also called string</p></li>
-<li><p>Numeric - numbers, with or without decimals</p></li>
-<li><p>Logical - TRUE or T and FALSE or F</p></li>
-<li><p>Factor - categories</p></li>
-<li><p>How to know? Ask: class(variable)</p></li>
-</ul>
-</div>
-<div id="slide4" class="slide section level2">
-<h1>Data types - Run the commands below</h1>
-<h3 id="section-2"><b></h3>
-<div class="code">
-<pre><code>variable = 1
-variable2 = &quot;I am a character&quot;
-variable3 = F
-variable4 = factor(&quot;class&quot;)
-
-class(variable)
-class(variable2)
-class(variable3)
-class(variable4)</code></pre>
-</div>
-<h3 id="section-3"></b></h3>
-</div>
-<div id="slide5" class="slide section level2">
-<h1>Data types - Conversion</h1>
-<ul>
-<li>From numeric
-<ul>
-<li>To factor - <span class="code"><code>as.factor(1)</code></span></li>
-<li>To character - <span class="code"><code>as.character(1)</code></span></li>
-<li>To logical - <span class="code"><code>as.logical(1)</code></span></li>
-</ul></li>
-<li>From categorical/factor
-<ul>
-<li>To numeric - <span class="code"><code>as.numeric(factor(&quot;class&quot;))</code></span>
-<ul>
-<li>Returns the number of the category</li>
-</ul></li>
-<li>To character - <span class="code"><code>as.character(factor(&quot;class&quot;))</code></span></li>
-</ul></li>
-</ul>
-</div>
-<div id="slide6" class="slide section level2">
-<h1>Data types - Conversion</h1>
-<ul>
-<li>From logical
-<ul>
-<li>To factor - not possible, returns <code>NA</code> (not
-available)</li>
-<li>To character - <span class="code"><code>as.character(FALSE)</code></span></li>
-<li>To numeric - <span class="code"><code>as.logical(FALSE)</code></span></li>
-</ul></li>
-</ul>
-</div>
-<div id="slide7" class="slide section level2">
-<h1>Collections of data</h1>
-<ul>
-<li>Vector - values of a single type separated by <code>&quot;,&quot;</code>
-inside <code>c()</code>
-<ul>
-<li>It’s class will be the type of data inside</li>
-</ul></li>
-<li>Matrix - vector of 2 dimensions</li>
-<li>Data frame - a table, with several vectors of the same size, each as
-a column</li>
-<li>List - a mix of anything</li>
-</ul>
-</div>
-<div id="slide8" class="slide section level2">
-<h1>Collections of data - Run the commands below</h1>
-<h3 id="section-4"><b></h3>
-<div class="code">
-<pre><code>variable = c(1, 2, 3, 4, 5, 6)
-class(variable)
-
-variable2 = matrix(c(1, 2, 3, 4, 5, 6), nrow=2, ncol=3)
-class(variable2)
-
-variable3 = data.frame(c(1, 2), c(3, 4), c(5, 6))
-class(variable3)
-
-list(variable, variable2, variable3, F, 1)</code></pre>
-</div>
-<h3 id="section-5"></b></h3>
-</div>
-<div id="slide9" class="slide section level2">
-<h1>Your PC</h1>
-<ul>
-<li>Find where you are - get working directory (folder)
-<ul>
-<li><span class="code"><code>getwd()</code></span></li>
-</ul></li>
-<li>Change folders - set working directory
-<ul>
-<li><span class="code"><code>setwd(&quot;myFolder&quot;)</code></span></li>
-</ul></li>
-<li>See the contents of the folder
-<ul>
-<li><span class="code"><code>list.files()</code></span></li>
-</ul></li>
-</ul>
-</div>
-<div id="slide10" class="slide section level2">
-<h1>Load files</h1>
-<ul>
-<li>Save tables in excel in format:
-<ul>
-<li>.csv - comma separated values or semi-colon separated values</li>
-<li>.txt or .tsv - tab separated values</li>
-</ul></li>
-</ul>
-</div>
-<div id="slide11" class="slide section level2">
-<h1>Load files</h1>
-<ul>
-<li>Load the data with the function <code>read.csv</code> or
-<code>read.delim</code>, adding:
-<ul>
-<li>Name of the file, with location if not in the current folder</li>
-<li>Optional:
-<ul>
-<li><code>header=F</code> or <code>header=T</code> - first line has the
-names of the columns or not?</li>
-<li><code>sep=&quot;\t&quot;</code> for tab separated columns</li>
-<li><code>row.names=1</code> - which column has the name of the
-rows</li>
-<li><code>skip=2</code> - how many rows to skip (here, 2)</li>
-</ul></li>
-</ul></li>
-</ul>
-</div>
-<div id="slide12" class="slide section level2">
-<h1>Load files</h1>
-<h3 id="section-6"><b></h3>
-<div class="code">
-<pre><code>file_csv = read.csv(&quot;myFile.csv&quot;)
-# optional - header=F, row.names=2, sep=&quot;;&quot;
-
-file_txt = read.delim(&quot;myFile.txt&quot;)
-# optional - header=F, row.names=2, sep=&quot; &quot;</code></pre>
-</div>
-<h3 id="section-7"></b></h3>
-</div>
-<div id="slide13" class="slide section level2">
-<h1>Exercise</h1>
-<ul>
-<li>Load the dataset inflammation-01.csv from <a href="https://swcarpentry.github.io/shell-novice/setup.html">The
-Carpentry</a></li>
-</ul>
+# Use this to return just the values of the column (this structure is called a vector)
+PlantGrowth$weight
+PlantGrowth[, &quot;weight&quot;]
+PlantGrowth[, 1]</code></pre>
+<pre><code>&gt;Always remember the position of your commas!</code></pre>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->

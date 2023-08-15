@@ -429,6 +429,9 @@ word-wrap: true
 </div>
 <div id="sed---delete-specific-lines" class="slide section level2">
 <h1>SED - delete specific lines</h1>
+<p>If you do not have it, download the file
+<a style="color: red" href="../unix/exampleData/prots.fasta">prots.fasta</a>
+and put it in the folder with the previous classes files.</p>
 <pre><code># delete lines 1 to 10 in ~/blastClass/prots.fasta
 wc -l ~/blastClass/prots.fasta
 sed &#39;1,10d&#39; ~/blastClass/prots.fasta | wc -l
@@ -459,7 +462,7 @@ sed &#39;s/_/-/g&#39; ~/blastClass/prots.fasta | less
 <div id="sed---replace-words-in-specific-lines" class="slide section level2">
 <h1>SED - replace words in specific lines</h1>
 <p>Try the command with and without the number <code>1</code></p>
-<pre><code># In line 1 of the ~/blastClass/prots.fasta file, replace the first &quot;Agapanthus&quot;
+<pre><code># In line 1 of the ~/blastClass/prots.fasta file, replace the first &quot;Agapanthus&quot; in the line
 sed &#39;1 s/Agapanthus/Ag_/&#39; ~/blastClass/prots.fasta | less
 
 # In line 1 of the ~/blastClass/prots.fasta file, replace all &quot;Agapanthus_africanus&quot; 

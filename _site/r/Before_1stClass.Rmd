@@ -7,10 +7,8 @@ font-family: serif
 autosize: true
 incremental: true
 output:
-  ioslides_presentation:
+  slidy_presentation:
     widescreen: true
-    smaller: true
-    font_adjustment: -1
 ---
 
 <style>
@@ -54,7 +52,7 @@ By creating a project, you can be sure that your input and output will all be in
 
 ### Follow one of the tutorials below to create a project:
 
-- [Watch the following video to see how to create a project](media/Create_project.mp4)
+- [Watch the following video to see how to create a project](../r/media/Create_project.mp4)
 - [Follow the instructions here](https://intro2r.com/rsprojs.html)
 	- if you are lazy like me, just look at the figures in the article
 
@@ -69,7 +67,7 @@ Create 4 folders in the project folder
 
 > - Note: try not to use non-english symbols, spaces or dashes (`"-"`) in file or folder names
 
-## Prepare the input table
+## Prepare the input table {.smaller}
 
 If you have data you wish to work on (be it: fluorescence measured in FACS or microplate, concentration of protein, OD of bacteria/algae, gene expression levels), prepare the table as follows:
 
@@ -94,7 +92,7 @@ Where:
 > - SampleA/SampleB are the different treatments and rep_1/2/3 are the biological replicates
 > - Measurement1/2/3/4/5/6 are the proteins/genes measured (several repetitions of the same assay go one per line)
 
-> - If you have nothing, [click here to download an example dataset](./r/Class1_exampleData.txt)
+> - If you have nothing, [click here to download an example dataset](../r/exampleData/Class1_exampleData.txt)
 > - Save the table in excel as `*.txt` (text; tab-delimited) in the `Input` folder 
 	
 	

@@ -32,6 +32,8 @@ word-wrap: true
 
 ## SED - delete specific lines
 
+If you do not have it, download the file <a style="color: red" href="../unix/exampleData/prots.fasta">prots.fasta</a> and put it in the folder with the previous classes files.
+
 ```
 # delete lines 1 to 10 in ~/blastClass/prots.fasta
 wc -l ~/blastClass/prots.fasta
@@ -66,8 +68,9 @@ sed 's/_/-/g' ~/blastClass/prots.fasta | less
 ## SED - replace words in specific lines
 
 Try the command with and without the number `1`
+
 ```
-# In line 1 of the ~/blastClass/prots.fasta file, replace the first "Agapanthus"
+# In line 1 of the ~/blastClass/prots.fasta file, replace the first "Agapanthus" in the line
 sed '1 s/Agapanthus/Ag_/' ~/blastClass/prots.fasta | less
 
 # In line 1 of the ~/blastClass/prots.fasta file, replace all "Agapanthus_africanus" 

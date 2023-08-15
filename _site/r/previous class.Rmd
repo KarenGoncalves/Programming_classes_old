@@ -1,0 +1,150 @@
+
+## Comparisons between values {#slide1}
+
+- <span class="code">`x > y`</span> - is x greater than y? (x and y are numbers or )
+- <span class="code">`x >= y`</span> - is x greater or equal to y? (x and y are numbers or )
+- <span class="code">`x < y`</span> - is x less than y?
+- <span class="code">`x <= y`</span> - is x less or equal y?
+- <span class="code">`x == y`</span> - is x equal to y? (Note that you need to use 2 "=" signs)
+- <span class="code">`x != y`</span> - is x different from y? 
+	- The exclamation point negates the comparison, so it is similar to <span class="code">`! x == y`</span>
+
+## Sintax - Run the commands below {#slide2}
+
+### <b>
+<div class="code">
+```
+variable = 1
+variable
+
+variable2 <- 2
+variable2
+
+1 == 2
+1 == variable
+1 > 2
+1 <= 2
+variable2 != 1
+```
+</div>
+### </b>
+
+## Data types {#slide3}
+
+- Character - anything between quotes (single `'`, or double `"`), also called string
+- Numeric - numbers, with or without decimals
+- Logical - TRUE or T and FALSE or F
+- Factor - categories 
+
+- How to know? Ask: class(variable)
+
+## Data types - Run the commands below {#slide4}
+
+### <b>
+<div class="code">
+```
+variable = 1
+variable2 = "I am a character"
+variable3 = F
+variable4 = factor("class")
+
+class(variable)
+class(variable2)
+class(variable3)
+class(variable4)
+```
+</div>
+### </b>
+
+## Data types - Conversion {#slide5}
+
+- From numeric
+	- To factor - <span class="code">`as.factor(1)`</span>
+	- To character - <span class="code">`as.character(1)`</span>
+	- To logical - <span class="code">`as.logical(1)`</span>
+- From categorical/factor
+	- To numeric - <span class="code">`as.numeric(factor("class"))`</span>
+		- Returns the number of the category
+	- To character - <span class="code">`as.character(factor("class"))`</span>
+
+## Data types - Conversion {#slide6}
+
+- From logical
+	- To factor - not possible, returns `NA` (not available)
+	- To character - <span class="code">`as.character(FALSE)`</span>
+	- To numeric - <span class="code">`as.logical(FALSE)`</span>
+
+## Collections of data {#slide7}
+
+- Vector - values of a single type separated by `","` inside `c()`
+	- It's class will be the type of data inside
+- Matrix - vector of 2 dimensions
+- Data frame - a table, with several vectors of the same size, each as a column
+- List - a mix of anything
+
+## Collections of data - Run the commands below {#slide8}
+
+### <b>
+<div class="code">
+```
+variable = c(1, 2, 3, 4, 5, 6)
+class(variable)
+
+variable2 = matrix(c(1, 2, 3, 4, 5, 6), nrow=2, ncol=3)
+class(variable2)
+
+variable3 = data.frame(c(1, 2), c(3, 4), c(5, 6))
+class(variable3)
+
+list(variable, variable2, variable3, F, 1)
+```
+
+
+</div>
+### </b>
+
+## Your PC {#slide9}
+
+- Find where you are - get working directory (folder)
+	- <span class="code">`getwd()`</span>
+- Change folders - set working directory
+	- <span class="code">`setwd("myFolder")`</span>
+- See the contents of the folder
+	- <span class="code">`list.files()`</span>
+	
+## Load files {#slide10}
+
+- Save tables in excel in format:
+	- .csv - comma separated values or semi-colon separated values
+	- .txt or .tsv - tab separated values
+
+## Load files {#slide11}
+
+- Load the data with the function `read.csv` or `read.delim`, adding:
+	- Name of the file, with location if not in the current folder
+	- Optional:
+		- `header=F` or `header=T` - first line has the names of the columns or not?
+		- `sep="\t"` for tab separated columns
+		- `row.names=1` - which column has the name of the rows 
+		- `skip=2` - how many rows to skip (here, 2)
+
+## Load files {#slide12}
+
+### <b>
+<div class="code">
+```
+file_csv = read.csv("myFile.csv")
+# optional - header=F, row.names=2, sep=";"
+
+file_txt = read.delim("myFile.txt")
+# optional - header=F, row.names=2, sep=" "
+```
+</div>
+### </b>
+
+
+## Exercise {#slide13}
+
+
+- Load the dataset inflammation-01.csv from [The Carpentry](https://swcarpentry.github.io/shell-novice/setup.html)
+

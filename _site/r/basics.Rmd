@@ -9,11 +9,9 @@ incremental: true
 ---
 
 <style>
-.code {
-background-color: grey50;
-color: black;
-size: 0.9em;
-}
+a {color: red}
+
+h1, h2, h3 { color: blue}
 
 </style>
 
@@ -31,7 +29,7 @@ How to create a variable in R:
 - Start with the name you want
 - Use `=` or `<-` to separate the name from the value you want it to store
 
-![](media/Create_variable.png){width=100%}
+![](../r/media/Create_variable.png){width=100%}
 
 ## Variable names
 
@@ -39,7 +37,7 @@ How to create a variable in R:
 - Cannot have symbols, eg. `*(),\/"';:<>{}[]~!@#$%^+=`
 - Cannot have space
 
-- Give variables meaningful names, you do not know who will need to look at your scripts or when you will go back to them
+> - Give variables meaningful names, you do not know who will need to look at your scripts or when you will go back to them
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
@@ -64,180 +62,103 @@ You use R to do something with your data:
 - Calculate stats, eg. mean, standard deviation
 - Know if two or more groups are different with T-test or ANOVA. 
 
-You do these things using functions.
-
-They are simply a bunch of code stored in a variable with an specific name
-
-You use them by typing the name followed by `()`. 
-
+> - You do these things using functions.<br>
+They are simply a bunch of code stored in a variable with an specific name.<br>
+You use them by typing the **name** followed by **`()`**. <br>
 Most of the time, you need to put something inside the `()`, eg. a table, a column in a table, several numbers, etc. 
 
-If you do not know how to use a function, ask for help (which is also a function!):
+> - If you do not know how to use a function, ask for help (which is also a function!):
 
-- `help("mean")` or `?mean` will open a page in your browser (if you are using R) or the tab "Help" (if you are using RStudio) with an explanation of what the function does and how to use it
+> - `help("mean")` or `?mean` will open a page in your browser (if you are using R) or the tab "Help" (if you are using RStudio) with an explanation of what the function does and how to use it
 
 ## Functions - examples
 
 You load files into R using functions: `read.delim()`, `read.csv()`, `read_csv()` (this is different to the previous one)
 
-- Eg. myFile.txt is in the "Input" folder of my project, it is a table with column names (headers) and row names, the columns are separated by tabs (`"\t"`)
-	- `myFile <- read.delim(file = "Input/myFile.txt", header = T, row.names = 1)`
+- Eg. myFile.txt is in the "Input" folder of my project, it is a table with column names (headers) and row names, the columns are separated by tabs (`"\t"`)<br>`myFile <- read.delim(file = "Input/myFile.txt", header = T, row.names = 1)`
 	1. `"Input/myFile.txt"` = where the file is stored, has to be inside `"` or `'`
 	2. `header = T` or `header = TRUE` are the same thing, but all CAPS always
 	3. `row.names = 1` tells R which column has the  information that identifies each row as a different thing, you can use any column here, or you can omit this
 	- Each of the three things above (arguments) are separated from each other inside the function by `,` (try writing a function without commas and see what happens)
 	- `read.delim()` was made to read tables with columns separated by tabs, so you do not need to tell it.
-		- If the columns were separated by something else, like `;`, you would write: `myFile <- read.delim(file = "Input/myFile.txt", header = T, row.names = 1, sep = ";")`
+		- If the columns were separated by something else, like `;`, you would write:<br> `myFile <- read.delim(file = "Input/myFile.txt", header = T, row.names = 1, sep = ";")`
 
-## Exercise
+## Exercise - load table into R
 
-Load your dataset (from the preparatory slides ["To do before the first class"](./r/Before_1stClass.html)) and save it to the variable `"myFirstInput"`
+Load your dataset (from the preparatory slides <a href="../r/Before_1stClass.html" style="color: red"> To do before the first class</a>) and save it to the variable `"myFirstInput"`
+
+>- Comma-separated values: <br> `myInput = read.csv("Input/myData.csv", header = T)`
+>- Comma-separated values:  <br> `myInput = read.delim("Input/myData.csv", header = T, sep = ",")`
+
+## Functions to check your table
+
+If you want to see that the file is okay, you can check if the beginning and end of the table looks right:
+
+> - `head(myInput)` - will print the first 10 rows of a table. 
+> - `tail(myInput)` - will print the last 10 rows of a table. 
+	- For both, you can change the number of lines printed by adding `n=x`, where `x` is the number of lines you want to see
+	> `head(myInput, n=5)`
+
+## Functions to check your table
+
+If you want to see that the file is okay, you can check if the beginning and end of the table looks right:
+
+- `head(myInput)` - will print the first 10 rows of a table. 
+- `tail(myInput)` - will print the last 10 rows of a table. 
+	- For both, you can change the number of lines printed by adding `n=x`, where `x` is the number of lines you want to see
+	> `head(myInput, n=5)`
 
 
-## Sintax {#slide1}
+- `str(myInput)` - will show the <u>**str**</u>ucture of your table
+	- Its class (data.frame or tibble are types of tables)
+	- The number of rows (observations) and columns (variables)
+	- The type of data inside each column and the their first few values 
 
-- <span class="code">`x > y`</span> - is x greater than y? (x and y are numbers or )
-- <span class="code">`x >= y`</span> - is x greater or equal to y? (x and y are numbers or )
-- <span class="code">`x < y`</span> - is x less than y?
-- <span class="code">`x <= y`</span> - is x less or equal y?
-- <span class="code">`x == y`</span> - is x equal to y? (Note that you need to use 2 "=" signs)
-- <span class="code">`x != y`</span> - is x different from y? 
-	- The exclamation point negates the comparison, so it is similar to <span class="code">`! x == y`</span>
+> - `summary(myInput)` - if the values are numbers, will calculate the quantiles and mean of each column
 
-## Sintax - Run the commands below {#slide2}
 
-### <b>
-<div class="code">
-```
-variable = 1
-variable
+## Know the types of data
 
-variable2 <- 2
-variable2
-
-1 == 2
-1 == variable
-1 > 2
-1 <= 2
-variable2 != 1
-```
-</div>
-### </b>
-
-## Data types {#slide3}
-
-- Character - anything between quotes (single `'`, or double `"`), also called string
-- Numeric - numbers, with or without decimals
-- Logical - TRUE or T and FALSE or F
-- Factor - categories 
-
-- How to know? Ask: class(variable)
-
-## Data types - Run the commands below {#slide4}
-
-### <b>
-<div class="code">
-```
-variable = 1
-variable2 = "I am a character"
-variable3 = F
-variable4 = factor("class")
-
-class(variable)
-class(variable2)
-class(variable3)
-class(variable4)
-```
-</div>
-### </b>
-
-## Data types - Conversion {#slide5}
-
-- From numeric
-	- To factor - <span class="code">`as.factor(1)`</span>
-	- To character - <span class="code">`as.character(1)`</span>
-	- To logical - <span class="code">`as.logical(1)`</span>
-- From categorical/factor
-	- To numeric - <span class="code">`as.numeric(factor("class"))`</span>
-		- Returns the number of the category
-	- To character - <span class="code">`as.character(factor("class"))`</span>
-
-## Data types - Conversion {#slide6}
-
-- From logical
-	- To factor - not possible, returns `NA` (not available)
-	- To character - <span class="code">`as.character(FALSE)`</span>
-	- To numeric - <span class="code">`as.logical(FALSE)`</span>
-
-## Collections of data {#slide7}
-
-- Vector - values of a single type separated by `","` inside `c()`
-	- It's class will be the type of data inside
-- Matrix - vector of 2 dimensions
-- Data frame - a table, with several vectors of the same size, each as a column
-- List - a mix of anything
-
-## Collections of data - Run the commands below {#slide8}
-
-### <b>
-<div class="code">
-```
-variable = c(1, 2, 3, 4, 5, 6)
-class(variable)
-
-variable2 = matrix(c(1, 2, 3, 4, 5, 6), nrow=2, ncol=3)
-class(variable2)
-
-variable3 = data.frame(c(1, 2), c(3, 4), c(5, 6))
-class(variable3)
-
-list(variable, variable2, variable3, F, 1)
-```
-</div>
-### </b>
-
-## Your PC {#slide9}
-
-- Find where you are - get working directory (folder)
-	- <span class="code">`getwd()`</span>
-- Change folders - set working directory
-	- <span class="code">`setwd("myFolder")`</span>
-- See the contents of the folder
-	- <span class="code">`list.files()`</span>
+If you enter a text in a column that has numeric data, the column will be treated as text (character)
+- With numeric columns, `summary()` acts as in the previous slide
+- With text columns, there are 2 options:
+	- character: will print the length, class and mode (most common value) of the column
+	- factor (categories): will print each category and their frequency
 	
-## Load files {#slide10}
+> - Characters cannot be transformed into numbers, factors (categories) can!
+	- That is because factors have levels (category 1, category 2, ...), and to save space, R simply remember the level of each line
+	> - So when you do `as.numeric(myFactor)`<br>this `category 1, category 2, category 3` becomes this `1, 2, 3`. 
 
-- Save tables in excel in format:
-	- .csv - comma separated values or semi-colon separated values
-	- .txt or .tsv - tab separated values
 
-## Load files {#slide11}
+> - Note: `as.numeric(X)` is a function that transforms the data in X into numbers, _if it is possible_.
 
-- Load the data with the function `read.csv` or `read.delim`, adding:
-	- Name of the file, with location if not in the current folder
-	- Optional:
-		- `header=F` or `header=T` - first line has the names of the columns or not?
-		- `sep="\t"` for tab separated columns
-		- `row.names=1` - which column has the name of the rows 
-		- `skip=2` - how many rows to skip (here, 2)
 
-## Load files {#slide12}
+## Exercise - playing with datasets already in R
 
-### <b>
-<div class="code">
+R has datasets already loaded for classes like these.
+
+- Check what the **`PlantGrowth`** dataset looks like
+
+> - `head(PlantGrowth)`
+> - `summary(PlantGrowth)`
+
+- Save **`PlantGrowth`** into your environment with a new name
+
+> - `myPlantGrowth = PlantGrowth`
+
+## Column selection
+
+To select a column in a table in R, you cannot click it as in excel, but you can call it by its name or position in the table. All the commands below select the column "weight" in the data frame "PlantGrowth"
+
 ```
-file_csv = read.csv("myFile.csv")
-# optional - header=F, row.names=2, sep=";"
+# Use this to return a table with a single column
+PlantGrowth[1]
+PlantGrowth["weight"]
 
-file_txt = read.delim("myFile.txt")
-# optional - header=F, row.names=2, sep=" "
+# Use this to return just the values of the column (this structure is called a vector)
+PlantGrowth$weight
+PlantGrowth[, "weight"]
+PlantGrowth[, 1]
 ```
-</div>
-### </b>
 
-
-## Exercise {#slide13}
-
-
-- Load the dataset inflammation-01.csv from [The Carpentry](https://swcarpentry.github.io/shell-novice/setup.html)
-
+	>Always remember the position of your commas!
