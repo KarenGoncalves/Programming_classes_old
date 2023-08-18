@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="basics_files/libs/clipboard/clipboard.min.js"></script>
-<script src="basics_files/libs/quarto-html/tabby.min.js"></script>
-<script src="basics_files/libs/quarto-html/popper.min.js"></script>
-<script src="basics_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="basics_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="basics_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="basics_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="basics_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="testQuarto_files/libs/clipboard/clipboard.min.js"></script>
+<script src="testQuarto_files/libs/quarto-html/tabby.min.js"></script>
+<script src="testQuarto_files/libs/quarto-html/popper.min.js"></script>
+<script src="testQuarto_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="testQuarto_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="testQuarto_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="testQuarto_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="testQuarto_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.353">
 
   <meta name="author" content="Karen Cristine Goncalves">
@@ -16,8 +16,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="basics_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="basics_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="testQuarto_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="testQuarto_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -30,77 +30,12 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="basics_files/libs/revealjs/dist/theme/quarto.css">
-  <link href="basics_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="basics_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="basics_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="basics_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="testQuarto_files/libs/revealjs/dist/theme/quarto.css">
+  <link href="testQuarto_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="testQuarto_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="testQuarto_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="testQuarto_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -385,9 +320,6 @@
       margin-right: 0; 
     }
   </style>
-  
-  <script src="basics_files/libs/kePrint-0.0.1/kePrint.js"></script>
-  <link href="basics_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -423,321 +355,15 @@ Karen Cristine Goncalves
 <li class="fragment">Use <code>=</code> or <code>&lt;-</code> to separate the name from the value you want it to store</li>
 </ul>
 
-<img data-src="./media/Create_variable.png" class="r-stretch"></section>
-<section id="variable-names" class="slide level2">
-<h2>Variable names</h2>
-<ul>
-<li class="fragment"><p>Cannot start with numbers</p></li>
-<li class="fragment"><p>Cannot have symbols, eg. <code>*(),\/"';:&lt;&gt;{}[]~!@#$%^+=</code></p></li>
-<li class="fragment"><p>Cannot have space</p></li>
-<li class="fragment"><p>Give variables meaningful names, you do not know who will need to look at your scripts or when you will go back to them</p></li>
-</ul>
-<div class="cell-output-display">
-<table class="lightable-classic" data-quarto-postprocess="true" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Bad names</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Why?</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Good names</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">x, y, z, counts</td>
-<td style="text-align: left;">x, y, z don't tell us what the data there has, so you will not know later what you used</td>
-<td style="text-align: left;">rawCountsRNAseq, fluorescenceTableDay1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">bacteriacountsforday5</td>
-<td style="text-align: left;">Could be a good name, but is difficult to read, use upper and lower case or _ to improve readability</td>
-<td style="text-align: left;">bacteriaCountsForDay5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">microplate</td>
-<td style="text-align: left;">Does not tell what kind of data is stored</td>
-<td style="text-align: left;">microplateFluorescence, microplateConcentration, microplateOD</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</section>
-<section id="functions---work-with-your-data" class="slide level2">
-<h2>Functions - work with your data</h2>
-<p>You use R to do something with your data:</p>
-<ul>
-<li class="fragment"><p>Calculate stats, eg. mean, standard deviation</p></li>
-<li class="fragment"><p>Know if two or more groups are different with T-test or ANOVA.</p></li>
-<li class="fragment"><p>You do these things using functions.<br> They are simply a bunch of code stored in a variable with an specific name.<br> You use them by typing the <strong>name</strong> followed by <strong><code>()</code></strong>. <br> Most of the time, you need to put something inside the <code>()</code>, eg. a table, a column in a table, several numbers, etc.</p></li>
-<li class="fragment"><p>If you do not know how to use a function, ask for help (which is also a function!):</p></li>
-<li class="fragment"><p><code>help("mean")</code> or <code>?mean</code> will open a page in your browser (if you are using R) or the tab “Help” (if you are using RStudio) with an explanation of what the function does and how to use it</p></li>
-</ul>
-</section>
-<section id="functions---examples" class="slide level2">
-<h2>Functions - examples</h2>
-<p>You load files into R using functions: <code>read.delim()</code>, <code>read.csv()</code>, <code>read_csv()</code> (this is different to the previous one)</p>
-<ul>
-<li class="fragment">Eg. myFile.txt is in the “Input” folder of my project, it is a table with column names (headers) and row names, the columns are separated by tabs (<code>"\t"</code>)<br><code>myFile &lt;- read.delim(file = "Input/myFile.txt", header = T, row.names = 1)</code>
-<ol type="1">
-<li class="fragment"><code>"Input/myFile.txt"</code> = where the file is stored, has to be inside <code>"</code> or <code>'</code></li>
-<li class="fragment"><code>header = T</code> or <code>header = TRUE</code> are the same thing, but all CAPS always</li>
-<li class="fragment"><code>row.names = 1</code> tells R which column has the information that identifies each row as a different thing, you can use any column here, or you can omit this</li>
-</ol>
-<ul>
-<li class="fragment">Each of the three things above (arguments) are separated from each other inside the function by <code>,</code> (try writing a function without commas and see what happens)</li>
-</ul></li>
-</ul>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Column separation</strong></p>
-</div>
-<div class="callout-content">
-<p><code>read.delim()</code> was made to read tables with columns separated by tabs</p>
-<ul>
-<li class="fragment">If the columns were separated by something else, like <code>;</code>, you would write:<br> <code>myFile &lt;- read.delim(file = "Input/myFile.txt", header = T, row.names = 1, sep = ";")</code></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise---load-table-into-r" class="slide level2">
-<h2>Exercise - load table into R</h2>
-<p>Load your dataset (from the preparatory slides <a href="../r/Before_1stClass.html" style="color: red"> To do before the first class</a>) and save it to the variable <code>"myFirstInput"</code></p>
-<ul>
-<li class="fragment">Comma-separated values: <br> <code>myInput = read.csv("Input/myData.csv", header = T)</code></li>
-<li class="fragment">Comma-separated values: <br> <code>myInput = read.delim("Input/myData.csv", header = T, sep = ",")</code></li>
-</ul>
-</section>
-<section id="functions-to-check-your-table" class="slide level2">
-<h2>Functions to check your table</h2>
-<p>If you want to see that the file is okay, you can check if the beginning and end of the table looks right:</p>
-<ul>
-<li class="fragment"><p><code>head(myInput)</code> - will print the first 6 rows of a table.</p></li>
-<li class="fragment"><p><code>tail(myInput)</code> - will print the last 6 rows of a table.</p>
-<ul>
-<li class="fragment"><p>For both, you can change the number of lines printed by adding <code>n=x</code>, where <code>x</code> is the number of lines you want to see</p></li>
-<li class="fragment"><p><code>head(myInput, n=5)</code></p></li>
-</ul></li>
-</ul>
-</section>
-<section id="functions-to-check-your-table-1" class="slide level2">
-<h2>Functions to check your table</h2>
-<ul>
-<li class="fragment"><p><code>str(myInput)</code> - will show the <u><strong>str</strong></u>ucture of your table</p>
-<ul>
-<li class="fragment">Its class (data.frame or tibble are types of tables)</li>
-<li class="fragment">The number of rows (observations) and columns (variables)</li>
-<li class="fragment">The type of data inside each column and the their first few values</li>
-</ul></li>
-<li class="fragment"><p><code>summary(myInput)</code> - if the values are numbers, will calculate the quantiles and mean of each column</p></li>
-</ul>
-</section>
-<section id="know-the-types-of-data" class="slide level2">
-<h2>Know the types of data</h2>
-<p>If you enter a text in a column that has numeric data, the column will be treated as text (character)</p>
-<ul>
-<li class="fragment">With numeric columns, <code>summary()</code> acts as in the previous slide</li>
-<li class="fragment">With text columns, there are 2 options:
-<ul>
-<li class="fragment">character: will print the length, class and mode (most common value) of the column</li>
-<li class="fragment">factor (categories): will print each category and their frequency</li>
-</ul></li>
-<li class="fragment">Characters cannot be transformed into numbers, factors (categories) can!
-<ul>
-<li class="fragment">That is because factors have levels (category 1, category 2, …), and to save space, R simply remember the level of each line</li>
-</ul></li>
-</ul>
-</section>
-<section id="test---difference-between-text-and-categories" class="slide level2">
-<h2>Test - difference between text and categories</h2>
-<p>Use R built-in data to see the difference between characters and factors</p>
-<p>LETTERS and letters are vectors (a list of values of same type) of upper/lower case letters</p>
+<img data-src="../r/media/Create_variable.png" style="width:100.0%" class="r-stretch"></section>
+<section id="code" class="slide level2">
+<h2>Code</h2>
+<p>When you click the <strong>Render</strong> button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>myLetters <span class="ot">=</span> <span class="fu">as.factor</span>(letters) </span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">as.numeric</span>(myLetters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
-[26] 26</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">as.numeric</span>(letters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: NAs introduced by coercion</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
-[26] NA</code></pre>
+<pre><code>[1] 2</code></pre>
 </div>
 </div>
-<ul>
-<li class="fragment"><p>Note: <code>as.numeric(X)</code> is a function that transforms the data in X into numbers, <em>if it is possible</em>.</p></li>
-<li class="fragment"><p><code>as.factor</code> is a function that transforms the vector into a factor</p></li>
-</ul>
-</section>
-<section id="exercise---playing-with-datasets-already-in-r" class="slide level2">
-<h2>Exercise - playing with datasets already in R</h2>
-<p>R has datasets already loaded for classes like these.</p>
-<ul>
-<li class="fragment"><p>Check what the <strong><code>PlantGrowth</code></strong> dataset looks like</p>
-<ul>
-<li class="fragment"><code>head(PlantGrowth)</code></li>
-<li class="fragment"><code>summary(PlantGrowth)</code></li>
-</ul></li>
-<li class="fragment"><p>Save <strong><code>PlantGrowth</code></strong> into your environment with a new name</p></li>
-<li class="fragment"><p><code>myPlantGrowth = PlantGrowth</code></p></li>
-</ul>
-</section>
-<section id="row-selection" class="slide level2">
-<h2>Row selection</h2>
-<p>If you load your data and indicate the column containing the names of the rows, you can use the name of the row</p>
-<p>If you did not set the row names, just use the number of the row.</p>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>HOW TO</strong></p>
-</div>
-<div class="callout-content">
-<p>table_name<strong>[ row_name ,]</strong></p>
-<ul>
-<li class="fragment">The row name/number HAS TO come BEFORE the <code>","</code></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>myPlantGrowth <span class="ot">=</span> <span class="fu">head</span>(PlantGrowth)</span>
-<span id="cb6-2"><a href="#cb6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co"># Use the name of the table, and [], inside put the number of the row followed by ","</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>myPlantGrowth[<span class="dv">1</span>,] <span class="co"># prints the first row</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  weight group
-1   4.17  ctrl</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># See and set rownames with the function rownames</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">rownames</span>(myPlantGrowth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "1" "2" "3" "4" "5" "6"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">rownames</span>(myPlantGrowth) <span class="ot">=</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">1</span> <span class="co"># creates a sequence starting from 30 and ending in 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="column-selection" class="slide level2">
-<h2>Column selection</h2>
-<p>To select a column in a table in R, you cannot click it as in excel, but you can call it by its name or position in the table.</p>
-<p>All the commands below select the column “weight” in the data frame “myPlantGrowth”</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Use this to return a table with a single column</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>myPlantGrowth <span class="ot">=</span> <span class="fu">head</span>(PlantGrowth)</span>
-<span id="cb11-3"><a href="#cb11-3"></a>myPlantGrowth[<span class="dv">1</span>] <span class="co"># same with the column name: myPlantGrowth["weight"]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  weight
-1   4.17
-2   5.58
-3   5.18
-4   6.11
-5   4.50
-6   4.61</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Use this to return just the values of the column (this structure is called a vector)</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>myPlantGrowth<span class="sc">$</span>weight</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.17 5.58 5.18 6.11 4.50 4.61</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>myPlantGrowth[, <span class="st">"weight"</span>] <span class="co"># same with the column number: myPlantGrowth[, 1]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.17 5.58 5.18 6.11 4.50 4.61</code></pre>
-</div>
-</div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Note</strong></p>
-</div>
-<div class="callout-content">
-<p>Always remember the position of your commas!</p>
-</div>
-</div>
-</div>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Tip</strong></p>
-</div>
-<div class="callout-content">
-<p>Use the function <code>names</code> to check or set the names of your columns</p>
-</div>
-</div>
-</div>
-</section>
-<section id="happy-ending---your-first-graphs" class="slide level2">
-<h2>Happy ending - your first graph(s)</h2>
-<p>Let’s use the dataset <code>iris</code> that is inside R:</p>
-<ul>
-<li class="fragment">Run <code>str(iris)</code> to see what the table looks like</li>
-<li class="fragment">Select one numerical column and make a boxplot, example - Sepal.Length
-<ul>
-<li class="fragment"><code>~</code> makes R separate the first item in relation to the categories in the second</li>
-</ul></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-1          5.1         3.5          1.4         0.2  setosa
-2          4.9         3.0          1.4         0.2  setosa
-3          4.7         3.2          1.3         0.2  setosa
-4          4.6         3.1          1.5         0.2  setosa
-5          5.0         3.6          1.4         0.2  setosa
-6          5.4         3.9          1.7         0.4  setosa</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">boxplot</span>(iris<span class="sc">$</span>Sepal.Length <span class="sc">~</span> iris<span class="sc">$</span>Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img data-src="basics_files/figure-revealjs/first%20graph-1.png" width="960"></p>
-</div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Lets give it some color</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>colors <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>)</span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="fu">boxplot</span>(iris<span class="sc">$</span>Sepal.Length <span class="sc">~</span> iris<span class="sc">$</span>Species, </span>
-<span id="cb20-4"><a href="#cb20-4"></a>    <span class="at">col =</span> colors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img data-src="basics_files/figure-revealjs/first%20graph-2.png" width="960"></p>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Let's clean up the axis titles by removing</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="co"># If the column names are fine, we can use the function with to remove the table name from the title</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="fu">with</span>(iris, <span class="fu">boxplot</span>(Sepal.Length <span class="sc">~</span> Species, <span class="at">col =</span> colors))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img data-src="basics_files/figure-revealjs/first%20graph-3.png" width="960"></p>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Else, we can set a different title completely</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">boxplot</span>(iris<span class="sc">$</span>Sepal.Length <span class="sc">~</span> iris<span class="sc">$</span>Species, </span>
-<span id="cb22-3"><a href="#cb22-3"></a>    <span class="at">col =</span> colors, </span>
-<span id="cb22-4"><a href="#cb22-4"></a>    <span class="at">ylab =</span> <span class="st">"Sepal length (mm)"</span>,</span>
-<span id="cb22-5"><a href="#cb22-5"></a>    <span class="at">xlab =</span> <span class="st">"Species epithet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img data-src="basics_files/figure-revealjs/first%20graph-4.png" width="960"></p>
-</div>
-</div>
-</section>
-<section id="exercise" class="title-slide slide level1 center">
-<h1>Exercise</h1>
-<p>Using <code>iris</code></p>
-<ul>
-<li class="fragment">Select 2 columns and plot them with <code>plot</code>, example: <code>plot(column1, column2)</code></li>
-<li class="fragment">Plot everything against everything: <code>pairs(iris)</code></li>
-</ul>
 <div class="footer footer-default">
 
 </div>
@@ -746,19 +372,19 @@ Karen Cristine Goncalves
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="basics_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="testQuarto_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="basics_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="basics_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="basics_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="basics_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="basics_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="testQuarto_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="testQuarto_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="testQuarto_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="testQuarto_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="testQuarto_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="basics_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="basics_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="basics_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="basics_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="testQuarto_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="testQuarto_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="testQuarto_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="testQuarto_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -768,13 +394,13 @@ Karen Cristine Goncalves
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': true,
+'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'smaller': true,
+'smaller': false,
  
         // Display controls in the bottom right corner
         controls: false,
