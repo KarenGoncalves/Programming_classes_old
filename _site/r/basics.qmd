@@ -1,13 +1,15 @@
 ---
 title: "R class - basics"
+fontsize: 1.5em
+linkcolor: grey
+callout-appearance: simple
 format: 
   revealjs:
     transition: none
-    theme: solarized
-author: "Karen Cristine Goncalves"
-date: "2019-10-12"
-font-family: serif
-smaller: true
+    theme: beige
+    scrollable: true
+author: "Karen Cristine Goncalves, Ph.D."
+date: "August 2023"
 incremental: true
 ---
 
@@ -31,12 +33,6 @@ How to create a variable in R:
 
 ## Variable names
 
-- Cannot start with numbers
-- Cannot have symbols, eg. `*(),\/"';:<>{}[]~!@#$%^+=`
-- Cannot have space
-
-- Give variables meaningful names, you do not know who will need to look at your scripts or when you will go back to them
-
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 library(tidyverse)
@@ -47,11 +43,19 @@ explanation = c("x, y, z don't tell us what the data there has, so you will not 
 		"Does not tell what kind of data is stored")
 
 data.frame(badNames, explanation, goodNames) %>%
-	kableExtra::kable(format = "html", 
-			  col.names = c("Bad names", "Why?", "Good names")) %>% 
-	kableExtra::kable_classic()
+	kableExtra::kable(
+		format = "html", 
+		col.names = c("Bad names", "Why?", "Good names"), 
+		caption = "Give meaningful names to your variables, or else you may not remember what they are when you read the script later ") %>% 
+	kableExtra::kable_classic_2()
 
 ```
+
+
+- Cannot start with numbers
+- Cannot have symbols, eg. `*(),\/"';:<>{}[]~!@#$%^+=`
+- Cannot have space
+
 
 ## Functions - work with your data
 
@@ -67,7 +71,9 @@ Most of the time, you need to put something inside the `()`, eg. a table, a colu
 
 - If you do not know how to use a function, ask for help (which is also a function!):
 
-- `help("mean")` or `?mean` will open a page in your browser (if you are using R) or the tab "Help" (if you are using RStudio) with an explanation of what the function does and how to use it
+:::{.callout-note collapse="true"}
+`help("mean")` or `?mean` will open a page in your browser (if you are using R) or the tab "Help" (if you are using RStudio) with an explanation of what the function does and how to use it
+:::
 
 ## Functions - examples
 
@@ -79,7 +85,7 @@ You load files into R using functions: `read.delim()`, `read.csv()`, `read_csv()
 	3. `row.names = 1` tells R which column has the  information that identifies each row as a different thing, you can use any column here, or you can omit this
 	- Each of the three things above (arguments) are separated from each other inside the function by `,` (try writing a function without commas and see what happens)
 
-:::{.callout-note}
+:::{.callout-note collapse="true"}
 ## Column separation
 `read.delim()` was made to read tables with columns separated by tabs
 
@@ -132,7 +138,9 @@ If you enter a text in a column that has numeric data, the column will be treate
 
 Use R built-in data to see the difference between characters and factors
 
+:::{.callout-note collapse="true"}
 LETTERS and letters are vectors (a list of values of same type) of upper/lower case letters
+:::
 
 ```{r difference between factor and character, message=TRUE, warning=TRUE, echo = T}
 myLetters = as.factor(letters) 
@@ -142,10 +150,23 @@ as.numeric(myLetters)
 as.numeric(letters)
 ```
 
-- Note: `as.numeric(X)` is a function that transforms the data in X into numbers, _if it is possible_.
+:::{.callout-note collapse="true"}
+:::{.nonincremental}
+- Functions
+	- **`as.numeric(X)`** is a function that transforms the data in X into numbers, _if it is possible_.
+	- **`as.factor`** is a function that transforms the vector into a factor
+:::
+:::
 
-- `as.factor` is a function that transforms the vector into a factor
+:::{.callout-caution collapse="true"}
+**`NA`** means "Not Available", R does not know what to do with characters when you want numbers from it, so the result is "not available"
 
+**`NaN`** means "Not A Number"; **`Inf`** means "infinite"
+:::
+
+:::{.callout-tip collapse="true"}
+Hover your mouse over the code and a button to copy the whole code block will appear!
+:::
 
 ## Exercise - playing with datasets already in R
 
@@ -158,18 +179,23 @@ R has datasets already loaded for classes like these.
 
 - Save **`PlantGrowth`** into your environment with a new name
 
-- `myPlantGrowth = PlantGrowth`
+	- `myPlantGrowth = PlantGrowth`
 
-	
+:::{.callout-tip collapse="true"}
+## Explain your code with comments
+
+Inside R (as well as unix and python), anything you write after a `#` in a line is not read by the computer. You can use this to explain your code in your own words so you and anyone reading your code can understand it.
+:::
+
 ## Row selection
 
 If you load your data and indicate the column containing the names of the rows, you can use the name of the row
 
 If you did not set the row names, just use the number of the row.
 
-:::{.callout-tip}
+:::{.callout-tip collapse="true"}
 ## HOW TO
-table_name**[ row_name ,]** 
+table_name**[ row_name , ]** 
 
 - The row name/number HAS TO come BEFORE the `","`
 :::
@@ -202,11 +228,9 @@ myPlantGrowth$weight
 myPlantGrowth[, "weight"] # same with the column number: myPlantGrowth[, 1]
 ```
 
-:::{.callout-note}
+:::{.callout-tip collapse="true"}
 Always remember the position of your commas!
-:::
 
-:::{.callout-tip}
 Use the function `names` to check or set the names of your columns
 :::
 
@@ -215,36 +239,73 @@ Use the function `names` to check or set the names of your columns
 
 Let's use the dataset `iris` that is inside R:
 
-- Run `str(iris)` to see what the table looks like
-- Select one numerical column and make a boxplot, example - Sepal.Length
-	- `~` makes R separate the first item in relation to the categories in the second
+Run `str(iris)` to see what the table looks like
 	
 ```{r first graph, echo=TRUE, message=FALSE, warning=FALSE, echo = T}
-head(iris)
+str(iris)
+```
+
+## Happy ending - your first graph(s)
+
+Select one numerical column and make a boxplot, example - Sepal.Length
+
+:::{.callout-tip collapse="true"}
+`~` makes R separate the first item in relation to the categories in the second
+:::
+
+:::{.panel-tabset collapse="true"}
+## Basic boxplot
+
+```{r first graph - basic boxplot, echo=TRUE, message=FALSE, warning=FALSE, echo = T}
 
 boxplot(iris$Sepal.Length ~ iris$Species)
+```
 
+## With colors
+```{r first graph - colored boxplot, echo=TRUE, message=FALSE, warning=FALSE, echo = T}
 # Lets give it some color
 colors = c("red", "green", "blue")
 boxplot(iris$Sepal.Length ~ iris$Species, 
 	col = colors)
-
-# Let's clean up the axis titles by removing
-# If the column names are fine, we can use the function with to remove the table name from the title
-with(iris, boxplot(Sepal.Length ~ Species, col = colors))
-
-# Else, we can set a different title completely
-boxplot(iris$Sepal.Length ~ iris$Species, 
-	col = colors, 
-	ylab = "Sepal length (mm)",
-	xlab = "Species epithet")
 ```
 
-	
-# Exercise
 
+## With clean axes titles
+```{r first graph - cleanTitles boxplot, echo=TRUE, message=FALSE, warning=FALSE, echo = T}
+colors = c("red", "green", "blue")
+# If the column names are fine, we can use the function with to remove the table name from the title
+with(iris, boxplot(Sepal.Length ~ Species, col = colors))
+```
+
+## With new axes titles
+```{r first graph - colored-formatted boxplot, echo=TRUE, message=FALSE, warning=FALSE, echo = T}
+# Set a new axes titles with x/ylab
+colors = c("red", "green", "blue")
+boxplot(iris$Sepal.Length ~ iris$Species, col = colors, 
+	ylab = "Sepal length (mm)", xlab = "Species epithet")
+```
+:::
+
+# Homework 
+
+:::{.nonincremental}
 Using `iris`
 
 - Select 2 columns and plot them with `plot`, example: `plot(column1, column2)`
 - Plot everything against everything: `pairs(iris)`
 
+Using your data
+
+- Create a boxplot with colored boxes, meaningful axes titles and a _plot title_
+:::
+
+## Learning more - Basic R plots 
+
+:::{.nonincremental}
+
+- [HBC training](https://hbctraining.github.io/Intro-to-R/lessons/basic_plots_in_r.html)
+- [R Base Graphics: An Idiot's Guide](https://rstudio-pubs-static.s3.amazonaws.com/7953_4e3efd5b9415444ca065b1167862c349.html)
+- [Statistical tools for high-throughput data analysis](http://www.sthda.com/english/wiki/r-base-graphs)
+- [TC Technology Knowledge Base](https://teacherscollege.screenstepslive.com/a/1130011-plot-data-in-r-studio)
+
+:::
