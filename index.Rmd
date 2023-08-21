@@ -33,7 +33,7 @@ line-height: 1.75em
 ## R 
 
 0. [Check this before the first class](./r/Before_1stClass.html)
-1. [Class 1 - basics](./r/basis.html)
+1. [Class 1 - basics](./r/basics.html)
 
 ## Statistics
 
