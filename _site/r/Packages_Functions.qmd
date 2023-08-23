@@ -1,5 +1,5 @@
 ---
-title: "R class - packages and statistics"
+title: "R class - packages and functions"
 fontsize: 1.5em
 linkcolor: grey
 callout-appearance: simple
@@ -10,15 +10,31 @@ format:
     scrollable: true
 author: "Karen Cristine Goncalves, Ph.D."
 date: "August 2023"
-incremental: true
+incremental: false
 echo: true
 message: false
 warning: false
+slide-number: true
 ---
 
 ```{r, include=F}
 options(repos="https://cran.rstudio.com/")
 ```
+
+
+## Be lazy!
+
+The most certain way to make mistakes when programming is typing everything.
+
+Think of when you are writing a text, how many typos do you make? This will happen when you are coding!
+
+Realizing there are typos or bigger mistakes in your code is more difficult than in a text to a friend. 
+
+So, be lazy and copy/paste codes when possible. 
+
+. . .
+
+Also, don't try to re-invent the wheel. Check on [stack-overflow](https://stackoverflow.com/questions/tagged/r), [bioconductor](https://support.bioconductor.org/) or [github](github.com) to see if other people already tried what you are doing and the solutions they came up with. You can always edit their code!
 
 ## Packages 
 
@@ -28,9 +44,9 @@ They may contain data so you can test the functions.
 
 ### How to use packages
 
-<br>
+:::{.panel-tabset}
 
-#### Install
+# Install
 
 If you never used the package, it probably is not installed in your computer, so you need to use the function "install.packages"
 
@@ -40,9 +56,9 @@ install.packages("rmarkdown") # a package with functions for multivariate stats 
 # You can install many packages at once
 install.packages(c("venn", "tidyverse"))
 ```
-<br>
 
-#### Load
+
+# Load
 
 This just installs the package, but it is not loaded yet (opened in R). To load, use the function library
 
@@ -56,19 +72,46 @@ You cannot put multiple package names in the library function
 You need to load them one by one
 :::
 
-## Tidyverse - many packages that make your life easier {.nonincremental}
+# Advanced install and load
+
+Come back to this part once you are more comfortable with programming.
+
+You cannot put a vector (ie. `c("a", "b", "c")`) inside `library()`, but you can write a code that loads the packages one by one without you writing that manually.
+
+```{r}
+# start by creating a vector with all the packages you need
+pkgs = c("rmarkdown", "tidyverse", "venn")
+
+# We check which packages are NOT (!) installed
+pkgs.To.Install = ! pkgs %in% installed.packages()
+
+# any() checks if there is at least one TRUE in the vector
+if (any(pkgs.To.Install)) install.packages(pkgs[pkgs.To.Install])
+
+map(pkgs, \(pkg) library(pkg, character.only = T))
+```
+
+:::
+
+
+## Tidyverse - many packages that make your life easier 
 
 When you load the package "tidyverse", it tells you that it loaded many others (packages from the uni*verse* **tidy**)
 
-- dplyr: many functions to work with tables
-- forcats: (anagram of `factors`) tools to work with factors
-- ggplot2: create better plots
-- lubridate: work with dates
-- purrr: functional programming in R
-- readr: fast and friendly functions to read table data
-- stringr: work with text (character variables)
-- tibble: construct data frames (tables)
-- tidyr: tools to better organize data (make it `tidy`ier)
+1. Tables and data.frames
+	- dplyr: many functions to work with tables
+	- tibble: construct data frames (tables)
+	- tidyr: tools to better organize data (make it `tidy`ier)
+	- readr: fast and friendly functions to read table data
+2. Text-like data
+	- forcats: (anagram of `factors`) tools to work with factors ([tutorial](https://cran.r-project.org/web/packages/forcats/vignettes/forcats.html))
+	- stringr: work with text (character variables)
+	- lubridate: work with dates
+
+3. Plots
+	- ggplot2: create better plots
+4. Programming
+	- purrr: functional programming in R ([cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/purrr.pdf))
 
 ## Pipe
 
@@ -234,11 +277,11 @@ longDataTreaments %>%
 
 :::
 
-## Stats
+## Stats 
 
 Visually, it seems that the control is much more varied than the treated samples, how can we check that?
 
-:::{.panel-tabset}
+:::{.panel-tabset .incremental}
 
 # Problem
 
@@ -261,7 +304,11 @@ repsTreatments =
 measuredData = rawData$Measured 
 ```
 
-# Step 2 - option 1
+# Step 2
+
+::: {.panel-tabset }
+
+# Option 1
 
 Instead of calculating everything one by one and repeating the same code, we can use the function "sapply"
 
@@ -296,7 +343,7 @@ TreatedSD = sapply(measuredData, function(x) { # we need this because we will us
 })
 ```
 
-# Step 2 - option 2
+# Option 2
 
 We can use lapply to remove repetition, use the same code to calulate the SD for the control and the treatment
 
@@ -317,7 +364,7 @@ names(sdList) = unique(repsTreatments$Treatment)
 
 
 ```
-
+:::
 
 # Step 3
 
@@ -347,7 +394,7 @@ The result of lapply is a list, so we use `do.call(what = "cbind")` to join the 
 t.test(x = sdDataFrame$Control, y = sdDataFrame$Treated, 
        paired = T)
 
-pivot_longer(sdDataFrame,
+pivot_longer(data = sdDataFrame,
 	     cols = everything(),
 	     values_to = "Standard.deviation",
 	     names_to = "Treatment") %>%
@@ -356,3 +403,7 @@ pivot_longer(sdDataFrame,
 
 ```
 :::
+
+## Types of plots
+
+1. [Boxplot]()

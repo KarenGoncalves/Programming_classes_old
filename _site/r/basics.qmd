@@ -10,7 +10,7 @@ format:
     scrollable: true
 author: "Karen Cristine Goncalves, Ph.D."
 date: "August 2023"
-incremental: true
+incremental: false
 ---
 
 ## Variables
@@ -51,7 +51,7 @@ data.frame(badNames, explanation, goodNames) %>%
 
 ```
 
-
+. . .
 - Cannot start with numbers
 - Cannot have symbols, eg. `*(),\/"';:<>{}[]~!@#$%^+=`
 - Cannot have space
@@ -64,7 +64,10 @@ You use R to do something with your data:
 - Calculate stats, eg. mean, standard deviation
 - Know if two or more groups are different with T-test or ANOVA. 
 
-- You do these things using functions.<br>
+- You do these things using functions.
+
+. . .
+
 They are simply a bunch of code stored in a variable with an specific name.<br>
 You use them by typing the **name** followed by **`()`**. <br>
 Most of the time, you need to put something inside the `()`, eg. a table, a column in a table, several numbers, etc. 
@@ -80,10 +83,12 @@ Most of the time, you need to put something inside the `()`, eg. a table, a colu
 You load files into R using functions: `read.delim()`, `read.csv()`, `read_csv()` (this is different to the previous one)
 
 - Eg. myFile.txt is in the "Input" folder of my project, it is a table with column names (headers) and row names, the columns are separated by tabs (`"\t"`)<br>`myFile <- read.delim(file = "Input/myFile.txt", header = T, row.names = 1)`
-	1. `"Input/myFile.txt"` = where the file is stored, has to be inside `"` or `'`
+	1. `"Input/myFile.txt"` = where the file is stored, has to be inside single or double quotes
 	2. `header = T` or `header = TRUE` are the same thing, but all CAPS always
 	3. `row.names = 1` tells R which column has the  information that identifies each row as a different thing, you can use any column here, or you can omit this
 	- Each of the three things above (arguments) are separated from each other inside the function by `,` (try writing a function without commas and see what happens)
+	
+. . . 
 
 :::{.callout-note collapse="true"}
 ## Column separation
@@ -150,12 +155,16 @@ as.numeric(myLetters)
 as.numeric(letters)
 ```
 
+. . .
+
 :::{.callout-note collapse="true"}
+
 :::{.nonincremental}
 - Functions
 	- **`as.numeric(X)`** is a function that transforms the data in X into numbers, _if it is possible_.
 	- **`as.factor`** is a function that transforms the vector into a factor
 :::
+
 :::
 
 :::{.callout-caution collapse="true"}
@@ -181,6 +190,8 @@ R has datasets already loaded for classes like these.
 
 	- `myPlantGrowth = PlantGrowth`
 
+. . .
+
 :::{.callout-tip collapse="true"}
 ## Explain your code with comments
 
@@ -197,7 +208,7 @@ If you did not set the row names, just use the number of the row.
 ## HOW TO
 table_name**[ row_name , ]** 
 
-- The row name/number HAS TO come BEFORE the `","`
+The row name/number HAS TO come BEFORE the `","`
 :::
 
 ```{r row selection, echo=TRUE, message=FALSE, warning=FALSE, echo = T}

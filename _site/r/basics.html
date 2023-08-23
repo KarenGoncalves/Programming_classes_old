@@ -8,7 +8,7 @@
 <link href="basics_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="basics_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="basics_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.353">
+  <meta name="generator" content="quarto-1.3.450">
 
   <meta name="author" content="Karen Cristine Goncalves, Ph.D.">
   <meta name="dcterms.date" content="2023-08-01">
@@ -412,16 +412,16 @@ Karen Cristine Goncalves, Ph.D.
 <p>To work with your files, create new data and work with it, etc., you will want to save your things into R’s memory.</p>
 <p>These things are variables.</p>
 <ul>
-<li class="fragment">Every person you know is stored in your brain as a variable (their names)</li>
-<li class="fragment">Every contact in your cellphone is a variable that stores their names, phone number, email, etc.</li>
+<li>Every person you know is stored in your brain as a variable (their names)</li>
+<li>Every contact in your cellphone is a variable that stores their names, phone number, email, etc.</li>
 </ul>
 </section>
 <section id="variables---save-your-things-in-r" class="slide level2">
 <h2>Variables - save your things in R</h2>
 <p>How to create a variable in R:</p>
 <ul>
-<li class="fragment">Start with the name you want</li>
-<li class="fragment">Use <code>=</code> or <code>&lt;-</code> to separate the name from the value you want it to store</li>
+<li>Start with the name you want</li>
+<li>Use <code>=</code> or <code>&lt;-</code> to separate the name from the value you want it to store</li>
 </ul>
 
 <img data-src="./media/Create_variable.png" class="r-stretch"></section>
@@ -458,20 +458,20 @@ Karen Cristine Goncalves, Ph.D.
 
 
 </div>
-<ul>
-<li class="fragment">Cannot start with numbers</li>
-<li class="fragment">Cannot have symbols, eg. <code>*(),\/"';:&lt;&gt;{}[]~!@#$%^+=</code></li>
-<li class="fragment">Cannot have space</li>
-</ul>
+<p>. . . - Cannot start with numbers - Cannot have symbols, eg. <code>*(),\/"';:&lt;&gt;{}[]~!@#$%^+=</code> - Cannot have space</p>
 </section>
 <section id="functions---work-with-your-data" class="slide level2">
 <h2>Functions - work with your data</h2>
 <p>You use R to do something with your data:</p>
 <ul>
-<li class="fragment"><p>Calculate stats, eg. mean, standard deviation</p></li>
-<li class="fragment"><p>Know if two or more groups are different with T-test or ANOVA.</p></li>
-<li class="fragment"><p>You do these things using functions.<br> They are simply a bunch of code stored in a variable with an specific name.<br> You use them by typing the <strong>name</strong> followed by <strong><code>()</code></strong>. <br> Most of the time, you need to put something inside the <code>()</code>, eg. a table, a column in a table, several numbers, etc.</p></li>
-<li class="fragment"><p>If you do not know how to use a function, ask for help (which is also a function!):</p></li>
+<li><p>Calculate stats, eg. mean, standard deviation</p></li>
+<li><p>Know if two or more groups are different with T-test or ANOVA.</p></li>
+<li><p>You do these things using functions.</p></li>
+</ul>
+<div class="fragment">
+<p>They are simply a bunch of code stored in a variable with an specific name.<br> You use them by typing the <strong>name</strong> followed by <strong><code>()</code></strong>. <br> Most of the time, you need to put something inside the <code>()</code>, eg. a table, a column in a table, several numbers, etc.</p>
+<ul>
+<li>If you do not know how to use a function, ask for help (which is also a function!):</li>
 </ul>
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
@@ -483,21 +483,23 @@ Karen Cristine Goncalves, Ph.D.
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="functions---examples" class="slide level2">
 <h2>Functions - examples</h2>
 <p>You load files into R using functions: <code>read.delim()</code>, <code>read.csv()</code>, <code>read_csv()</code> (this is different to the previous one)</p>
 <ul>
-<li class="fragment">Eg. myFile.txt is in the “Input” folder of my project, it is a table with column names (headers) and row names, the columns are separated by tabs (<code>"\t"</code>)<br><code>myFile &lt;- read.delim(file = "Input/myFile.txt", header = T, row.names = 1)</code>
+<li>Eg. myFile.txt is in the “Input” folder of my project, it is a table with column names (headers) and row names, the columns are separated by tabs (<code>"\t"</code>)<br><code>myFile &lt;- read.delim(file = "Input/myFile.txt", header = T, row.names = 1)</code>
 <ol type="1">
-<li class="fragment"><code>"Input/myFile.txt"</code> = where the file is stored, has to be inside <code>"</code> or <code>'</code></li>
-<li class="fragment"><code>header = T</code> or <code>header = TRUE</code> are the same thing, but all CAPS always</li>
-<li class="fragment"><code>row.names = 1</code> tells R which column has the information that identifies each row as a different thing, you can use any column here, or you can omit this</li>
+<li><code>"Input/myFile.txt"</code> = where the file is stored, has to be inside single or double quotes</li>
+<li><code>header = T</code> or <code>header = TRUE</code> are the same thing, but all CAPS always</li>
+<li><code>row.names = 1</code> tells R which column has the information that identifies each row as a different thing, you can use any column here, or you can omit this</li>
 </ol>
 <ul>
-<li class="fragment">Each of the three things above (arguments) are separated from each other inside the function by <code>,</code> (try writing a function without commas and see what happens)</li>
+<li>Each of the three things above (arguments) are separated from each other inside the function by <code>,</code> (try writing a function without commas and see what happens)</li>
 </ul></li>
 </ul>
+<div class="fragment">
 <div class="callout callout-note callout-titled callout-style-simple">
 <div class="callout-body">
 <div class="callout-title">
@@ -509,8 +511,9 @@ Karen Cristine Goncalves, Ph.D.
 <div class="callout-content">
 <p><code>read.delim()</code> was made to read tables with columns separated by tabs</p>
 <ul>
-<li class="fragment">If the columns were separated by something else, like <code>;</code>, you would write:<br> <code>myFile &lt;- read.delim(file = "Input/myFile.txt", header = T, row.names = 1, sep = ";")</code></li>
+<li>If the columns were separated by something else, like <code>;</code>, you would write:<br> <code>myFile &lt;- read.delim(file = "Input/myFile.txt", header = T, row.names = 1, sep = ";")</code></li>
 </ul>
+</div>
 </div>
 </div>
 </div>
@@ -519,47 +522,47 @@ Karen Cristine Goncalves, Ph.D.
 <h2>Exercise - load table into R</h2>
 <p>Load your dataset (from the preparatory slides <a href="../r/Before_1stClass.html" style="color: red"> To do before the first class</a>) and save it to the variable <code>"myFirstInput"</code></p>
 <ul>
-<li class="fragment">Comma-separated values: <br> <code>myInput = read.csv("Input/myData.csv", header = T)</code></li>
-<li class="fragment">Comma-separated values: <br> <code>myInput = read.delim("Input/myData.csv", header = T, sep = ",")</code></li>
+<li>Comma-separated values: <br> <code>myInput = read.csv("Input/myData.csv", header = T)</code></li>
+<li>Comma-separated values: <br> <code>myInput = read.delim("Input/myData.csv", header = T, sep = ",")</code></li>
 </ul>
 </section>
 <section id="functions-to-check-your-table" class="slide level2">
 <h2>Functions to check your table</h2>
 <p>If you want to see that the file is okay, you can check if the beginning and end of the table looks right:</p>
 <ul>
-<li class="fragment"><p><code>head(myInput)</code> - will print the first 6 rows of a table.</p></li>
-<li class="fragment"><p><code>tail(myInput)</code> - will print the last 6 rows of a table.</p>
+<li><p><code>head(myInput)</code> - will print the first 6 rows of a table.</p></li>
+<li><p><code>tail(myInput)</code> - will print the last 6 rows of a table.</p>
 <ul>
-<li class="fragment"><p>For both, you can change the number of lines printed by adding <code>n=x</code>, where <code>x</code> is the number of lines you want to see</p></li>
-<li class="fragment"><p><code>head(myInput, n=5)</code></p></li>
+<li><p>For both, you can change the number of lines printed by adding <code>n=x</code>, where <code>x</code> is the number of lines you want to see</p></li>
+<li><p><code>head(myInput, n=5)</code></p></li>
 </ul></li>
 </ul>
 </section>
 <section id="functions-to-check-your-table-1" class="slide level2">
 <h2>Functions to check your table</h2>
 <ul>
-<li class="fragment"><p><code>str(myInput)</code> - will show the <u><strong>str</strong></u>ucture of your table</p>
+<li><p><code>str(myInput)</code> - will show the <u><strong>str</strong></u>ucture of your table</p>
 <ul>
-<li class="fragment">Its class (data.frame or tibble are types of tables)</li>
-<li class="fragment">The number of rows (observations) and columns (variables)</li>
-<li class="fragment">The type of data inside each column and the their first few values</li>
+<li>Its class (data.frame or tibble are types of tables)</li>
+<li>The number of rows (observations) and columns (variables)</li>
+<li>The type of data inside each column and the their first few values</li>
 </ul></li>
-<li class="fragment"><p><code>summary(myInput)</code> - if the values are numbers, will calculate the quantiles and mean of each column</p></li>
+<li><p><code>summary(myInput)</code> - if the values are numbers, will calculate the quantiles and mean of each column</p></li>
 </ul>
 </section>
 <section id="know-the-types-of-data" class="slide level2">
 <h2>Know the types of data</h2>
 <p>If you enter a text in a column that has numeric data, the column will be treated as text (character)</p>
 <ul>
-<li class="fragment">With numeric columns, <code>summary()</code> acts as in the previous slide</li>
-<li class="fragment">With text columns, there are 2 options:
+<li>With numeric columns, <code>summary()</code> acts as in the previous slide</li>
+<li>With text columns, there are 2 options:
 <ul>
-<li class="fragment">character: will print the length, class and mode (most common value) of the column</li>
-<li class="fragment">factor (categories): will print each category and their frequency</li>
+<li>character: will print the length, class and mode (most common value) of the column</li>
+<li>factor (categories): will print each category and their frequency</li>
 </ul></li>
-<li class="fragment">Characters cannot be transformed into numbers, factors (categories) can!
+<li>Characters cannot be transformed into numbers, factors (categories) can!
 <ul>
-<li class="fragment">That is because factors have levels (category 1, category 2, …), and to save space, R simply remember the level of each line</li>
+<li>That is because factors have levels (category 1, category 2, …), and to save space, R simply remember the level of each line</li>
 </ul></li>
 </ul>
 </section>
@@ -593,6 +596,7 @@ Karen Cristine Goncalves, Ph.D.
 [26] NA</code></pre>
 </div>
 </div>
+<div class="fragment">
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
@@ -632,21 +636,23 @@ Karen Cristine Goncalves, Ph.D.
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="exercise---playing-with-datasets-already-in-r" class="slide level2">
 <h2>Exercise - playing with datasets already in R</h2>
 <p>R has datasets already loaded for classes like these.</p>
 <ul>
-<li class="fragment"><p>Check what the <strong><code>PlantGrowth</code></strong> dataset looks like</p>
+<li><p>Check what the <strong><code>PlantGrowth</code></strong> dataset looks like</p>
 <ul>
-<li class="fragment"><code>head(PlantGrowth)</code></li>
-<li class="fragment"><code>summary(PlantGrowth)</code></li>
+<li><code>head(PlantGrowth)</code></li>
+<li><code>summary(PlantGrowth)</code></li>
 </ul></li>
-<li class="fragment"><p>Save <strong><code>PlantGrowth</code></strong> into your environment with a new name</p>
+<li><p>Save <strong><code>PlantGrowth</code></strong> into your environment with a new name</p>
 <ul>
-<li class="fragment"><code>myPlantGrowth = PlantGrowth</code></li>
+<li><code>myPlantGrowth = PlantGrowth</code></li>
 </ul></li>
 </ul>
+<div class="fragment">
 <div class="callout callout-tip callout-titled callout-style-simple">
 <div class="callout-body">
 <div class="callout-title">
@@ -657,6 +663,7 @@ Karen Cristine Goncalves, Ph.D.
 </div>
 <div class="callout-content">
 <p>Inside R (as well as unix and python), anything you write after a <code>#</code> in a line is not read by the computer. You can use this to explain your code in your own words so you and anyone reading your code can understand it.</p>
+</div>
 </div>
 </div>
 </div>
@@ -675,9 +682,7 @@ Karen Cristine Goncalves, Ph.D.
 </div>
 <div class="callout-content">
 <p>table_name<strong>[ row_name , ]</strong></p>
-<ul>
-<li class="fragment">The row name/number HAS TO come BEFORE the <code>","</code></li>
-</ul>
+<p>The row name/number HAS TO come BEFORE the <code>","</code></p>
 </div>
 </div>
 </div>
