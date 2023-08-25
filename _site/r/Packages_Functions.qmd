@@ -51,7 +51,7 @@ They may contain data so you can test the functions.
 If you never used the package, it probably is not installed in your computer, so you need to use the function "install.packages"
 
 ```{.codeblock}
-install.packages("rmarkdown") # a package with functions for multivariate stats functions
+install.packages("vegan") # a package with functions for multivariate stats functions
 
 # You can install many packages at once
 install.packages(c("venn", "tidyverse"))
@@ -88,9 +88,15 @@ pkgs.To.Install = ! pkgs %in% installed.packages()
 # any() checks if there is at least one TRUE in the vector
 if (any(pkgs.To.Install)) install.packages(pkgs[pkgs.To.Install])
 
-map(pkgs, \(pkg) library(pkg, character.only = T))
+for (curPkg in pkgs) library(curPkg, character.only = T) 
+# curPkg is a variable that takes the value of each element in pkgs
+# Every time the function library() is run, curPkg changes value
 ```
 
+
+- `for` is a function that will repeat what you ask for everything in the group you give it. Eg: every PhD candidate has to defend their theses: 
+	- `for (phd in c("Arghavan", "Vahid", "Snehi", "Serge", "Fadoua")) { thesisDefense(phd) }`
+	
 :::
 
 
@@ -115,6 +121,10 @@ When you load the package "tidyverse", it tells you that it loaded many others (
 
 ## Pipe
 
+Think of the pipe as a tube connecting two functions. When the first function is done, instead of presenting its output, you use it to start a new function.
+
+- Eg. To start a postdoc, I had to finish my Ph.D:  `phd("Karen") %>% postdoc`
+
 Let's say you just want to check if R will read your file right or if you need to add more things to it before really working on the file.
 
 :::{.panel-tabset}
@@ -122,6 +132,11 @@ Let's say you just want to check if R will read your file right or if you need t
 # Exercise
 
 Run the function `str` on your input file or on the <a style="color: red" href="https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt">example from Class 0</a>
+
+
+:::{.callout-tip}
+You can load files from the internet without needing to download them to your computer!
+:::
 
 # Solution 1
 ```{r}
@@ -141,16 +156,14 @@ str(read.delim(myFile))
 # Solution 3
 
 ```{r}
-# You can also use a pipe ( %>% ) : moves the output of a function to the input of another
+# You can also use a pipe ( %>% )
 myFile = "https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt"
 
 read.delim(myFile) %>% str
 ```
+
 :::
 
-:::{.callout-tip}
-You can load files from the internet without needing to download them to your computer!
-:::
 
 ## ggplot2
 
@@ -210,10 +223,51 @@ ggplot(data = iris,
 
 :::
 
+## ggplot - part 2
+
+Graphics are layers of data and images put on top of each other. That is why the pieces of the ggplot function are connected by a **`+`**.
+
+The codes below construct the plot from the previous slide piece by piece.
+
+```{r}
+# Set a theme for all future plots in this session
+theme_set(theme_bw()) 
+
+# Use different colors to fill and remove the legend
+plot1 = ggplot(data = iris,
+       aes(x = Species,
+           y = Sepal.Length,
+           fill = Species))
+plot1
+```
+
+
+```{r}
+plot2 = plot1 +
+	geom_boxplot(show.legend = F) # the type of plot you want
+plot2
+```
+
+```{r}
+plot3 = plot2 +
+	labs(y = "Sepal length (mm)", x = "Species epithet")
+plot3
+```
+
+```{r}
+colors = c("red", "green", "blue")
+
+plot3 + scale_fill_manual(values = colors)
+```
+
+
 ## dplyr: prepare your data for ggplot
 
 In the example dataset, the names of the groups are in the middle not specified, they are inside the replicate name. We need one column with the values and one with the names of the treatments.
 
+:::{.panel-tabset}
+
+# Input data
 ```{r}
 myFile = "https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt"
 
@@ -223,8 +277,6 @@ names(rawData)
 # Let's change x to "Measured"
 names(rawData)[1] = "Measured"
 ```
-
-:::{.panel-tabset}
 
 # Pivot-longer
 
@@ -265,145 +317,291 @@ Let's plot
 longDataTreaments %>%
 	ggplot(aes(x = Treatment,
 		   y = Measurements,
-		   fill = Measured, color = Measured)) +
-	geom_point()
+		   fill = Measured)) +
+	geom_boxplot()
 
 longDataTreaments %>%
 	ggplot(aes(x = Measured,
 		   y = Measurements,
-		   fill = Treatment, color = Treatment)) +
-	geom_point()
+		   fill = Treatment)) +
+	geom_boxplot()
 ```
 
 :::
 
-## Stats 
+## Types of plots - sample distribution
 
-Visually, it seems that the control is much more varied than the treated samples, how can we check that?
-
-:::{.panel-tabset .incremental}
-
-# Problem
-
-We need to:
-
-1. Get the values for each data measured
-2. Separate them by treatment 
-3. Calculate the standard deviation for each group
-
-# Step 1
-
-Create variables to hold what you will need
-
-```{r}
-# This table will have just the treatments and their replicates
-repsTreatments = 
-	longDataTreaments[, c("Replicates", "Treatment")] %>%
-	unique
+1. Boxplot - [check this slide](#ggplot)
+	- ```geom_boxplot```
+	- Allows the visual comparison of groups, like a bar chart, as well as the distribution of the replicates 
+		- You can see the minimum, maximum and the median of the sample, as well as the outliers
+1. Violin plot 
+	- ```geom_violin```
+	- Same as boxplot, but without the quantiles drawn
 	
-measuredData = rawData$Measured 
-```
+:::{.callout-tip}
+You can put different types of plot and multiple data in the same graphic.
 
-# Step 2
-
-::: {.panel-tabset }
-
-# Option 1
-
-Instead of calculating everything one by one and repeating the same code, we can use the function "sapply"
-
-:::{.callout-note}
-x is a variable that ONLY EXISTS inside the sapply below
-
-%in% is a function that checks which elements of the first vector are in the second one
+Over the violin or boxplot layer, you can add the points representing the value measured for each replicate, the mean, etc.
 :::
 
+:::{.callout-tip}
+If you have few replicates (< 5), use a barplot with the standard deviation (make sure the color of the bar allows the visualization of the error bar)
+
+If many replicates per group, use a boxplot or violin plot. 
+:::
+
+## Example violin plot {.incremental}
+
+The code to get a violin plot is the same as the one for a boxplot, the only difference is the *geom_violin*.
+
 ```{r}
-ControlSD = sapply(measuredData, function(x) { # we need this because we will use several lines of code
+# Set a theme for all future plots in this session
+theme_set(theme_bw()) 
+
+# Use different colors to fill and remove the legend
+colors = c("red", "green", "blue")
+
+ggplot(data = iris,
+       aes(x = Species,
+           y = Sepal.Length,
+           fill = Species)) +
+	geom_violin(show.legend = F) + # violin instead of boxplot
+	ylab("Sepal length (mm)") +
+	xlab("Species epithet") +
+	scale_fill_manual(values = colors)
+```
+
+## Types of plots - Bar chart
+
+:::{.panel-tabset}
+
+# What and how
+
+- Uses
+	- Visually compare means when the number of replicates is low
+	- Visually compare counts (number of occurences) - number of students per lab
+- How
+	- Use either `geom_col` or `geom_bar(stat = "identity")`
+	- Add standard deviation bar with *geom_errorbar*
+		-  ```geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd), width=.2)```
 	
-	currentRow = rawData$Measured == x 
-	# == means "equal to", the result is a vector of the same size as the first with TRUE/FALSE values
-	
-	controlCols = filter(repsTreatments,
-			     Treatment == "Control"
+
+# `geom_col`
+
+
+```{r}
+df <- data.frame(
+  group = c("Male", "Female", "Child"),
+  value = c(25, 25, 50)
+  )
+
+# Barplot like geom_col
+ggplot(df, aes(x = group, y = value, fill = group)) +
+	geom_col(width = 1)
+```
+
+# `geom_bar(stat = "identity")`
+
+- **identity** means that the size of the bar will be the value you put instead of calculating something
+
+```{r}
+df <- data.frame(
+  group = c("Male", "Female", "Child"),
+  value = c(25, 25, 50)
+  )
+
+# Barplot like geom_col
+ggplot(df, aes(x = group, y = value, fill = group)) +
+	geom_bar(width = 1,  stat = "identity")
+```
+
+# Pie chart
+
+- Using either geom_bar or geom_col, you can make a pie chart with `+ coord_polar("y")`
+
+```{r}
+df <- data.frame(
+  group = c("Male", "Female", "Child"),
+  value = c(25, 25, 50)
+  )
+
+# Barplot like geom_col
+ggplot(df, aes(x = "", y = value, fill = group)) +
+	# x has to be "" - check how it looks if you put x = group
+	geom_bar(width = 1,  stat = "identity") +
+	coord_polar("y", start = 1) +
+	theme_void() # clean up grids, borders, and labels
+```
+
+:::
+
+## Types of plot - proportions
+
+
+You can use `geom_bar(stat = "count")` if you do not have the number of occurrences of each category computed. This way, ggplot counts it and plots.
+	- Eg. A table with metabolites detected separated by category: how many metabolites of each category were detected?
+
+If you want proportions in %, use `stat = "density"` instead of `stat = "count"`
+
+
+:::{.panel-tabset}
+
+# `geom_bar - count`
+
+- With *geom_bar*, you can have the same plot as with *geom_col* if you use `stat = "identity"`	
+- **identity** means that the size of the bar will be the value you put instead of calculating something
+
+```{r}
+# Datasets about US states
+US_statesInfo = data.frame(Name = state.name,
+			   Region = state.region,
+			   Division = state.division)
+x = "Number of states"
+# Plot the number of states in each division
+ggplot(US_statesInfo, aes(y = Division)) +
+	geom_bar(stat = "count") +
+	xlab(x)
+
+# Plot the number of states in each region
+ggplot(US_statesInfo, aes(y = Region)) +
+	geom_bar() +
+	xlab(x)
+
+# Plot the number of states in each division, and color by the region
+ggplot(US_statesInfo, aes(y = Division, fill = Region)) +
+	geom_bar(stat = "count") +
+	xlab(x)
+
+```
+
+:::
+
+## Types of plots - part 3
+
+
+Line graph - ```geom_line```
+
+- Visualize data **across time** - points are connected because they are the same sample at different times. 
+
+:::{.panel-tabset}
+
+# Simple
+
+Let's say we want to see how the labs of 2 PIs have grown across the years and compare the two.
+
+```{r}
+# Let's create a time series to plot
+
+LabSize = data.frame(Isabel = c(0, 3, 5, 10, 30),
+		     Hugo = c(2, 2, 6, 9, 9),
+		     Year = seq(2014, 2022, 2))
+LabSize.Long = pivot_longer(LabSize,
+			    cols = !Year, # all columns from LabSize, except "Year"
+			    names_to = "PI", 
+			    values_to = "LabMembers")
+
+ggplot(LabSize.Long, 
+       aes(x = Year, y = LabMembers, color = PI)) +
+	geom_line()
+```
+
+# Advanced
+
+
+:::{.panel-tabset}
+
+# Input
+
+We will use the [time series data](exampleData/TimeSeries_example.csv)
+
+```{.r code-line-numbers="|1-3|4-5"}
+# Load the data
+timeSeries = read.csv("karengoncalves.github.io/ProgrammingClasses/r/exampleData/TimeSeries_example.csv", row.names = 1)
+str(timeSeries)
+# Let's add a column indicating the time points
+timeSeries$TimePoint = paste0("T", 1:nrow(timeSeries))
+```
+
+```{r, echo = F}
+timeSeries = read.csv("exampleData/TimeSeries_example.csv", row.names = 1)
+str(timeSeries)
+
+timeSeries$TimePoint = paste0("T", 1:nrow(timeSeries))
+```
+
+# Prepare the data
+
+Let's transform the data to format long and add a column with the name of the treatment group
+
+```{r}
+
+timeSeriesLong = pivot_longer(
+	timeSeries,
+	cols = !TimePoint,
+	names_to = "Replicates",
+	values_to = "Growth_measure"
+) %>% mutate(Treatment = str_split_i(Replicates, pattern = "_", i = 1))
+
+head(timeSeriesLong)	
+
+# We need to specify the order of the time points!
+timeSeriesLong$TimePoint = factor(timeSeriesLong$TimePoint,
+				  levels = timeSeries$TimePoint)
+```
+
+# Calculate stats
+
+Now let's create another table with the mean, standard deviation and coefficient of variation of each treatment per time point
+
+```{r}
+
+GrowthMeasureStats = timeSeriesLong %>%
+	group_by(Treatment, TimePoint) %>%
+	summarise(
+		Mean = mean(Growth_measure),
+		StdEnv = sd(Growth_measure),
+		CoefVar = sd(Growth_measure) / 
+			mean(Growth_measure)
 	)
-	
-	sd(rawData[currentRow, controlCols$Replicates])
-	
-})
-
-TreatedSD = sapply(measuredData, function(x) { # we need this because we will use several lines of code
-	
-	currentRow = rawData$Measured == x 
-	TreatedCols = filter(repsTreatments,
-			     Treatment == "Treated"
-	)
-	sd(rawData[currentRow, TreatedCols$Replicates])
-	
-})
 ```
 
-# Option 2
-
-We can use lapply to remove repetition, use the same code to calulate the SD for the control and the treatment
-
+# Line chart
 
 ```{r}
-sdList = lapply(unique(repsTreatments$Treatment), function(group) {
-	currentGroupColumns = 
-		filter(repsTreatments,
-		       Treatment == group
-		)
-	
-	sapply(measuredData, function(x) {
-	currentRow = rawData$Measured == x
-	sd(rawData[currentRow, currentGroupColumns$Replicates])
-	})
-})
-names(sdList) = unique(repsTreatments$Treatment)
-
-
+ggplot(GrowthMeasureStats) +
+	geom_line(aes(x = TimePoint, y = Mean, 
+		      group = Treatment, # this is important, repeat this code without this line to see why
+		      color = Treatment))
 ```
-:::
+# Line chart with error bars
 
-# Step 3
+For the error bars, we cannot simply say "here, this is the standard deviation".
 
-Make a table with the results
+We need to tell it "use this value as maximum and this as minimum"
 
+See that we set "ymin" and "ymax". If you have standard deviation for the x-axis, you can add it with "xmin" and "xmax".
 ```{r}
-# If you used Step 2 - option 1
-(sdDataFrame = data.frame(Control = ControlSD,
-			 Treated = TreatedSD))
-
-# If you used option 2
-(sdDataFrame = do.call(what = "cbind", # bind the columns
-	sdList) %>% as.data.frame)
-```
-
-:::{.callout-note}
-The result of lapply is a list, so we use `do.call(what = "cbind")` to join the two lists into one matrix, then we transform the matrix into a data.frame
-:::
-
-# Step 4
-
-1. Run a paired T test (value A of column 1 has to be compared to value A of column 2)
-2. Make a bar graph (geom_col with ggplot2)
-
-```{r}
-
-t.test(x = sdDataFrame$Control, y = sdDataFrame$Treated, 
-       paired = T)
-
-pivot_longer(data = sdDataFrame,
-	     cols = everything(),
-	     values_to = "Standard.deviation",
-	     names_to = "Treatment") %>%
-	ggplot(aes(x = Treatment, y = Standard.deviation)) +
-	geom_col(fill = "black")
-
+# We put inside ggplot() what is common to all layers
+ggplot(GrowthMeasureStats, aes(
+	x = TimePoint, 
+	group = Treatment, # this is important, repeat this code without this line to see why
+	color = Treatment)) +
+	geom_line(aes(y = Mean)) +
+	geom_errorbar(aes(ymin = Mean - StdEnv,
+			  ymax = Mean + StdEnv),
+			  width = 0.2)
 ```
 :::
+:::
 
-## Types of plots
+## References
 
-1. [Boxplot]()
+- [All tidyverse packages](https://tidyverse.tidyverse.org/index.html)
+- Tutorials on all types of plots with ggplot2
+	- [r-statistics](http://r-statistics.co/ggplot2-Tutorial-With-R.html)
+	- [Cedric Scherer - advanced](https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/)
+- Tutorials on data manipulation with dplyr
+	- [Tidyverse](https://dplyr.tidyverse.org/)
+	- [R official](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html)
+	- [Genomics class](https://genomicsclass.github.io/book/pages/dplyr_tutorial.html)
