@@ -340,6 +340,12 @@ cheat_sheet = data.frame(
 )
 caption = "Function names and their assumptions in base r (loaded without the need of any package)."
 colNames = cheat_sheet[1, ]
+
+cheat_sheet$Column_separation[2:nrow(cheat_sheet)] = 
+	paste0("sep = ", cheat_sheet$Column_separation[2:nrow(cheat_sheet)])
+cheat_sheet$Decimal_separation[2:nrow(cheat_sheet)] = 
+	paste0("dec = ", cheat_sheet$Decimal_separation[2:nrow(cheat_sheet)])
+
 cheat_sheet[-1,] %>%
 	kableExtra::kable(
 		format = "html", 
@@ -348,7 +354,10 @@ cheat_sheet[-1,] %>%
 
 ```
 
-If the column separation or the decimal separation is not the one expected by the function you choose, you can specify the correct one inside the function with `sep = ' '` and `dec = '.'`, respectively.
+If the column separation or the decimal separation is not the one expected by the function you choose, you can specify the correct one inside the function with:
+
+- `sep = ' '`
+- `dec = '.'`
 
 ## Code from class
 
