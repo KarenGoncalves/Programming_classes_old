@@ -1,6 +1,6 @@
 ---
 title: "R class - basics"
-fontsize: 1.5em
+fontsize: 1.75em
 linkcolor: grey
 callout-appearance: simple
 format: 
@@ -321,3 +321,59 @@ Using your data
 - [TC Technology Knowledge Base](https://teacherscollege.screenstepslive.com/a/1130011-plot-data-in-r-studio)
 
 :::
+
+## Cheat-sheet for loading files
+
+Basics:
+
+- Normally, R assumes your data has column names
+
+
+```{r}
+library(tidyverse)
+
+cheat_sheet = data.frame(
+	Function = c('Function', 'read.csv', 'read.csv2', 'read.delim', 'read.delim2'),
+	file_extenion = c('File extenion', '.csv', '.csv', '.txt, .tsv', '.txt, .tsv'),
+	Column_separation = c('Column separation', '","', '";"', '"\\t" (tab)', '"\\t" (tab)'),
+	Decimal_separation = c('Decimal separation', '"."', '","', '"."', '","')
+)
+caption = "Function names and their assumptions in base r (loaded without the need of any package)."
+colNames = cheat_sheet[1, ]
+cheat_sheet[-1,] %>%
+	kableExtra::kable(
+		format = "html", 
+		col.names = colNames, row.names = F) %>% 
+	kableExtra::kable_classic_2()
+
+```
+
+If the column separation or the decimal separation is not the one expected by the function you choose, you can specify the correct one inside the function with `sep = ' '` and `dec = '.'`, respectively.
+
+## Code from class
+
+Copy and paste one of codes below to repeat what was done in class.
+
+1. 
+
+```{.r}
+# Get help for a function (eg. aov - anova)
+help("aov") 
+?aov
+
+# Create a sequence of numbers and get the mean of the sequence
+mean(1:4)
+
+# Load the Example Dataset 
+
+fileName = "https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt"
+myFirstInput = read.delim(fileName, header = T, row.names = 1)
+```
+
+
+2.
+
+```{.r}
+source("https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class1.R")
+```
+
