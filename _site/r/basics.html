@@ -458,7 +458,13 @@ Karen Cristine Goncalves, Ph.D.
 
 
 </div>
-<p>. . . - Cannot start with numbers - Cannot have symbols, eg. <code>*(),\/"';:&lt;&gt;{}[]~!@#$%^+=</code> - Cannot have space</p>
+<div class="fragment">
+<ul>
+<li>Cannot start with numbers</li>
+<li>Cannot have symbols, eg. <code>*(),\/"';:&lt;&gt;{}[]~!@#$%^+=</code></li>
+<li>Cannot have space</li>
+</ul>
+</div>
 </section>
 <section id="functions---work-with-your-data" class="slide level2">
 <h2>Functions - work with your data</h2>
@@ -522,32 +528,32 @@ Karen Cristine Goncalves, Ph.D.
 <h2>Exercise - load table into R</h2>
 <p>Load your dataset (from the preparatory slides <a href="../r/Before_1stClass.html" style="color: red"> To do before the first class</a>) and save it to the variable <code>"myFirstInput"</code></p>
 <ul>
-<li>Comma-separated values: <br> <code>myInput = read.csv("Input/myData.csv", header = T)</code></li>
-<li>Comma-separated values: <br> <code>myInput = read.delim("Input/myData.csv", header = T, sep = ",")</code></li>
+<li>Comma-separated values: <br> <code>myFirstInput = read.csv("Input/myData.csv", header = T)</code></li>
+<li>Comma-separated values: <br> <code>myFirstInput = read.delim("Input/myData.csv", header = T, sep = ",")</code></li>
 </ul>
 </section>
 <section id="functions-to-check-your-table" class="slide level2">
 <h2>Functions to check your table</h2>
 <p>If you want to see that the file is okay, you can check if the beginning and end of the table looks right:</p>
 <ul>
-<li><p><code>head(myInput)</code> - will print the first 6 rows of a table.</p></li>
-<li><p><code>tail(myInput)</code> - will print the last 6 rows of a table.</p>
+<li><p><code>head(myFirstInput)</code> - will print the first 6 rows of a table.</p></li>
+<li><p><code>tail(myFirstInput)</code> - will print the last 6 rows of a table.</p>
 <ul>
 <li><p>For both, you can change the number of lines printed by adding <code>n=x</code>, where <code>x</code> is the number of lines you want to see</p></li>
-<li><p><code>head(myInput, n=5)</code></p></li>
+<li><p><code>head(myFirstInput, n=5)</code></p></li>
 </ul></li>
 </ul>
 </section>
 <section id="functions-to-check-your-table-1" class="slide level2">
 <h2>Functions to check your table</h2>
 <ul>
-<li><p><code>str(myInput)</code> - will show the <u><strong>str</strong></u>ucture of your table</p>
+<li><p><code>str(myFirstInput)</code> - will show the <u><strong>str</strong></u>ucture of your table</p>
 <ul>
 <li>Its class (data.frame or tibble are types of tables)</li>
 <li>The number of rows (observations) and columns (variables)</li>
 <li>The type of data inside each column and the their first few values</li>
 </ul></li>
-<li><p><code>summary(myInput)</code> - if the values are numbers, will calculate the quantiles and mean of each column</p></li>
+<li><p><code>summary(myFirstInput)</code> - if the values are numbers, will calculate the quantiles and mean of each column</p></li>
 </ul>
 </section>
 <section id="know-the-types-of-data" class="slide level2">

@@ -52,6 +52,7 @@ data.frame(badNames, explanation, goodNames) %>%
 ```
 
 . . .
+
 - Cannot start with numbers
 - Cannot have symbols, eg. `*(),\/"';:<>{}[]~!@#$%^+=`
 - Cannot have space
@@ -102,29 +103,29 @@ You load files into R using functions: `read.delim()`, `read.csv()`, `read_csv()
 
 Load your dataset (from the preparatory slides <a href="../r/Before_1stClass.html" style="color: red"> To do before the first class</a>) and save it to the variable `"myFirstInput"`
 
-- Comma-separated values: <br> `myInput = read.csv("Input/myData.csv", header = T)`
-- Comma-separated values:  <br> `myInput = read.delim("Input/myData.csv", header = T, sep = ",")`
+- Comma-separated values: <br> `myFirstInput = read.csv("Input/myData.csv", header = T)`
+- Comma-separated values:  <br> `myFirstInput = read.delim("Input/myData.csv", header = T, sep = ",")`
 
 ## Functions to check your table
 
 If you want to see that the file is okay, you can check if the beginning and end of the table looks right:
 
-- `head(myInput)` - will print the first 6 rows of a table. 
-- `tail(myInput)` - will print the last 6 rows of a table. 
+- `head(myFirstInput)` - will print the first 6 rows of a table. 
+- `tail(myFirstInput)` - will print the last 6 rows of a table. 
 
 	- For both, you can change the number of lines printed by adding `n=x`, where `x` is the number of lines you want to see
 	
-	- `head(myInput, n=5)`
+	- `head(myFirstInput, n=5)`
 
 ## Functions to check your table
 
-- `str(myInput)` - will show the <u>**str**</u>ucture of your table
+- `str(myFirstInput)` - will show the <u>**str**</u>ucture of your table
 	
 	- Its class (data.frame or tibble are types of tables)
 	- The number of rows (observations) and columns (variables)
 	- The type of data inside each column and the their first few values 
 
-- `summary(myInput)` - if the values are numbers, will calculate the quantiles and mean of each column
+- `summary(myFirstInput)` - if the values are numbers, will calculate the quantiles and mean of each column
 
 
 ## Know the types of data
