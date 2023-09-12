@@ -903,8 +903,8 @@ Karen Cristine Goncalves, Ph.D.
 <li><code>dec = '.'</code></li>
 </ul>
 </section>
-<section id="code-from-class" class="slide level2">
-<h2>Code from class</h2>
+<section id="code-from-class-fridays-group" class="slide level2">
+<h2>Code from class (Friday’s group)</h2>
 <p>Copy and paste one of codes below to repeat what was done in class.</p>
 <ol type="1">
 <li></li>
@@ -923,7 +923,77 @@ Karen Cristine Goncalves, Ph.D.
 <ol start="2" type="1">
 <li></li>
 </ol>
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">source</span>(<span class="st">"https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class1.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">source</span>(<span class="st">"https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class1f.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="code-from-class-tuesdays-group" class="slide level2">
+<h2>Code from class (Tuesday’s group)</h2>
+<p>Copy and paste one of codes below to repeat what was done in class.</p>
+<ol type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Get help for a function (eg. aov - anova)</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="fu">help</span>(<span class="st">"aov"</span>) </span>
+<span id="cb25-3"><a href="#cb25-3"></a>?aov</span>
+<span id="cb25-4"><a href="#cb25-4"></a></span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="do">#### Load the Example Dataset </span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>myFirstInput <span class="ot">=</span> <span class="fu">read.delim</span>(<span class="st">"https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt"</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb25-7"><a href="#cb25-7"></a></span>
+<span id="cb25-8"><a href="#cb25-8"></a><span class="co"># See the beginning and end of the dataset</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a><span class="fu">head</span>(myFirstInput)</span>
+<span id="cb25-10"><a href="#cb25-10"></a><span class="fu">tail</span>(myFirstInput)</span>
+<span id="cb25-11"><a href="#cb25-11"></a></span>
+<span id="cb25-12"><a href="#cb25-12"></a><span class="co"># See the structure and the summary of the dataset</span></span>
+<span id="cb25-13"><a href="#cb25-13"></a><span class="fu">str</span>(myFirstInput)</span>
+<span id="cb25-14"><a href="#cb25-14"></a><span class="fu">summary</span>(myFirstInput)</span>
+<span id="cb25-15"><a href="#cb25-15"></a></span>
+<span id="cb25-16"><a href="#cb25-16"></a><span class="do">#### Work with PlantGrowth</span></span>
+<span id="cb25-17"><a href="#cb25-17"></a></span>
+<span id="cb25-18"><a href="#cb25-18"></a><span class="co"># Save the dataset PlantGrowth into your environment</span></span>
+<span id="cb25-19"><a href="#cb25-19"></a>myPlantGrowth <span class="ot">=</span> PlantGrowth</span>
+<span id="cb25-20"><a href="#cb25-20"></a></span>
+<span id="cb25-21"><a href="#cb25-21"></a><span class="co"># Print the first row and the first column of myPlantGrowth</span></span>
+<span id="cb25-22"><a href="#cb25-22"></a>myPlantGrowth[<span class="dv">1</span>,]</span>
+<span id="cb25-23"><a href="#cb25-23"></a>myPlantGrowth[,<span class="dv">1</span>]</span>
+<span id="cb25-24"><a href="#cb25-24"></a></span>
+<span id="cb25-25"><a href="#cb25-25"></a><span class="co"># Change the names of the rows of myPlantGrowth (it has 30 lines)</span></span>
+<span id="cb25-26"><a href="#cb25-26"></a><span class="fu">rownames</span>(myPlantGrowth) <span class="ot">=</span> <span class="dv">30</span><span class="sc">:</span><span class="dv">1</span></span>
+<span id="cb25-27"><a href="#cb25-27"></a></span>
+<span id="cb25-28"><a href="#cb25-28"></a><span class="co"># Print the first column maintaining the table format</span></span>
+<span id="cb25-29"><a href="#cb25-29"></a>myPlantGrowth[<span class="dv">1</span>]</span>
+<span id="cb25-30"><a href="#cb25-30"></a></span>
+<span id="cb25-31"><a href="#cb25-31"></a>myPlantGrowth[<span class="st">"weight"</span>]</span>
+<span id="cb25-32"><a href="#cb25-32"></a></span>
+<span id="cb25-33"><a href="#cb25-33"></a><span class="do">#### Difference between character and factor</span></span>
+<span id="cb25-34"><a href="#cb25-34"></a>myLetters <span class="ot">=</span> <span class="fu">as.factor</span>(letters)</span>
+<span id="cb25-35"><a href="#cb25-35"></a></span>
+<span id="cb25-36"><a href="#cb25-36"></a><span class="fu">as.numeric</span>(myLetters)</span>
+<span id="cb25-37"><a href="#cb25-37"></a><span class="fu">as.numeric</span>(letters)</span>
+<span id="cb25-38"><a href="#cb25-38"></a></span>
+<span id="cb25-39"><a href="#cb25-39"></a><span class="do">### Create graphs</span></span>
+<span id="cb25-40"><a href="#cb25-40"></a></span>
+<span id="cb25-41"><a href="#cb25-41"></a><span class="co"># Simple boxplot</span></span>
+<span id="cb25-42"><a href="#cb25-42"></a><span class="fu">boxplot</span>(iris<span class="sc">$</span>Sepal.Length <span class="sc">~</span> iris<span class="sc">$</span>Species)</span>
+<span id="cb25-43"><a href="#cb25-43"></a></span>
+<span id="cb25-44"><a href="#cb25-44"></a><span class="co"># Box plot with colors</span></span>
+<span id="cb25-45"><a href="#cb25-45"></a>colors <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>)</span>
+<span id="cb25-46"><a href="#cb25-46"></a><span class="fu">boxplot</span>(iris<span class="sc">$</span>Sepal.Length <span class="sc">~</span> iris<span class="sc">$</span>Species, </span>
+<span id="cb25-47"><a href="#cb25-47"></a>    <span class="at">col =</span> colors)</span>
+<span id="cb25-48"><a href="#cb25-48"></a></span>
+<span id="cb25-49"><a href="#cb25-49"></a><span class="co"># Remove the table name from the axes titles</span></span>
+<span id="cb25-50"><a href="#cb25-50"></a><span class="fu">with</span>(iris, <span class="fu">boxplot</span>(Sepal.Length <span class="sc">~</span> Species, <span class="at">col =</span> colors))</span>
+<span id="cb25-51"><a href="#cb25-51"></a><span class="co"># or</span></span>
+<span id="cb25-52"><a href="#cb25-52"></a><span class="fu">boxplot</span>(Sepal.Length <span class="sc">~</span> Species, <span class="at">col =</span> colors, <span class="at">data =</span> iris)</span>
+<span id="cb25-53"><a href="#cb25-53"></a></span>
+<span id="cb25-54"><a href="#cb25-54"></a><span class="co"># Set a new axes titles with x/ylab</span></span>
+<span id="cb25-55"><a href="#cb25-55"></a>colors <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>)</span>
+<span id="cb25-56"><a href="#cb25-56"></a><span class="fu">boxplot</span>(iris<span class="sc">$</span>Sepal.Length <span class="sc">~</span> iris<span class="sc">$</span>Species, </span>
+<span id="cb25-57"><a href="#cb25-57"></a>    <span class="at">col =</span> colors, </span>
+<span id="cb25-58"><a href="#cb25-58"></a>    <span class="at">ylab =</span> <span class="st">"Sepal length (mm)"</span>, </span>
+<span id="cb25-59"><a href="#cb25-59"></a>    <span class="at">xlab =</span> <span class="st">"Species epithet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">source</span>(<span class="st">"https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class1t.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="footer footer-default">
 
 </div>
