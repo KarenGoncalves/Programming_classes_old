@@ -6,7 +6,7 @@ callout-appearance: simple
 format: 
   revealjs:
     transition: none
-    theme: beige
+    theme: dark
     scrollable: true
 author: "Karen Cristine Goncalves, Ph.D."
 date: "August 2023"
