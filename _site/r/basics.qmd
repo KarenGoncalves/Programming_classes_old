@@ -298,7 +298,7 @@ boxplot(iris$Sepal.Length ~ iris$Species, col = colors,
 ```
 :::
 
-# Homework 
+## Homework 
 
 :::{.nonincremental}
 Using `iris`

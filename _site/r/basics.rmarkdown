@@ -1,0 +1,485 @@
+---
+title: "R class - basics"
+fontsize: 1.75em
+linkcolor: grey
+callout-appearance: simple
+format: 
+  revealjs:
+    transition: none
+    theme: beige
+    scrollable: true
+author: "Karen Cristine Goncalves, Ph.D."
+date: "August 2023"
+incremental: false
+---
+
+
+## Variables
+
+To work with your files, create new data and work with it, etc., you will want to save your things into R's memory. 
+
+These things are variables. 
+
+- Every person you know is stored in your brain as a variable (their names)
+- Every contact in your cellphone is a variable that stores their names, phone number, email, etc.
+
+## Variables - save your things in R
+
+How to create a variable in R:
+
+- Start with the name you want
+- Use `=` or `<-` to separate the name from the value you want it to store
+
+![](./media/Create_variable.png)
+
+## Variable names
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+library(tidyverse)
+badNames = c("x, y, z, counts", "bacteriacountsforday5", "microplate")
+goodNames = c("rawCountsRNAseq, fluorescenceTableDay1", "bacteriaCountsForDay5", "microplateFluorescence, microplateConcentration, microplateOD")
+explanation = c("x, y, z don't tell us what the data there has, so you will not know later what you used",
+		"Could be a good name, but is difficult to read, use upper and lower case or _ to improve readability",
+		"Does not tell what kind of data is stored")
+
+data.frame(badNames, explanation, goodNames) %>%
+	kableExtra::kable(
+		format = "html", 
+		col.names = c("Bad names", "Why?", "Good names"), 
+		caption = "Give meaningful names to your variables, or else you may not remember what they are when you read the script later ") %>% 
+	kableExtra::kable_classic_2()
+
+```
+
+
+. . .
+
+- Cannot start with numbers
+- Cannot have symbols, eg. `*(),\/"';:<>{}[]~!@#$%^+=`
+- Cannot have space
+
+
+## Functions - work with your data
+
+You use R to do something with your data:
+
+- Calculate stats, eg. mean, standard deviation
+- Know if two or more groups are different with T-test or ANOVA. 
+
+- You do these things using functions.
+
+. . .
+
+They are simply a bunch of code stored in a variable with an specific name.<br>
+You use them by typing the **name** followed by **`()`**. <br>
+Most of the time, you need to put something inside the `()`, eg. a table, a column in a table, several numbers, etc. 
+
+- If you do not know how to use a function, ask for help (which is also a function!):
+
+:::{.callout-note collapse="true"}
+`help("mean")` or `?mean` will open a page in your browser (if you are using R) or the tab "Help" (if you are using RStudio) with an explanation of what the function does and how to use it
+:::
+
+## Functions - examples
+
+You load files into R using functions: `read.delim()`, `read.csv()`, `read_csv()` (this is different to the previous one)
+
+- Eg. myFile.txt is in the "Input" folder of my project, it is a table with column names (headers) and row names, the columns are separated by tabs (`"\t"`)<br>`myFile <- read.delim(file = "Input/myFile.txt", header = T, row.names = 1)`
+	1. `"Input/myFile.txt"` = where the file is stored, has to be inside single or double quotes
+	2. `header = T` or `header = TRUE` are the same thing, but all CAPS always
+	3. `row.names = 1` tells R which column has the  information that identifies each row as a different thing, you can use any column here, or you can omit this
+	- Each of the three things above (arguments) are separated from each other inside the function by `,` (try writing a function without commas and see what happens)
+	
+. . . 
+
+:::{.callout-note collapse="true"}
+## Column separation
+`read.delim()` was made to read tables with columns separated by tabs
+
+- If the columns were separated by something else, like `;`, you would write:<br> `myFile <- read.delim(file = "Input/myFile.txt", header = T, row.names = 1, sep = ";")`
+:::
+
+
+## Exercise - load table into R
+
+Load your dataset (from the preparatory slides <a href="../r/Before_1stClass.html" style="color: red"> To do before the first class</a>) and save it to the variable `"myFirstInput"`
+
+- Comma-separated values: <br> `myFirstInput = read.csv("Input/myData.csv", header = T)`
+- Comma-separated values:  <br> `myFirstInput = read.delim("Input/myData.csv", header = T, sep = ",")`
+
+## Functions to check your table
+
+If you want to see that the file is okay, you can check if the beginning and end of the table looks right:
+
+- `head(myFirstInput)` - will print the first 6 rows of a table. 
+- `tail(myFirstInput)` - will print the last 6 rows of a table. 
+
+	- For both, you can change the number of lines printed by adding `n=x`, where `x` is the number of lines you want to see
+	
+	- `head(myFirstInput, n=5)`
+
+## Functions to check your table
+
+- `str(myFirstInput)` - will show the <u>**str**</u>ucture of your table
+	
+	- Its class (data.frame or tibble are types of tables)
+	- The number of rows (observations) and columns (variables)
+	- The type of data inside each column and the their first few values 
+
+- `summary(myFirstInput)` - if the values are numbers, will calculate the quantiles and mean of each column
+
+
+## Know the types of data
+
+If you enter a text in a column that has numeric data, the column will be treated as text (character)
+
+- With numeric columns, `summary()` acts as in the previous slide
+- With text columns, there are 2 options:
+	- character: will print the length, class and mode (most common value) of the column
+	- factor (categories): will print each category and their frequency
+	
+- Characters cannot be transformed into numbers, factors (categories) can!
+	- That is because factors have levels (category 1, category 2, ...), and to save space, R simply remember the level of each line
+
+## Test - difference between text and categories
+
+Use R built-in data to see the difference between characters and factors
+
+:::{.callout-note collapse="true"}
+LETTERS and letters are vectors (a list of values of same type) of upper/lower case letters
+:::
+
+
+```{r difference between factor and character, message=TRUE, warning=TRUE, echo = T}
+myLetters = as.factor(letters) 
+
+as.numeric(myLetters)
+
+as.numeric(letters)
+```
+
+
+. . .
+
+:::{.callout-note collapse="true"}
+
+:::{.nonincremental}
+- Functions
+	- **`as.numeric(X)`** is a function that transforms the data in X into numbers, _if it is possible_.
+	- **`as.factor`** is a function that transforms the vector into a factor
+:::
+
+:::
+
+:::{.callout-caution collapse="true"}
+**`NA`** means "Not Available", R does not know what to do with characters when you want numbers from it, so the result is "not available"
+
+**`NaN`** means "Not A Number"; **`Inf`** means "infinite"
+:::
+
+:::{.callout-tip collapse="true"}
+Hover your mouse over the code and a button to copy the whole code block will appear!
+:::
+
+## Exercise - playing with datasets already in R
+
+R has datasets already loaded for classes like these.
+
+- Check what the **`PlantGrowth`** dataset looks like
+
+	- ``` head(PlantGrowth) ```
+	- ``` summary(PlantGrowth) ``` 
+
+- Save **`PlantGrowth`** into your environment with a new name
+
+	- `myPlantGrowth = PlantGrowth`
+
+. . .
+
+:::{.callout-tip collapse="true"}
+## Explain your code with comments
+
+Inside R (as well as unix and python), anything you write after a `#` in a line is not read by the computer. You can use this to explain your code in your own words so you and anyone reading your code can understand it.
+:::
+
+## Row selection
+
+If you load your data and indicate the column containing the names of the rows, you can use the name of the row
+
+If you did not set the row names, just use the number of the row.
+
+:::{.callout-tip collapse="true"}
+## HOW TO
+table_name**[ row_name , ]** 
+
+The row name/number HAS TO come BEFORE the `","`
+:::
+
+
+```{r row selection, echo=TRUE, message=FALSE, warning=FALSE, echo = T}
+myPlantGrowth = head(PlantGrowth)
+
+# Use the name of the table, and [], inside put the number of the row followed by ","
+myPlantGrowth[1,] # prints the first row
+
+# See and set rownames with the function rownames
+rownames(myPlantGrowth)
+rownames(myPlantGrowth) = 6:1 # creates a sequence starting from 30 and ending in 1
+```
+
+
+
+## Column selection
+
+To select a column in a table in R, you cannot click it as in excel, but you can call it by its name or position in the table. 
+
+All the commands below select the column "weight" in the data frame "myPlantGrowth"
+
+
+```{r column selection, echo=TRUE, message=FALSE, warning=FALSE, echo = T}
+# Use this to return a table with a single column
+myPlantGrowth = head(PlantGrowth)
+myPlantGrowth[1] # same with the column name: myPlantGrowth["weight"]
+
+# Use this to return just the values of the column (this structure is called a vector)
+myPlantGrowth$weight
+myPlantGrowth[, "weight"] # same with the column number: myPlantGrowth[, 1]
+```
+
+
+:::{.callout-tip collapse="true"}
+Always remember the position of your commas!
+
+Use the function `names` to check or set the names of your columns
+:::
+
+
+## Happy ending - your first graph(s)
+
+Let's use the dataset `iris` that is inside R:
+
+Run `str(iris)` to see what the table looks like
+	
+
+```{r first graph, echo=TRUE, message=FALSE, warning=FALSE, echo = T}
+str(iris)
+```
+
+
+## Happy ending - your first graph(s)
+
+Select one numerical column and make a boxplot, example - Sepal.Length
+
+:::{.callout-tip collapse="true"}
+`~` makes R separate the first item in relation to the categories in the second
+:::
+
+:::{.panel-tabset collapse="true"}
+## Basic boxplot
+
+
+```{r first graph - basic boxplot, echo=TRUE, message=FALSE, warning=FALSE, echo = T}
+
+boxplot(iris$Sepal.Length ~ iris$Species)
+```
+
+
+## With colors
+
+```{r first graph - colored boxplot, echo=TRUE, message=FALSE, warning=FALSE, echo = T}
+# Lets give it some color
+colors = c("red", "green", "blue")
+boxplot(iris$Sepal.Length ~ iris$Species, 
+	col = colors)
+```
+
+
+
+## With clean axes titles
+
+```{r first graph - cleanTitles boxplot, echo=TRUE, message=FALSE, warning=FALSE, echo = T}
+colors = c("red", "green", "blue")
+# If the column names are fine, we can use the function with to remove the table name from the title
+with(iris, boxplot(Sepal.Length ~ Species, col = colors))
+```
+
+
+## With new axes titles
+
+```{r first graph - colored-formatted boxplot, echo=TRUE, message=FALSE, warning=FALSE, echo = T}
+# Set a new axes titles with x/ylab
+colors = c("red", "green", "blue")
+boxplot(iris$Sepal.Length ~ iris$Species, col = colors, 
+	ylab = "Sepal length (mm)", xlab = "Species epithet")
+```
+
+:::
+
+## Homework 
+
+:::{.nonincremental}
+Using `iris`
+
+- Select 2 columns and plot them with `plot`, example: `plot(column1, column2)`
+- Plot everything against everything: `pairs(iris)`
+
+Using your data
+
+- Create a boxplot with colored boxes, meaningful axes titles and a _plot title_
+:::
+
+## Learning more - Basic R plots 
+
+:::{.nonincremental}
+
+- [HBC training](https://hbctraining.github.io/Intro-to-R/lessons/basic_plots_in_r.html)
+- [R Base Graphics: An Idiot's Guide](https://rstudio-pubs-static.s3.amazonaws.com/7953_4e3efd5b9415444ca065b1167862c349.html)
+- [Statistical tools for high-throughput data analysis](http://www.sthda.com/english/wiki/r-base-graphs)
+- [TC Technology Knowledge Base](https://teacherscollege.screenstepslive.com/a/1130011-plot-data-in-r-studio)
+
+:::
+
+## Cheat-sheet for loading files
+
+Basics:
+
+- Normally, R assumes your data has column names
+
+
+
+```{r}
+library(tidyverse)
+
+cheat_sheet = data.frame(
+	Function = c('Function', 'read.csv', 'read.csv2', 'read.delim', 'read.delim2'),
+	file_extenion = c('File extenion', '.csv', '.csv', '.txt, .tsv', '.txt, .tsv'),
+	Column_separation = c('Column separation', '","', '";"', '"\\t" (tab)', '"\\t" (tab)'),
+	Decimal_separation = c('Decimal separation', '"."', '","', '"."', '","')
+)
+caption = "Function names and their assumptions in base r (loaded without the need of any package)."
+colNames = cheat_sheet[1, ]
+
+cheat_sheet$Column_separation[2:nrow(cheat_sheet)] = 
+	paste0("sep = ", cheat_sheet$Column_separation[2:nrow(cheat_sheet)])
+cheat_sheet$Decimal_separation[2:nrow(cheat_sheet)] = 
+	paste0("dec = ", cheat_sheet$Decimal_separation[2:nrow(cheat_sheet)])
+
+cheat_sheet[-1,] %>%
+	kableExtra::kable(
+		format = "html", 
+		col.names = colNames, row.names = F) %>% 
+	kableExtra::kable_classic_2()
+
+```
+
+
+If the column separation or the decimal separation is not the one expected by the function you choose, you can specify the correct one inside the function with:
+
+- `sep = ' '`
+- `dec = '.'`
+
+## Code from class (Friday's group)
+
+Copy and paste one of codes below to repeat what was done in class.
+
+1. 
+
+```{.r}
+# Get help for a function (eg. aov - anova)
+help("aov") 
+?aov
+
+# Create a sequence of numbers and get the mean of the sequence
+mean(1:4)
+
+# Load the Example Dataset 
+
+fileName = "https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt"
+myFirstInput = read.delim(fileName, header = T, row.names = 1)
+```
+
+
+2.
+
+```{.r}
+source("https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class1f.R")
+```
+
+## Code from class (Tuesday's group)
+
+Copy and paste one of codes below to repeat what was done in class.
+
+1. 
+
+```{.r}
+# Get help for a function (eg. aov - anova)
+help("aov") 
+?aov
+
+#### Load the Example Dataset 
+myFirstInput = read.delim("https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt", row.names = 1)
+
+# See the beginning and end of the dataset
+head(myFirstInput)
+tail(myFirstInput)
+
+# See the structure and the summary of the dataset
+str(myFirstInput)
+summary(myFirstInput)
+
+#### Work with PlantGrowth
+
+# Save the dataset PlantGrowth into your environment
+myPlantGrowth = PlantGrowth
+
+# Print the first row and the first column of myPlantGrowth
+myPlantGrowth[1,]
+myPlantGrowth[,1]
+
+# Change the names of the rows of myPlantGrowth (it has 30 lines)
+rownames(myPlantGrowth) = 30:1
+
+# Print the first column maintaining the table format
+myPlantGrowth[1]
+
+myPlantGrowth["weight"]
+
+#### Difference between character and factor
+myLetters = as.factor(letters)
+
+as.numeric(myLetters)
+as.numeric(letters)
+
+### Create graphs
+
+# Simple boxplot
+boxplot(iris$Sepal.Length ~ iris$Species)
+
+# Box plot with colors
+colors = c("red", "green", "blue")
+boxplot(iris$Sepal.Length ~ iris$Species, 
+	col = colors)
+
+# Remove the table name from the axes titles
+with(iris, boxplot(Sepal.Length ~ Species, col = colors))
+# or
+boxplot(Sepal.Length ~ Species, col = colors, data = iris)
+
+# Set a new axes titles with x/ylab
+colors = c("red", "green", "blue")
+boxplot(iris$Sepal.Length ~ iris$Species, 
+	col = colors, 
+	ylab = "Sepal length (mm)", 
+	xlab = "Species epithet")
+```
+
+
+2.
+
+```{.r}
+source("https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class1t.R")
+```
+
+
