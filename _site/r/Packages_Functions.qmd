@@ -6,7 +6,7 @@ callout-appearance: simple
 format: 
   revealjs:
     transition: none
-    theme: beige
+    theme: dark
     scrollable: true
 author: "Karen Cristine Goncalves, Ph.D."
 date: "August 2023"
@@ -19,6 +19,7 @@ slide-number: true
 
 ```{r, include=F}
 options(repos="https://cran.rstudio.com/")
+library(tidyverse)
 ```
 
 
@@ -42,6 +43,7 @@ These are simply folders containing files with many functions.
 
 They may contain data so you can test the functions.
 
+
 ### How to use packages
 
 :::{.panel-tabset}
@@ -50,7 +52,7 @@ They may contain data so you can test the functions.
 
 If you never used the package, it probably is not installed in your computer, so you need to use the function "install.packages"
 
-```{.codeblock}
+```{.r}
 install.packages("vegan") # a package with functions for multivariate stats functions
 
 # You can install many packages at once
@@ -60,10 +62,10 @@ install.packages(c("venn", "tidyverse"))
 
 # Load
 
-This just installs the package, but it is not loaded yet (opened in R). To load, use the function library
+`install.packages` just installs the package, but it does not load it (open in R). To load, use the function library
 
-```{r}
-library(rmarkdown)
+```{.r}
+library(cluster)
 library("tidyverse") # you do not need the quotes with the function library
 ```
 
@@ -78,7 +80,7 @@ Come back to this part once you are more comfortable with programming.
 
 You cannot put a vector (ie. `c("a", "b", "c")`) inside `library()`, but you can write a code that loads the packages one by one without you writing that manually.
 
-```{r}
+```{.r}
 # start by creating a vector with all the packages you need
 pkgs = c("rmarkdown", "tidyverse", "venn")
 
@@ -94,8 +96,15 @@ for (curPkg in pkgs) library(curPkg, character.only = T)
 ```
 
 
-- `for` is a function that will repeat what you ask for everything in the group you give it. Eg: every PhD candidate has to defend their theses: 
-	- `for (phd in c("Arghavan", "Vahid", "Snehi", "Serge", "Fadoua")) { thesisDefense(phd) }`
+...
+
+
+- `for` is a function that will repeat what you ask for everything in the group you give it. <br>Eg: every PhD candidate has to defend their theses: 
+
+```{.r}
+candidates = c("Serge", "Fadoua", "Arghavan", "Snehi", "Basanta", "Sajjad", "Mahsa", "Archana")
+for (phd in candidates) { thesisDefense(phd) }
+```
 	
 :::
 
@@ -139,12 +148,7 @@ You can load files from the internet without needing to download them to your co
 :::
 
 # Solution 1
-```{r}
-# The normal way to do what we want would be this, but it is difficult to read
-str(read.delim("https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt"))
-```
 
-# Solution 2
 ```{r}
 # You could first put the path to the file in a variable, it would make things easier
 myFile = "https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt"
@@ -153,7 +157,11 @@ str(read.delim(myFile))
 
 ```
 
-# Solution 3
+# Solution 2
+
+Using pipe, you can see the progression of the pipeline, eg.: <br>`{.r} bachelor("Karen") %>% phd() %>% postdoc` <br>instead of <br>`{.r} postdoc(phd(bachelor("Karen")))`
+
+Basically, the first function written is the first one used, not the last.
 
 ```{r}
 # You can also use a pipe ( %>% )
@@ -229,28 +237,41 @@ Graphics are layers of data and images put on top of each other. That is why the
 
 The codes below construct the plot from the previous slide piece by piece.
 
+:::{.panel-tabset}
+
+# Basic plot
+
 ```{r}
 # Set a theme for all future plots in this session
 theme_set(theme_bw()) 
 
 # Use different colors to fill and remove the legend
-plot1 = ggplot(data = iris,
+(plot1 = ggplot(data = iris,
        aes(x = Species,
            y = Sepal.Length,
-           fill = Species))
-plot1
+           fill = Species)))
 ```
 
 
 ```{r}
-plot2 = plot1 +
-	geom_boxplot(show.legend = F) # the type of plot you want
-plot2
+(plot2 = plot1 +
+	geom_boxplot(show.legend = F)) # the type of plot you want
 ```
 
+# Decorations
+
+`labs` adds labels:
+
+- `x` and `y` -  will add the labels to the axes (you can use the functions `xlab` or `ylab` instead)
+- `title` - Normally at the top of the figure (you can use the function `ggtitle` instead)
+- `subtitle` - Goes under the title and is a bit smaller
+- `caption` - Normally goes at the bottom of the figure and is a small text
+- `tag` - the letter that goes at the top-left corner of a plot that is one part of several in a figure
+
 ```{r}
-plot3 = plot2 +
-	labs(y = "Sepal length (mm)", x = "Species epithet")
+(plot3 = plot2 +
+	labs(y = "Sepal length (mm)", x = "Species epithet"))
+
 plot3
 ```
 
@@ -260,6 +281,7 @@ colors = c("red", "green", "blue")
 plot3 + scale_fill_manual(values = colors)
 ```
 
+:::
 
 ## dplyr: prepare your data for ggplot
 
@@ -298,32 +320,27 @@ str(longData)
 
 Let's split the values from "Replicates" using str_split from stringr
 
+`mutate` will return the input table with the new column we create
+
 ```{r}
 # pattern is what separates (_)
 # i is the part that we want to see: Control_1 has 2 pieces, i=1 returns "Control"
 
-longDataTreaments = mutate(
-	.data = longData,
-	Treatment = str_split_i(Replicates, pattern = "_", i = 1)
-)
+longDataTreaments = longData %>%
+	mutate(Treatment = str_split_i(Replicates, pattern = "_", i = 1))
 
 str(longDataTreaments)
 ```
-# Plot
 
-Let's plot
+# Plot
 
 ```{r}
 longDataTreaments %>%
-	ggplot(aes(x = Treatment,
-		   y = Measurements,
-		   fill = Measured)) +
+	ggplot(aes(x = Treatment, y = Measurements, fill = Measured)) +
 	geom_boxplot()
 
 longDataTreaments %>%
-	ggplot(aes(x = Measured,
-		   y = Measurements,
-		   fill = Treatment)) +
+	ggplot(aes(x = Measured, y = Measurements, fill = Treatment)) +
 	geom_boxplot()
 ```
 
@@ -331,7 +348,7 @@ longDataTreaments %>%
 
 ## Types of plots - sample distribution
 
-1. Boxplot - [check this slide](#ggplot)
+1. Boxplot - [check this slide](#ggplot2)
 	- ```geom_boxplot```
 	- Allows the visual comparison of groups, like a bar chart, as well as the distribution of the replicates 
 		- You can see the minimum, maximum and the median of the sample, as well as the outliers
