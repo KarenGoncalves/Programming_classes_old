@@ -96,16 +96,18 @@ for (curPkg in pkgs) library(curPkg, character.only = T)
 ```
 
 
-- `for` is a function that will repeat what you ask for everything in the group you give it. <br>Eg: every PhD candidate has to defend their theses: 
+:::
+
+## for loop
+
+`for` is a function that will repeat what you ask for everything in the group you give it. <br>Eg: every PhD candidate has to defend their theses: 
 
 ```{.r}
 candidates = c("Serge", "Fadoua", "Arghavan", "Snehi", "Basanta", "Sajjad", "Mahsa", "Archana")
+
 for (phd in candidates) { thesisDefense(phd) }
 ```
 	
-:::
-
-
 ## Tidyverse - many packages that make your life easier 
 
 When you load the package "tidyverse", it tells you that it loaded many others (packages from the uni*verse* **tidy**)
@@ -619,3 +621,15 @@ ggplot(GrowthMeasureStats, aes(
 	- [Tidyverse](https://dplyr.tidyverse.org/)
 	- [R official](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html)
 	- [Genomics class](https://genomicsclass.github.io/book/pages/dplyr_tutorial.html)
+
+## Code from class - tuesday's group
+
+1. [Copy the code from this link](./exampleData/script_class2t.R)
+
+OR
+
+2. Run the code below
+
+```{.r}
+source("https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class2t.R")
+```

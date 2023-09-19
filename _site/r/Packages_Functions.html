@@ -459,14 +459,16 @@ Karen Cristine Goncalves, Ph.D.
 <span id="cb3-10"><a href="#cb3-10"></a><span class="cf">for</span> (curPkg <span class="cf">in</span> pkgs) <span class="fu">library</span>(curPkg, <span class="at">character.only =</span> T) </span>
 <span id="cb3-11"><a href="#cb3-11"></a><span class="co"># curPkg is a variable that takes the value of each element in pkgs</span></span>
 <span id="cb3-12"><a href="#cb3-12"></a><span class="co"># Every time the function library() is run, curPkg changes value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li><code>for</code> is a function that will repeat what you ask for everything in the group you give it. <br>Eg: every PhD candidate has to defend their theses:</li>
-</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="for-loop" class="slide level2">
+<h2>for loop</h2>
+<p><code>for</code> is a function that will repeat what you ask for everything in the group you give it. <br>Eg: every PhD candidate has to defend their theses:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>candidates <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Serge"</span>, <span class="st">"Fadoua"</span>, <span class="st">"Arghavan"</span>, <span class="st">"Snehi"</span>, <span class="st">"Basanta"</span>, <span class="st">"Sajjad"</span>, <span class="st">"Mahsa"</span>, <span class="st">"Archana"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="cf">for</span> (phd <span class="cf">in</span> candidates) { <span class="fu">thesisDefense</span>(phd) }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="cf">for</span> (phd <span class="cf">in</span> candidates) { <span class="fu">thesisDefense</span>(phd) }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="tidyverse---many-packages-that-make-your-life-easier" class="slide level2">
 <h2>Tidyverse - many packages that make your life easier</h2>
@@ -1092,6 +1094,17 @@ Karen Cristine Goncalves, Ph.D.
 <li><a href="https://genomicsclass.github.io/book/pages/dplyr_tutorial.html">Genomics class</a></li>
 </ul></li>
 </ul>
+</section>
+<section id="code-from-class---tuesdays-group" class="slide level2">
+<h2>Code from class - tuesday’s group</h2>
+<ol type="1">
+<li><a href="./exampleData/script_class2t.R">Copy the code from this link</a></li>
+</ol>
+<p>OR</p>
+<ol start="2" type="1">
+<li>Run the code below</li>
+</ol>
+<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">source</span>(<span class="st">"https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class2t.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="footer footer-default">
 
 </div>
