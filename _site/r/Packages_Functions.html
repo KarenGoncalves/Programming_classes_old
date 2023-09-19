@@ -459,7 +459,6 @@ Karen Cristine Goncalves, Ph.D.
 <span id="cb3-10"><a href="#cb3-10"></a><span class="cf">for</span> (curPkg <span class="cf">in</span> pkgs) <span class="fu">library</span>(curPkg, <span class="at">character.only =</span> T) </span>
 <span id="cb3-11"><a href="#cb3-11"></a><span class="co"># curPkg is a variable that takes the value of each element in pkgs</span></span>
 <span id="cb3-12"><a href="#cb3-12"></a><span class="co"># Every time the function library() is run, curPkg changes value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>…</p>
 <ul>
 <li><code>for</code> is a function that will repeat what you ask for everything in the group you give it. <br>Eg: every PhD candidate has to defend their theses:</li>
 </ul>
@@ -538,7 +537,7 @@ Karen Cristine Goncalves, Ph.D.
 </div>
 </div>
 <div id="tabset-2-3">
-<p>Using pipe, you can see the progression of the pipeline, eg.: <br><code>{.r} bachelor("Karen") %&gt;% phd() %&gt;% postdoc</code> <br>instead of <br><code>{.r} postdoc(phd(bachelor("Karen")))</code></p>
+<p>Using pipe, you can see the progression of the pipeline, eg.: <br><code>bachelor("Karen") %&gt;% phd() %&gt;% postdoc</code> <br>instead of <br><code>postdoc(phd(bachelor("Karen")))</code></p>
 <p>Basically, the first function written is the first one used, not the last.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># You can also use a pipe ( %&gt;% )</span></span>

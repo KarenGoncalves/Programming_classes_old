@@ -96,9 +96,6 @@ for (curPkg in pkgs) library(curPkg, character.only = T)
 ```
 
 
-...
-
-
 - `for` is a function that will repeat what you ask for everything in the group you give it. <br>Eg: every PhD candidate has to defend their theses: 
 
 ```{.r}
@@ -159,7 +156,7 @@ str(read.delim(myFile))
 
 # Solution 2
 
-Using pipe, you can see the progression of the pipeline, eg.: <br>`{.r} bachelor("Karen") %>% phd() %>% postdoc` <br>instead of <br>`{.r} postdoc(phd(bachelor("Karen")))`
+Using pipe, you can see the progression of the pipeline, eg.: <br>`bachelor("Karen") %>% phd() %>% postdoc` <br>instead of <br>`postdoc(phd(bachelor("Karen")))`
 
 Basically, the first function written is the first one used, not the last.
 
