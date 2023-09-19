@@ -323,20 +323,20 @@ Let's split the values from "Replicates" using str_split from stringr
 # pattern is what separates (_)
 # i is the part that we want to see: Control_1 has 2 pieces, i=1 returns "Control"
 
-longDataTreaments = longData %>%
+longDataTreatments = longData %>%
 	mutate(Treatment = str_split_i(Replicates, pattern = "_", i = 1))
 
-str(longDataTreaments)
+str(longDataTreatments)
 ```
 
 # Plot
 
 ```{r}
-longDataTreaments %>%
+longDataTreatments %>%
 	ggplot(aes(x = Treatment, y = Measurements, fill = Measured)) +
 	geom_boxplot()
 
-longDataTreaments %>%
+longDataTreatments %>%
 	ggplot(aes(x = Measured, y = Measurements, fill = Treatment)) +
 	geom_boxplot()
 ```

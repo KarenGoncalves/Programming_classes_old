@@ -728,10 +728,10 @@ Karen Cristine Goncalves, Ph.D.
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># pattern is what separates (_)</span></span>
 <span id="cb22-2"><a href="#cb22-2"></a><span class="co"># i is the part that we want to see: Control_1 has 2 pieces, i=1 returns "Control"</span></span>
 <span id="cb22-3"><a href="#cb22-3"></a></span>
-<span id="cb22-4"><a href="#cb22-4"></a>longDataTreaments <span class="ot">=</span> longData <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a>longDataTreatments <span class="ot">=</span> longData <span class="sc">%&gt;%</span></span>
 <span id="cb22-5"><a href="#cb22-5"></a>    <span class="fu">mutate</span>(<span class="at">Treatment =</span> <span class="fu">str_split_i</span>(Replicates, <span class="at">pattern =</span> <span class="st">"_"</span>, <span class="at">i =</span> <span class="dv">1</span>))</span>
 <span id="cb22-6"><a href="#cb22-6"></a></span>
-<span id="cb22-7"><a href="#cb22-7"></a><span class="fu">str</span>(longDataTreaments)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="fu">str</span>(longDataTreatments)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [48 × 4] (S3: tbl_df/tbl/data.frame)
  $ Measured    : chr [1:48] "A" "A" "A" "A" ...
@@ -743,13 +743,13 @@ Karen Cristine Goncalves, Ph.D.
 </div>
 <div id="tabset-5-4">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>longDataTreaments <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>longDataTreatments <span class="sc">%&gt;%</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Treatment, <span class="at">y =</span> Measurements, <span class="at">fill =</span> Measured)) <span class="sc">+</span></span>
 <span id="cb24-3"><a href="#cb24-3"></a>    <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img data-src="Packages_Functions_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>longDataTreaments <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>longDataTreatments <span class="sc">%&gt;%</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Measured, <span class="at">y =</span> Measurements, <span class="at">fill =</span> Treatment)) <span class="sc">+</span></span>
 <span id="cb25-3"><a href="#cb25-3"></a>    <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
