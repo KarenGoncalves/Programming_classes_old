@@ -9,7 +9,7 @@ format:
     theme: dark
     scrollable: true
 author: "Karen Cristine Goncalves, Ph.D."
-date: "August 2023"
+date: "September 2023"
 incremental: false
 echo: true
 message: false
@@ -127,11 +127,18 @@ When you load the package "tidyverse", it tells you that it loaded many others (
 4. Programming
 	- purrr: functional programming in R ([cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/purrr.pdf))
 
-## Pipe
+## Pipe (`|>` or `%>%`)
 
 Think of the pipe as a tube connecting two functions. When the first function is done, instead of presenting its output, you use it to start a new function.
 
 - Eg. To start a postdoc, I had to finish my Ph.D:  `phd("Karen") %>% postdoc`
+
+:::{.callout-note}
+If you use `|>`, you need to put the parenthesis in the function in front of it. Meaning:
+
+- `phd("Karen") %>% postdoc` works same as `phd("Karen") %>% postdoc()` and `phd("Karen") |> postdoc()`
+- `phd("Karen") |> postdoc` does not work
+:::
 
 Let's say you just want to check if R will read your file right or if you need to add more things to it before really working on the file.
 
@@ -172,6 +179,24 @@ read.delim(myFile) %>% str
 :::
 
 
+## `readxl` package - open excel files
+
+Part of the `tidyverse` package
+
+Allows you to:
+
+- Check the names of the sheets of an excel file: `excel_sheets(MY_EXCEL_FILE)`
+- Read sheets of an excel file as tibbles (a type of data.frame): 
+	- `read_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET)`
+	- You can specify what defines NA: `read_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET, na = ".")`
+	- Instead of `header = T`, you use `col_names = T`
+	- You can specify the number of rows to skip in the beginning with `skip = N`
+	- You can specify the number of rows to read with `n_max = N`
+	- You can specify which cols and rows to read with `range = "H40:T80"`
+		- If `range` is specified, `skip` and `n_max` are ignored
+		- You can include the name of the sheet: `range = "MY_SHEET!H40:T80"`
+			- <span style="color: red">SHEET</span><span style="color: blue"> EXCLAMATION_POINT </span><span style="color: cyan">CELL_RANGE
+			
 ## ggplot2
 
 

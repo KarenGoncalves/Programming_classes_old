@@ -1,0 +1,77 @@
+---
+title: "Regex and tests"
+fontsize: 1.5em
+linkcolor: grey
+callout-appearance: simple
+format: 
+  revealjs:
+    transition: none
+    theme: dark
+    scrollable: true
+author: "Karen Cristine Goncalves, Ph.D."
+date: "September 2023"
+incremental: false
+echo: true
+message: false
+warning: false
+slide-number: true
+---
+
+```{r, include=F}
+options(repos="https://cran.rstudio.com/")
+library(tidyverse)
+
+pkgs = c("tidyverse")
+pkgs.To.Install = ! pkgs %in% installed.packages()
+if (any(pkgs.To.Install)) install.packages(pkgs[pkgs.To.Install])
+for (curPkg in pkgs) library(curPkg, character.only = T) 
+```
+
+## `readxl` package - open excel files
+
+Part of the `tidyverse` package
+
+Allows you to:
+
+- Check the names of the sheets of an excel file: `excel_sheets(MY_EXCEL_FILE)`
+- Read sheets of an excel file as tibbles (a type of data.frame): 
+	- `read_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET)`
+	- You can specify what defines NA: `read_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET, na = ".")`
+	- Instead of `header = T`, you use `col_names = T`
+	- You can specify the number of rows to skip in the beginning with `skip = N`
+	- You can specify the number of rows to read with `n_max = N`
+	- You can specify which cols and rows to read with `range = "H40:T80"`
+		- If `range` is specified, `skip` and `n_max` are ignored
+		- You can include the name of the sheet: `range = "MY_SHEET!H40:T80"`
+			- <span style="color: red">SHEET</span><span style="color: cyan"> EXCLAMATION_POINT </span><span style="color: yellow">CELL_RANGE
+
+
+## Regular expressions (Regex)
+
+These are ways to search text without writing the explicitly what you are searching. 
+
+This allows you to search for multiple texts at the same time, or to search for something without knowing how it is written exactly
+
+- Patterns (what to search)
+	- any digit: `"\\d"` 
+	- any word character (letters, _, digits): `"\\w"` 
+	- any character (including special symbols and space): `"."`
+	- If you want to create your set of characters allowed in the pattern, just use `[]`
+		- I want to search only uppercase letters: `"[A-Z]"`
+		- Special symbols: `"[\\.\\*\\-]"` (put two backslashes `\\` before the symbol)
+
+- Quantifiers (how many times the pattern occurs)
+	- Specific number of times: `A{X}`, where X is the number of times A appears
+	- Between X and Y times: `e{X,Y}`, e appears at least X times, at most Y times (_in tandem_)
+	- At least X times, but can be more: `T{X,}` (nothing after the "," means INFINITY)
+	- At least once, but can be more: `N+`
+	- May not appear, may appear multiple times: `C*`
+
+- Anchors
+	- Text MUST start with the pattern "ATG": `"^ATG"` (start pattern with `^`)
+	- Transcript must end with stop codon: `"T[GA][GA]$"` (end pattern with `$`)
+
+
+
+
+
