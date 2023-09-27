@@ -1,0 +1,19 @@
+project: 
+  type: website
+  render:
+    - "*.qmd"
+    - "*.rmd"
+    - "r/*.qmd"
+    - "unix/.Rmd"
+website:
+  title: "Programming classes"
+  navbar:
+    background: primary
+    left:
+      - useful_unix.qmd
+    right:
+      - href: https://karengoncalves.github.io/Karen/
+        text: Karen Goncalves
+format:
+  html:
+    theme: darkly
