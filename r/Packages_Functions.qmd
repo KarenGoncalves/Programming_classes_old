@@ -118,6 +118,9 @@ candidates = c("Serge", "Fadoua", "Arghavan",
 for (phd in candidates) { thesisDefense(phd) }
 ```
 
+:::
+
+:::{.fragment fragment-index=2}
 
 ```{r}
 # To see an output, we would have to either print it or create an object to save it
@@ -128,7 +131,7 @@ defenseResults
 
 :::
 
-:::{.fragment fragment-index=2}
+:::{.fragment fragment-index=3}
 
 - `apply` functions
 	- Similar to `for`, but generates an output
