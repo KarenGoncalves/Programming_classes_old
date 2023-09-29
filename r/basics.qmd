@@ -47,7 +47,7 @@ data.frame(badNames, explanation, goodNames) %>%
 		format = "html", 
 		col.names = c("Bad names", "Why?", "Good names"), 
 		caption = "Give meaningful names to your variables, or else you may not remember what they are when you read the script later ") %>% 
-	kableExtra::kable_minimal()
+	kableExtra::kable_classic(lightable_options = "hover")
 
 ```
 
@@ -350,7 +350,7 @@ cheat_sheet[-1,] %>%
 	kableExtra::kable(
 		format = "html", 
 		col.names = colNames, row.names = F) %>% 
-	kableExtra::kable_minimal()
+	kableExtra::kable_classic(lightable_options = "hover")
 
 ```
 

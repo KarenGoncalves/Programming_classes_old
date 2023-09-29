@@ -98,15 +98,35 @@ for (curPkg in pkgs) library(curPkg, character.only = T)
 
 :::
 
-## for loop
+## loops
 
-`for` is a function that will repeat what you ask for everything in the group you give it. <br>Eg: every PhD candidate has to defend their theses: 
+- `for` 
+	- Function that will repeat what you ask for everything in the group you give it. <br>Eg: every PhD candidate has to defend their theses: 	- Useful when you do not want to save the results or when you need to save separated objects for each elements in the loop (each candidate below)
+- `apply` functions
+	- Similar to `for`, but generates an output
+	- Useful when you want a single output for each element of the loop
+	- Several options: `apply`, `sapply`, `lapply`, `mapply`, `vapply`
+```{r}
+# Let's create the function "thesisDefense"
+thesisDefense = function(x) {return(paste("Ph.D.", x))}
+```
 
-```{.r}
-candidates = c("Serge", "Fadoua", "Arghavan", "Snehi", "Basanta", "Sajjad", "Mahsa", "Archana")
+```{r}
+candidates = c("Serge", "Fadoua", "Arghavan", 
+	       "Snehi", "Basanta", "Sajjad", 
+	       "Mahsa", "Archana")
 
 for (phd in candidates) { thesisDefense(phd) }
 ```
+
+```{r}
+
+defenseResults = sapply(candidates, \(phd) thesisDefense(phd) )
+
+defenseResults
+```
+
+
 	
 ## Tidyverse - many packages that make your life easier 
 
