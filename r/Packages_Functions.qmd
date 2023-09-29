@@ -1,6 +1,6 @@
 ---
 title: "R class - packages and functions"
-fontsize: 1.5em
+fontsize: 1.25em
 linkcolor: grey
 callout-appearance: simple
 format: 
@@ -146,7 +146,7 @@ Let's say you just want to check if R will read your file right or if you need t
 
 # Exercise
 
-Run the function `str` on your input file or on the <a style="color: red" href="https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt">example from Class 0</a>
+Run the function `str` on your input file or on the <a style="color: red" href="exampleData/Class1_exampleData.txt">example from Class 0</a>
 
 
 :::{.callout-tip}
@@ -155,9 +155,16 @@ You can load files from the internet without needing to download them to your co
 
 # Solution 1
 
-```{r}
+```{.r}
 # You could first put the path to the file in a variable, it would make things easier
 myFile = "https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt"
+
+str(read.delim(myFile))
+
+```
+
+```{r, echo = F}
+myFile = "exampleData/Class1_exampleData.txt"
 
 str(read.delim(myFile))
 
@@ -169,11 +176,17 @@ Using pipe, you can see the progression of the pipeline, eg.: <br>`bachelor("Kar
 
 Basically, the first function written is the first one used, not the last.
 
-```{r}
+```{.r}
 # You can also use a pipe ( %>% )
 myFile = "https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt"
 
 read.delim(myFile) %>% str
+```
+```{r, echo = F}
+myFile = "exampleData/Class1_exampleData.txt"
+
+read.delim(myFile) %>% str
+
 ```
 
 :::
@@ -314,9 +327,15 @@ In the example dataset, the names of the groups are in the middle not specified,
 :::{.panel-tabset}
 
 # Input data
-```{r}
+```{.r}
 myFile = "https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt"
+```
+```{r, echo = F}
+myFile = "exampleData/Class1_exampleData.txt"
+```
 
+
+```{r}
 rawData = read.delim(myFile)
 names(rawData)
 
@@ -559,15 +578,15 @@ We will use the [time series data](exampleData/TimeSeries_example.csv)
 ```{.r code-line-numbers="|1-3|4-5"}
 # Load the data
 timeSeries = read.csv("karengoncalves.github.io/ProgrammingClasses/r/exampleData/TimeSeries_example.csv", row.names = 1)
-str(timeSeries)
-# Let's add a column indicating the time points
-timeSeries$TimePoint = paste0("T", 1:nrow(timeSeries))
 ```
-
 ```{r, echo = F}
 timeSeries = read.csv("exampleData/TimeSeries_example.csv", row.names = 1)
-str(timeSeries)
+```
 
+
+```{r}
+str(timeSeries)
+# Let's add a column indicating the time points
 timeSeries$TimePoint = paste0("T", 1:nrow(timeSeries))
 ```
 

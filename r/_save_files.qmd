@@ -1,0 +1,28 @@
+---
+title: "Untitled"
+---
+
+```{r}
+library(tidyverse)
+write.table(
+	read.delim("exampleData/Class1_exampleData.txt"),
+	file = "exampleData/Class1_exampleData.txt",
+	row.names = T, col.names = T, append = F, sep = "\t"
+)
+
+write.table(
+	read.delim("exampleData/TimeSeries_example.csv"),
+	file = "exampleData/TimeSeries_example.csv",
+	row.names = T, col.names = T, append = F, sep = ","
+)
+
+readLines("exampleData/script_class1f.R") %>% 
+	writeLines("exampleData/script_class1f.R", sep = "\n")
+
+readLines("exampleData/script_class1t.R") %>% 
+	writeLines("exampleData/script_class1t.R", sep = "\n")
+
+readLines("exampleData/script_class2t.R") %>% 
+	writeLines("exampleData/script_class2t.R", sep = "\n")
+```
+

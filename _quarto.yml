@@ -1,5 +1,13 @@
 project: 
   type: website
+  resources:
+    - "*/exampleData/*csv"
+    - "*/exampleData/*tsv"
+    - "*/exampleData/*txt"
+    - "*/exampleData/*xlsx"
+    - "*/media/*mp4"
+    - "*/media/*png"
+    - "*/media/*jpg"
   render:
     - "*.qmd"
     - "*.rmd"
