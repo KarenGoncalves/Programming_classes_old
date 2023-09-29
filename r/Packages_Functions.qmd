@@ -100,33 +100,49 @@ for (curPkg in pkgs) library(curPkg, character.only = T)
 
 ## loops
 
+Let's create a function and a vector of elements that we will use in the function
+
+```{r}
+thesisDefense = function(x) {return(paste("Ph.D.", x))}
+candidates = c("Serge", "Fadoua", "Arghavan", 
+	       "Snehi", "Basanta", "Sajjad", 
+	       "Mahsa", "Archana")
+```
+
+:::{.fragment fragment-index=1}
+
 - `for` 
 	- Function that will repeat what you ask for everything in the group you give it. <br>Eg: every PhD candidate has to defend their theses: 	- Useful when you do not want to save the results or when you need to save separated objects for each elements in the loop (each candidate below)
+
+```{r}
+for (phd in candidates) { thesisDefense(phd) }
+```
+
+
+```{r}
+# To see an output, we would have to either print it or create an object to save it
+defenseResults = c()
+for (phd in candidates) { defenseResults[phd] = thesisDefense(phd) }
+defenseResults
+```
+
+:::
+
+:::{.fragment fragment-index=2}
+
 - `apply` functions
 	- Similar to `for`, but generates an output
 	- Useful when you want a single output for each element of the loop
 	- Several options: `apply`, `sapply`, `lapply`, `mapply`, `vapply`
+	
 ```{r}
-# Let's create the function "thesisDefense"
-thesisDefense = function(x) {return(paste("Ph.D.", x))}
-```
-
-```{r}
-candidates = c("Serge", "Fadoua", "Arghavan", 
-	       "Snehi", "Basanta", "Sajjad", 
-	       "Mahsa", "Archana")
-
-for (phd in candidates) { thesisDefense(phd) }
-```
-
-```{r}
+#| output-location: fragment
 
 defenseResults = sapply(candidates, \(phd) thesisDefense(phd) )
 
 defenseResults
 ```
-
-
+:::
 	
 ## Tidyverse - many packages that make your life easier 
 
