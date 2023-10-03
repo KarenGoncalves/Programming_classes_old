@@ -707,7 +707,8 @@ ggplot(GrowthMeasureStats, aes(
 
 ## Code from class - tuesday's group
 
-1. [Copy the code from this link](./exampleData/script_class2t.R)
+1. [September 19th](./exampleData/script_class2t.R)
+2. [October 3rd](./exampleData/script_class2tuesday.R)
 
 OR
 
