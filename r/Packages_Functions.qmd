@@ -716,4 +716,5 @@ OR
 
 ```{.r}
 source("https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class2t.R")
+source("https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class2tuesday.R")
 ```
