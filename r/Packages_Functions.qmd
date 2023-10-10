@@ -705,16 +705,17 @@ ggplot(GrowthMeasureStats, aes(
 	- [R official](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html)
 	- [Genomics class](https://genomicsclass.github.io/book/pages/dplyr_tutorial.html)
 
-## Code from class - tuesday's group
+## Code from class
+
+Tuesdays group
 
 1. [September 19th](./exampleData/script_class2t.R)
+2. [September 19th (2)](./exampleData/class_19092023.R)
 2. [October 3rd](./exampleData/script_class2tuesday.R)
+3. [October 10th](./exampleData/class_10102023.R)
 
-OR
+Fridays group
 
-2. Run the code below
-
-```{.r}
-source("https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class2t.R")
-source("https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class2tuesday.R")
-```
+1. [September 15th](./exampleData/script_class1f.R)
+2. [September 29th](./exampleData/class_29092023.R)
+3. [October 6th](./exampleData/class_06102023.R)
