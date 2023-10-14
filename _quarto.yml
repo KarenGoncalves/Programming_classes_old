@@ -19,6 +19,7 @@ website:
     background: primary
     left:
       - useful_unix.qmd
+      - useful_R.qmd
     right:
       - href: https://karengoncalves.github.io/Karen/
         text: Karen Goncalves

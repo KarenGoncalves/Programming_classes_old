@@ -1,0 +1,113 @@
+---
+title: "Useful R  commands"
+author: "Karen Goncalves"
+callout-appearance: simple
+format: 
+  html:
+    toc: true
+---
+
+
+## `readxl` package - open excel files
+
+Part of the `tidyverse` package
+
+Allows you to:
+
+- Check the names of the sheets of an excel file: `excel_sheets(MY_EXCEL_FILE)`
+- Read sheets of an excel file as tibbles (a type of data.frame): 
+	- `read_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET)`
+	- You can specify what defines NA: `read_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET, na = ".")`
+	- Instead of `header = T`, you use `col_names = T`
+	- You can specify the number of rows to skip in the beginning with `skip = N`
+	- You can specify the number of rows to read with `n_max = N`
+	- You can specify which cols and rows to read with `range = "H40:T80"`
+		- If `range` is specified, `skip` and `n_max` are ignored
+		- You can include the name of the sheet: `range = "MY_SHEET!H40:T80"`
+			- <span style="color: red">SHEET</span><span style="color: cyan"> EXCLAMATION_POINT </span><span style="color: yellow">CELL_RANGE
+
+
+## Regular expressions (Regex)
+
+These are ways to search text without writing the explicitly what you are searching. 
+
+This allows you to search for multiple texts at the same time, or to search for something without knowing how it is written exactly
+
+- Patterns (what to search)
+	- any digit: `"\\d"` 
+	- any word character (letters, _, digits): `"\\w"` 
+	- any character (including special symbols and space): `"."`
+	- If you want to create your set of characters allowed in the pattern, just use `[]`
+		- I want to search only uppercase letters: `"[A-Z]"`
+		- Special symbols: `"[\\.\\*\\-]"` (put two backslashes `\\` before the symbol)
+
+- Quantifiers (how many times the pattern occurs)
+	- Specific number of times: `A{X}`, where X is the number of times A appears
+	- Between X and Y times: `e{X,Y}`, e appears at least X times, at most Y times (_in tandem_)
+	- At least X times, but can be more: `T{X,}` (nothing after the "," means INFINITY)
+	- At least once, but can be more: `N+`
+	- May not appear, may appear multiple times: `C*`
+
+- Anchors
+	- Text MUST start with the pattern "ATG": `"^ATG"` (start pattern with `^`)
+	- Transcript must end with stop codon: `"T[GA][GA]$"` (end pattern with `$`)
+
+## Split strings (text)
+
+Use symbol or letter to split a text into a vector (similar to excel's "text to columns" command)
+
+Example: arabidopsis genes are named as "AT" chromosome number "G" gene number. So we can separate the gene number from the chromosome number using "G" as the pattern/split.
+
+:::{.panel-tabset}
+# Basic r: `strsplit(x, split)`
+
+- `x` is a character vector
+- `split` is the symbol/letter that will be used to separate the text
+- The result is a list. If `x` has 10 elements, the resulting list will have also 10 elements, each one a character vector.
+
+```{r}
+Arabidopsis_Genes = c("AT1G01020", "AT1G01030","AT1G01040")
+
+# With strsplit and str_split, in each list, the chromosome number is the first element, the gene number is the second
+strsplit(x = Arabidopsis_Genes, split = 'G')
+```
+
+# `stringr` package: 
+
+- `str_split` - same as basic r command `strsplit`, `x` is called `string` and `split` is called `pattern`
+
+```{r}
+Arabidopsis_Genes = c("AT1G01020", "AT1G01030","AT1G01040")
+library(stringr)
+str_split(string = Arabidopsis_Genes, pattern = "G")
+```
+
+- `str_split_1` - string has to be a character vector of size 1
+
+```{r}
+Arabidopsis_Genes = c("AT1G01020", "AT1G01030","AT1G01040")
+
+# str_split_1 accepts only one element at a time
+# The result is the same as str_split(string = Arabidopsis_Genes, pattern = "G")[[1]]
+str_split_1(string = Arabidopsis_Genes[1], pattern = "G")
+```
+
+
+- `str_split_fixed(string, pattern, n)` - similar to `str_split`, but the result is a matrix (vector with columns and rows). You need to specify `n`, the max number of pieces to return for each string from the input
+
+```{r}
+Arabidopsis_Genes = c("AT1G01020", "AT1G01030","AT1G01040")
+# str_split_fixed returns a matrix with nrow == length(string) and ncol == n
+str_split_fixed(string = Arabidopsis_Genes, pattern = "G", n = 2)
+```
+
+
+- `str_split_i(string, pattern, i)` - similar to `str_split_fixed`, but `i` is used to specify which column we want to keep from the matrix.
+```{r}
+Arabidopsis_Genes = c("AT1G01020", "AT1G01030","AT1G01040")
+# With str_split_i, you specify which part of the string you want to keep after the split
+# If we want to keep just the gene number in this case, we select the second part, the one that comes after "G"
+str_split_i(string = Arabidopsis_Genes, pattern = "G", i = 2)
+```
+
+:::
