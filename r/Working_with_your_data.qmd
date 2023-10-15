@@ -96,7 +96,8 @@ for (curPkg in pkgs) library(curPkg, character.only = T)
 ElisaFile = "Inputs/ELISA_YFP_Cys & YPF clones_EF20230330.xls"
 columnNames = c("chlorophyll_pos", "YFP_pos", "Mean_YFP_pos")
 colors = c("black", "blue", "forestgreen",
-	   "red", "magenta", "orange") # six colors for the six technical replicates
+	   "red", "magenta", "orange") # six 
+	   colors for the six technical replicates
 chlorophyll_threshold = 75 # Minimum % of chlorophyll positive cells (decided by data provider - Elisa)
 sheetsElisa = excel_sheets(ElisaFile) # List of sheet names
 ```
