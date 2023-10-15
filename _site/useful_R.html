@@ -95,6 +95,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 </head>
 
@@ -145,9 +148,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#readxl-package---open-excel-files" id="toc-readxl-package---open-excel-files" class="nav-link active" data-scroll-target="#readxl-package---open-excel-files"><code>readxl</code> package - open excel files</a></li>
+  <li><a href="#get-help" id="toc-get-help" class="nav-link active" data-scroll-target="#get-help">Get help</a></li>
+  <li><a href="#create-sequences" id="toc-create-sequences" class="nav-link" data-scroll-target="#create-sequences">Create sequences</a></li>
+  <li><a href="#repeat-rep" id="toc-repeat-rep" class="nav-link" data-scroll-target="#repeat-rep">Repeat <code>rep</code></a></li>
+  <li><a href="#overview-data" id="toc-overview-data" class="nav-link" data-scroll-target="#overview-data">Overview data</a></li>
+  <li><a href="#read.xxx" id="toc-read.xxx" class="nav-link" data-scroll-target="#read.xxx"><code>read.XXX</code></a></li>
+  <li><a href="#objects-in-r-environment" id="toc-objects-in-r-environment" class="nav-link" data-scroll-target="#objects-in-r-environment">Objects in R environment</a></li>
+  <li><a href="#install-and-load-packages" id="toc-install-and-load-packages" class="nav-link" data-scroll-target="#install-and-load-packages">Install and load packages</a></li>
+  <li><a href="#working-with-text" id="toc-working-with-text" class="nav-link" data-scroll-target="#working-with-text">Working with text</a>
+  <ul class="collapse">
   <li><a href="#regular-expressions-regex" id="toc-regular-expressions-regex" class="nav-link" data-scroll-target="#regular-expressions-regex">Regular expressions (Regex)</a></li>
   <li><a href="#split-strings-text" id="toc-split-strings-text" class="nav-link" data-scroll-target="#split-strings-text">Split strings (text)</a></li>
+  <li><a href="#search-for-word-or-pattern-grep-and-grepl" id="toc-search-for-word-or-pattern-grep-and-grepl" class="nav-link" data-scroll-target="#search-for-word-or-pattern-grep-and-grepl">Search for word or pattern: grep and grepl</a></li>
+  </ul></li>
+  <li><a href="#read-excel-spreadsheets" id="toc-read-excel-spreadsheets" class="nav-link" data-scroll-target="#read-excel-spreadsheets">Read excel spreadsheets</a></li>
   </ul>
 </nav>
     </div>
@@ -177,32 +191,270 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="readxl-package---open-excel-files" class="level2">
-<h2 class="anchored" data-anchor-id="readxl-package---open-excel-files"><code>readxl</code> package - open excel files</h2>
-<p>Part of the <code>tidyverse</code> package</p>
-<p>Allows you to:</p>
+<section id="get-help" class="level2">
+<h2 class="anchored" data-anchor-id="get-help">Get help</h2>
+<p>You can get help about a package or function with the function <code>help()</code>. Just put the quoted name of the package/function inside the parenthesis.</p>
+<p>You can also just use a question mark in front of the package/function name (no quote needed in this case)</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(<span class="st">"grep"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>?grepl</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(<span class="st">"stats"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>?base</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="create-sequences" class="level2">
+<h2 class="anchored" data-anchor-id="create-sequences">Create sequences</h2>
+<p>Use the command <code>seq</code> to get a sequence of numbers. You can specify the interval between every number shown. The function is writen as: <code>seq(FROM, TO, INTERVAL)</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1.0 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 2.0</code></pre>
+</div>
+</div>
+<p>If you want to see every integer between two numbers you can use <code>:</code> or you can omit the interval in the <code>seq</code> command.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get very integer between 0 and 10</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  0  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span><span class="sc">:</span><span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  0  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get every integer between 0 and 10 in decreasing order</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 10  9  8  7  6  5  4  3  2  1  0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">:</span><span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 10  9  8  7  6  5  4  3  2  1  0</code></pre>
+</div>
+</div>
+</section>
+<section id="repeat-rep" class="level2">
+<h2 class="anchored" data-anchor-id="repeat-rep">Repeat <code>rep</code></h2>
+<p>Syntax: <code>rep(X, TIMES, EACH)</code></p>
 <ul>
-<li>Check the names of the sheets of an excel file: <code>excel_sheets(MY_EXCEL_FILE)</code></li>
-<li>Read sheets of an excel file as tibbles (a type of data.frame):
+<li>X - what you want to repeat: vector of characters, numbers or logical (T/F)</li>
+<li>TIMES: repeat how many times</li>
+<li>EACH: if there is more than one element in WHAT, you repeat the first, then the second…</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># repeat X (1 in this case) 4 times</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 1 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># repeat X (vector c(1, 2)) 4 times</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 1 2 1 2 1 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># repeat the elements of the input 4 times each</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">each =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 1 1 2 2 2 2</code></pre>
+</div>
+</div>
+</section>
+<section id="overview-data" class="level2">
+<h2 class="anchored" data-anchor-id="overview-data">Overview data</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true"><code>str</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><code>head</code> or <code>tail</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false"><code>summary</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Dimensions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>See data structure. Shows number of rows and columns in a data frame, classes of the columns, first few elements of each column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   150 obs. of  5 variables:
+ $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>You can add the option “max.level = X” if you know the object is nested (list inside of list inside of list) so that you don’t print too many nested levels.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Shows the beginning or the end of an object (you can specify the number of lines printed with <code>n = X</code>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris, <span class="at">n =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+7          4.6         3.4          1.4         0.3  setosa</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(iris, <span class="at">n =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+148          6.5         3.0          5.2         2.0 virginica
+149          6.2         3.4          5.4         2.3 virginica
+150          5.9         3.0          5.1         1.8 virginica</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>Print column-wise info about data frames, shows relevant data from tests, such as <code>aov</code> or t.test.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+ Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+ 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+ Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+ Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+ 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+ Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+       Species  
+ setosa    :50  
+ versicolor:50  
+ virginica :50  
+                
+                
+                </code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <ul>
-<li><code>read_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET)</code></li>
-<li>You can specify what defines NA: <code>read_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET, na = ".")</code></li>
-<li>Instead of <code>header = T</code>, you use <code>col_names = T</code></li>
-<li>You can specify the number of rows to skip in the beginning with <code>skip = N</code></li>
-<li>You can specify the number of rows to read with <code>n_max = N</code></li>
-<li>You can specify which cols and rows to read with <code>range = "H40:T80"</code>
+<li><code>dim(x)</code>
 <ul>
-<li>If <code>range</code> is specified, <code>skip</code> and <code>n_max</code> are ignored</li>
-<li>You can include the name of the sheet: <code>range = "MY_SHEET!H40:T80"</code>
-<ul>
-<li><span style="color: red">SHEET</span><span style="color: cyan"> EXCLAMATION_POINT </span><span style="color: yellow">CELL_RANGE</span></li>
+<li>Dimensions of a dataset: For a data frame it is c(1, 2), for a vector it is c(1). -<code>length(x)</code></li>
+<li>number of elements in a vector, or columns in a data frame or elements in a list</li>
 </ul></li>
+<li><code>ncol</code> or <code>nrow</code>
+<ul>
+<li>number of columns/rows in a data frame</li>
 </ul></li>
+<li><code>names</code>
+<ul>
+<li>Names of columns of a data frame</li>
+<li>Names of objects in a named list or named vector</li>
 </ul></li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 150   5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(iris[,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 150</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 150</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>my_numbers <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>; <span class="fu">names</span>(my_numbers) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(my_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "A" "B" "C"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="regular-expressions-regex" class="level2">
-<h2 class="anchored" data-anchor-id="regular-expressions-regex">Regular expressions (Regex)</h2>
+<section id="read.xxx" class="level2">
+<h2 class="anchored" data-anchor-id="read.xxx"><code>read.XXX</code></h2>
+<div class="cell-output-display">
+<table class="lightable-material-dark lightable-hover table" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Column separation</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Decimal separation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">read.csv</td>
+<td style="text-align: left;">sep = ","</td>
+<td style="text-align: left;">dec = "."</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">read.csv2</td>
+<td style="text-align: left;">sep = ";"</td>
+<td style="text-align: left;">dec = ","</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">read.delim</td>
+<td style="text-align: left;">sep = "\t" (tab)</td>
+<td style="text-align: left;">dec = "."</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">read.delim2</td>
+<td style="text-align: left;">sep = "\t" (tab)</td>
+<td style="text-align: left;">dec = ","</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</section>
+<section id="objects-in-r-environment" class="level2">
+<h2 class="anchored" data-anchor-id="objects-in-r-environment">Objects in R environment</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check what you have in the environment</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "caption"         "cheat_sheet"     "colNames"        "has_annotations"
+[5] "my_numbers"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove an object from the environment</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="st">"cheat_sheet"</span>); <span class="fu">ls</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "caption"         "colNames"        "has_annotations" "my_numbers"     </code></pre>
+</div>
+</div>
+</section>
+<section id="install-and-load-packages" class="level2">
+<h2 class="anchored" data-anchor-id="install-and-load-packages">Install and load packages</h2>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Names of packages installed:</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(<span class="fu">installed.packages</span>())</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Install a package</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load a package into the R session</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="co"># OR</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>myPackage <span class="ot">=</span> <span class="st">"tidyverse"</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(myPackage, <span class="at">character.only =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="working-with-text" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-text">Working with text</h2>
+<section id="regular-expressions-regex" class="level3">
+<h3 class="anchored" data-anchor-id="regular-expressions-regex">Regular expressions (Regex)</h3>
 <p>These are ways to search text without writing the explicitly what you are searching.</p>
 <p>This allows you to search for multiple texts at the same time, or to search for something without knowing how it is written exactly</p>
 <ul>
@@ -232,24 +484,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 </section>
-<section id="split-strings-text" class="level2">
-<h2 class="anchored" data-anchor-id="split-strings-text">Split strings (text)</h2>
+<section id="split-strings-text" class="level3">
+<h3 class="anchored" data-anchor-id="split-strings-text">Split strings (text)</h3>
 <p>Use symbol or letter to split a text into a vector (similar to excel’s “text to columns” command)</p>
 <p>Example: arabidopsis genes are named as “AT” chromosome number “G” gene number. So we can separate the gene number from the chromosome number using “G” as the pattern/split.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Basic r: <code>strsplit(x, split)</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><code>stringr</code> package:</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Basic r: <code>strsplit(x, split)</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false"><code>stringr</code> package:</a></li></ul>
 <div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <ul>
 <li><code>x</code> is a character vector</li>
 <li><code>split</code> is the symbol/letter that will be used to separate the text</li>
 <li>The result is a list. If <code>x</code> has 10 elements, the resulting list will have also 10 elements, each one a character vector.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Arabidopsis_Genes <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AT1G01020"</span>, <span class="st">"AT1G01030"</span>,<span class="st">"AT1G01040"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># With strsplit and str_split, in each list, the chromosome number is the first element, the gene number is the second</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="at">x =</span> Arabidopsis_Genes, <span class="at">split =</span> <span class="st">'G'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>Arabidopsis_Genes <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AT1G01020"</span>, <span class="st">"AT1G01030"</span>,<span class="st">"AT1G01040"</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># With strsplit and str_split, in each list, the chromosome number is the first element, the gene number is the second</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="at">x =</span> Arabidopsis_Genes, <span class="at">split =</span> <span class="st">'G'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] "AT1"   "01020"
@@ -262,14 +514,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <ul>
 <li><code>str_split</code> - same as basic r command <code>strsplit</code>, <code>x</code> is called <code>string</code> and <code>split</code> is called <code>pattern</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Arabidopsis_Genes <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AT1G01020"</span>, <span class="st">"AT1G01030"</span>,<span class="st">"AT1G01040"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split</span>(<span class="at">string =</span> Arabidopsis_Genes, <span class="at">pattern =</span> <span class="st">"G"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>Arabidopsis_Genes <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AT1G01020"</span>, <span class="st">"AT1G01030"</span>,<span class="st">"AT1G01040"</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split</span>(<span class="at">string =</span> Arabidopsis_Genes, <span class="at">pattern =</span> <span class="st">"G"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] "AT1"   "01020"
@@ -285,11 +537,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>str_split_1</code> - string has to be a character vector of size 1</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Arabidopsis_Genes <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AT1G01020"</span>, <span class="st">"AT1G01030"</span>,<span class="st">"AT1G01040"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># str_split_1 accepts only one element at a time</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The result is the same as str_split(string = Arabidopsis_Genes, pattern = "G")[[1]]</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split_1</span>(<span class="at">string =</span> Arabidopsis_Genes[<span class="dv">1</span>], <span class="at">pattern =</span> <span class="st">"G"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>Arabidopsis_Genes <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AT1G01020"</span>, <span class="st">"AT1G01030"</span>,<span class="st">"AT1G01040"</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># str_split_1 accepts only one element at a time</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The result is the same as str_split(string = Arabidopsis_Genes, pattern = "G")[[1]]</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split_1</span>(<span class="at">string =</span> Arabidopsis_Genes[<span class="dv">1</span>], <span class="at">pattern =</span> <span class="st">"G"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "AT1"   "01020"</code></pre>
 </div>
@@ -298,9 +550,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>str_split_fixed(string, pattern, n)</code> - similar to <code>str_split</code>, but the result is a matrix (vector with columns and rows). You need to specify <code>n</code>, the max number of pieces to return for each string from the input</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Arabidopsis_Genes <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AT1G01020"</span>, <span class="st">"AT1G01030"</span>,<span class="st">"AT1G01040"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># str_split_fixed returns a matrix with nrow == length(string) and ncol == n</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split_fixed</span>(<span class="at">string =</span> Arabidopsis_Genes, <span class="at">pattern =</span> <span class="st">"G"</span>, <span class="at">n =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>Arabidopsis_Genes <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AT1G01020"</span>, <span class="st">"AT1G01030"</span>,<span class="st">"AT1G01040"</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="co"># str_split_fixed returns a matrix with nrow == length(string) and ncol == n</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split_fixed</span>(<span class="at">string =</span> Arabidopsis_Genes, <span class="at">pattern =</span> <span class="st">"G"</span>, <span class="at">n =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]  [,2]   
 [1,] "AT1" "01020"
@@ -312,10 +564,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>str_split_i(string, pattern, i)</code> - similar to <code>str_split_fixed</code>, but <code>i</code> is used to specify which column we want to keep from the matrix.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Arabidopsis_Genes <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AT1G01020"</span>, <span class="st">"AT1G01030"</span>,<span class="st">"AT1G01040"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># With str_split_i, you specify which part of the string you want to keep after the split</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If we want to keep just the gene number in this case, we select the second part, the one that comes after "G"</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split_i</span>(<span class="at">string =</span> Arabidopsis_Genes, <span class="at">pattern =</span> <span class="st">"G"</span>, <span class="at">i =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>Arabidopsis_Genes <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AT1G01020"</span>, <span class="st">"AT1G01030"</span>,<span class="st">"AT1G01040"</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co"># With str_split_i, you specify which part of the string you want to keep after the split</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If we want to keep just the gene number in this case, we select the second part, the one that comes after "G"</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split_i</span>(<span class="at">string =</span> Arabidopsis_Genes, <span class="at">pattern =</span> <span class="st">"G"</span>, <span class="at">i =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "01020" "01030" "01040"</code></pre>
 </div>
@@ -323,6 +575,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="search-for-word-or-pattern-grep-and-grepl" class="level3">
+<h3 class="anchored" data-anchor-id="search-for-word-or-pattern-grep-and-grepl">Search for word or pattern: grep and grepl</h3>
+<p>Both are similar to “CTRL+F”, but have some extra capabilities.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Basic command</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Specifics</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p><code>grep(pattern, x, fixed = F)</code> where</p>
+<ul>
+<li><code>pattern</code> is the word of Regex to search</li>
+<li><code>x</code> is the character vector or even data.frame in which you are searching</li>
+<li>If <code>fixed</code> is omitted or F, search will allow regex, else it will take patterns as literal words (meaning \w will match only \w, not “any letter, number or _“)</li>
+</ul>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p><code>grep</code> result is either a vector with the index of the match:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>names_students <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Fadoua"</span>, <span class="st">"Arghavan"</span>, <span class="st">"Serge"</span>, <span class="st">"Snehi"</span>, <span class="st">"Valeria"</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span>(<span class="st">"a"</span>, names_students)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The result is c(1, 2, 5), because the names containing the letter "a" are the 1st, 2nd and 5th elements of the input </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can ask <code>grep</code> to return the matches instead of their indices by adding <code>value = T</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>names_students <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Fadoua"</span>, <span class="st">"Arghavan"</span>, <span class="st">"Serge"</span>, <span class="st">"Snehi"</span>, <span class="st">"Valeria"</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span>(<span class="st">"a"</span>, names_students, <span class="at">value =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Fadoua"   "Arghavan" "Valeria" </code></pre>
+</div>
+</div>
+<p><code>grepl</code> returns a vector of the same size as the input with only TRUE or FALSE</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>names_students <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Fadoua"</span>, <span class="st">"Arghavan"</span>, <span class="st">"Serge"</span>, <span class="st">"Snehi"</span>, <span class="st">"Valeria"</span>)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">"a"</span>, names_students)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE  TRUE FALSE FALSE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Because the question asked is "is the letter "a" in element1, element2... you cannot use the argument `value = T`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="read-excel-spreadsheets" class="level2">
+<h2 class="anchored" data-anchor-id="read-excel-spreadsheets">Read excel spreadsheets</h2>
+<p><code>readxl</code> package - Part of the <code>tidyverse</code> package</p>
+<p>Allows you to:</p>
+<ul>
+<li>Check the names of the sheets of an excel file: <code>excel_sheets(MY_EXCEL_FILE)</code></li>
+<li>Read sheets of an excel file as tibbles (a type of data.frame):
+<ul>
+<li><code>read_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET)</code></li>
+<li>You can specify what defines NA: <code>read_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET, na = ".")</code></li>
+<li>Instead of <code>header = T</code>, you use <code>col_names = T</code></li>
+<li>You can specify the number of rows to skip in the beginning with <code>skip = N</code></li>
+<li>You can specify the number of rows to read with <code>n_max = N</code></li>
+<li>You can specify which cols and rows to read with <code>range = "H40:T80"</code>
+<ul>
+<li>If <code>range</code> is specified, <code>skip</code> and <code>n_max</code> are ignored</li>
+<li>You can include the name of the sheet: <code>range = "MY_SHEET!H40:T80"</code>
+<ul>
+<li><span style="color: red">SHEET</span><span style="color: cyan"> EXCLAMATION_POINT </span><span style="color: yellow">CELL_RANGE</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 
 
 </section>
