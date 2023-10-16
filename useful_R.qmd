@@ -22,7 +22,11 @@ help("stats")
 ?base
 ```
 
-## Create sequences
+## Sequences and repetitions
+
+:::{.panel-tabset}
+
+# `seq`
 
 Use the command `seq` to get a sequence of numbers. You can specify the interval between every number shown. The function is writen as:
 `seq(FROM, TO, INTERVAL)`
@@ -44,7 +48,7 @@ seq(10, 0)
 10:0
 ```
 
-## Repeat `rep`
+# `rep`
 
 Syntax: `rep(X, TIMES, EACH)`
 
@@ -62,6 +66,8 @@ rep(c(1, 2), 4)
 # repeat the elements of the input 4 times each
 rep(c(1, 2), each = 4)
 ```
+
+:::
 
 ## Overview data
 
@@ -149,6 +155,70 @@ cheat_sheet[-1,] %>%
 	kableExtra::kable_material_dark(lightable_options = "hover", html_font = "arial-narrow")
 
 ```
+
+## Numeric data summary
+
+:::{.panel-tabset}
+
+# Sum, mean and median
+
+You can obtain the sum, mean and median by calling the functions `sum()`, `mean()`, `median()`, respectively. You need to include `na.rm=T` to obtain the estimate when you have missing values in the data.
+
+```{r}
+numeric_vector = c(iris$Sepal.Length, NA, NA)
+sum(numeric_vector)
+sum(numeric_vector, na.rm = T)
+median(numeric_vector)
+median(numeric_vector, na.rm = T)
+mean(numeric_vector)
+mean(numeric_vector, na.rm = T)
+```
+
+# Standard deviation, variance and interquantile range
+
+For the data dispersion, you can use the functions `sd()` (standard deviation), `var()` (variance) and `IQR()` (interquantile range). Remember to use `na.rm=T`.
+
+:::{.callout-note}
+# Variance calculation
+
+Variance = $\sum$ $( x - mean )^2$  / _N_
+
+Where 
+
+- _x_ is each and every value of the input vector
+- _mean_ is the mean of the input vector
+- _N_ is the length of the input vector 
+:::
+
+:::{.callout-note}
+# Standard deviation calculation
+
+Std.Dev = $\sqrt{Variance}$
+:::
+
+:::{.callout-note}
+# Interquantile range calculation
+`IQR(x) = quantile(x, 3/4) - quantile(x, 1/4)`
+
+:::
+
+```{r}
+numeric_vector = c(iris$Sepal.Length, NA, NA)
+sd(numeric_vector)
+sd(numeric_vector, na.rm = T)
+var(numeric_vector)
+var(numeric_vector, na.rm = T)
+#IQR(numeric_vector) Not accepted when there are NA values
+IQR(numeric_vector, na.rm = T)
+```
+:::
+
+### Column-wise and row-wise summaries
+
+You can calculate the sum and mean for each row/column of a numeric data frame with the functions:
+
+- Sum: `colSums` and `rowSums`/`rowsum`
+- Mean: `colMeans` and `rowMeans`
 
 ## Objects in R environment
 

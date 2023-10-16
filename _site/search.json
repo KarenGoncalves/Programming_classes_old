@@ -346,8 +346,8 @@
     "objectID": "r/Working_with_your_data.html#datasets-and-scripts",
     "href": "r/Working_with_your_data.html#datasets-and-scripts",
     "title": "Working with your data - Elisa",
-    "section": "Datasets and scripts",
-    "text": "Datasets and scripts\n\nGo to the github page to get the scripts and datasets: github.com/KarenGoncalves/R_class_examples\n\nExcel files need to be downloaded into your computer to be read by R\n\nDownload the scripts. We will go through them and you can add comments and run new commands to test the script and dataset.\n\n\n\n\n\n\n\nFor all datasets, we will use the packages tidyverse and readxl"
+    "section": "",
+    "text": "Go to the github page to get the scripts and datasets: github.com/KarenGoncalves/R_class_examples\n\nExcel files need to be downloaded into your computer to be read by R\n\nDownload the scripts. We will go through them and you can add comments and run new commands to test the script and dataset.\n\n\n\n\n\n\n\nFor all datasets, we will use the packages tidyverse and readxl"
   },
   {
     "objectID": "r/Working_with_your_data.html#correcting-original-dataset",
@@ -375,7 +375,7 @@
     "href": "r/Working_with_your_data.html#set-basic-variables",
     "title": "Working with your data - Elisa",
     "section": "Set basic variables",
-    "text": "Set basic variables\n\nGet script here\nGet data here and save it in your project folder as Inputs/ELISA_YFP_Cys & YPF clones_EF20230330.xls”\n\n#### Set basic variables ####\n# Set the name of the input file and\nElisaFile = \"Inputs/ELISA_YFP_Cys & YPF clones_EF20230330.xls\"\ncolumnNames = c(\"chlorophyll_pos\", \"YFP_pos\", \"Mean_YFP_pos\")\ncolors = c(\"black\", \"blue\", \"forestgreen\",\n       \"red\", \"magenta\", \"orange\") # six colors for the six technical replicates\nchlorophyll_threshold = 75 # Minimum % of chlorophyll positive cells (decided by data provider - Elisa)\nsheetsElisa = excel_sheets(ElisaFile) # List of sheet names"
+    "text": "Set basic variables\n\nGet script here\nGet data here and save it in your project folder as Inputs/ELISA_YFP_Cys & YPF clones_EF20230330.xls”\n\n#### Set basic variables ####\n# Set the name of the input file and\nElisaFile = \"Inputs/ELISA_YFP_Cys & YPF clones_EF20230330.xls\"\ncolumnNames = c(\"chlorophyll_pos\", \"YFP_pos\", \"Mean_YFP_pos\")\ncolors = c(\"black\", \"blue\", \"forestgreen\",\n       \"red\", \"magenta\", \"orange\") # six \n       colors for the six technical replicates\nchlorophyll_threshold = 75 # Minimum % of chlorophyll positive cells (decided by data provider - Elisa)\nsheetsElisa = excel_sheets(ElisaFile) # List of sheet names"
   },
   {
     "objectID": "r/Working_with_your_data.html#read-the-excel-file",
@@ -487,7 +487,7 @@
     "href": "useful_R.html#objects-in-r-environment",
     "title": "Useful R commands",
     "section": "Objects in R environment",
-    "text": "Objects in R environment\n\n# Check what you have in the environment\nls()\n\n[1] \"caption\"         \"cheat_sheet\"     \"colNames\"        \"has_annotations\"\n[5] \"my_numbers\"     \n\n# remove an object from the environment\nrm(\"cheat_sheet\"); ls()\n\n[1] \"caption\"         \"colNames\"        \"has_annotations\" \"my_numbers\""
+    "text": "Objects in R environment\n\n# Check what you have in the environment\nls()\n\n[1] \"caption\"         \"cheat_sheet\"     \"colNames\"        \"has_annotations\"\n[5] \"my_numbers\"      \"numeric_vector\" \n\n# remove an object from the environment\nrm(\"cheat_sheet\"); ls()\n\n[1] \"caption\"         \"colNames\"        \"has_annotations\" \"my_numbers\"     \n[5] \"numeric_vector\""
   },
   {
     "objectID": "useful_R.html#read-excel-spreadsheets",
@@ -495,5 +495,26 @@
     "title": "Useful R commands",
     "section": "Read excel spreadsheets",
     "text": "Read excel spreadsheets\nreadxl package - Part of the tidyverse package\nAllows you to:\n\nCheck the names of the sheets of an excel file: excel_sheets(MY_EXCEL_FILE)\nRead sheets of an excel file as tibbles (a type of data.frame):\n\nread_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET)\nYou can specify what defines NA: read_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET, na = \".\")\nInstead of header = T, you use col_names = T\nYou can specify the number of rows to skip in the beginning with skip = N\nYou can specify the number of rows to read with n_max = N\nYou can specify which cols and rows to read with range = \"H40:T80\"\n\nIf range is specified, skip and n_max are ignored\nYou can include the name of the sheet: range = \"MY_SHEET!H40:T80\"\n\nSHEET EXCLAMATION_POINT CELL_RANGE"
+  },
+  {
+    "objectID": "useful_R.html#sequences-and-repetitions",
+    "href": "useful_R.html#sequences-and-repetitions",
+    "title": "Useful R commands",
+    "section": "Sequences and repetitions",
+    "text": "Sequences and repetitions\n\nseqrep\n\n\nUse the command seq to get a sequence of numbers. You can specify the interval between every number shown. The function is writen as: seq(FROM, TO, INTERVAL)\n\nseq(1, 2, 0.1)\n\n [1] 1.0 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 2.0\n\n\nIf you want to see every integer between two numbers you can use : or you can omit the interval in the seq command.\n\n# Get very integer between 0 and 10\nseq(0, 10)\n\n [1]  0  1  2  3  4  5  6  7  8  9 10\n\n0:10\n\n [1]  0  1  2  3  4  5  6  7  8  9 10\n\n# Get every integer between 0 and 10 in decreasing order\nseq(10, 0)\n\n [1] 10  9  8  7  6  5  4  3  2  1  0\n\n10:0\n\n [1] 10  9  8  7  6  5  4  3  2  1  0\n\n\n\n\nSyntax: rep(X, TIMES, EACH)\n\nX - what you want to repeat: vector of characters, numbers or logical (T/F)\nTIMES: repeat how many times\nEACH: if there is more than one element in WHAT, you repeat the first, then the second…\n\n\n# repeat X (1 in this case) 4 times\nrep(1, 4)\n\n[1] 1 1 1 1\n\n# repeat X (vector c(1, 2)) 4 times\nrep(c(1, 2), 4)\n\n[1] 1 2 1 2 1 2 1 2\n\n# repeat the elements of the input 4 times each\nrep(c(1, 2), each = 4)\n\n[1] 1 1 1 1 2 2 2 2"
+  },
+  {
+    "objectID": "useful_R.html#numeric-data-summary",
+    "href": "useful_R.html#numeric-data-summary",
+    "title": "Useful R commands",
+    "section": "Numeric data summary",
+    "text": "Numeric data summary\n\nSum, mean and medianStandard deviation, variance and interquantile range\n\n\nYou can obtain the sum, mean and median by calling the functions sum(), mean(), median(), respectively. You need to include na.rm=T to obtain the estimate when you have missing values in the data.\n\nnumeric_vector = c(iris$Sepal.Length, NA, NA)\nsum(numeric_vector)\n\n[1] NA\n\nsum(numeric_vector, na.rm = T)\n\n[1] 876.5\n\nmedian(numeric_vector)\n\n[1] NA\n\nmedian(numeric_vector, na.rm = T)\n\n[1] 5.8\n\nmean(numeric_vector)\n\n[1] NA\n\nmean(numeric_vector, na.rm = T)\n\n[1] 5.843333\n\n\n\n\nFor the data dispersion, you can use the functions sd() (standard deviation), var() (variance) and IQR() (interquantile range). Remember to use na.rm=T.\n\n\n\n\n\n\nVariance calculation\n\n\n\nVariance = \\(\\sum\\) \\(( x - mean )^2\\) / N\nWhere\n\nx is each and every value of the input vector\nmean is the mean of the input vector\nN is the length of the input vector\n\n\n\n\n\n\n\n\n\nStandard deviation calculation\n\n\n\nStd.Dev = \\(\\sqrt{Variance}\\)\n\n\n\n\n\n\n\n\nInterquantile range calculation\n\n\n\nIQR(x) = quantile(x, 3/4) - quantile(x, 1/4)\n\n\n\nnumeric_vector = c(iris$Sepal.Length, NA, NA)\nsd(numeric_vector)\n\n[1] NA\n\nsd(numeric_vector, na.rm = T)\n\n[1] 0.8280661\n\nvar(numeric_vector)\n\n[1] NA\n\nvar(numeric_vector, na.rm = T)\n\n[1] 0.6856935\n\n#IQR(numeric_vector) Not accepted when there are NA values\nIQR(numeric_vector, na.rm = T)\n\n[1] 1.3\n\n\n\n\n\n\nColumn-wise and row-wise summaries\nYou can calculate the sum and mean for each row/column of a numeric data frame with the functions:\n\nSum: colSums and rowSums/rowsum\nMean: colMeans and rowMeans"
+  },
+  {
+    "objectID": "r/Working_with_your_data.html",
+    "href": "r/Working_with_your_data.html",
+    "title": "Working with your data - Elisa",
+    "section": "",
+    "text": "Go to the github page to get the scripts and datasets: github.com/KarenGoncalves/R_class_examples\n\nExcel files need to be downloaded into your computer to be read by R\n\nDownload the scripts. We will go through them and you can add comments and run new commands to test the script and dataset.\n\n\n\n\n\n\n\nFor all datasets, we will use the packages tidyverse and readxl"
   }
 ]
