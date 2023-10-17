@@ -612,7 +612,7 @@ We will use the [time series data](exampleData/TimeSeries_example.csv)
 
 ```{.r}
 # Load the data
-timeSeries.File = "karengoncalves.github.io/ProgrammingClasses/r/exampleData/TimeSeries_example.csv"
+timeSeries.File = "karengoncalves.github.io/Programming_classes/r/exampleData/TimeSeries_example.csv"
 timeSeries = read.csv(timeSeries.File, row.names = 1)
 ```
 
@@ -655,8 +655,6 @@ head(timeSeriesLong)
 ggplot(timeSeriesLong) +
 	geom_line(aes(x = TimePoint, y = Growth_measure, 
 		      group = Treatment, 
-		      #' this is important
-		      #' repeat this code without this line to see why
 		      color = Treatment)) +
 	scale_x_continuous(breaks = 1:12)
 ```
@@ -686,7 +684,6 @@ See that we set "ymin" and "ymax". If you have standard deviation for the x-axis
 # We put inside ggplot() what is common to all layers
 p1 = ggplot(GrowthMeasureStats, 
        aes(x = TimePoint, 
-           group = Treatment, 
            color = Treatment)) +
 	geom_line(aes(y = Mean)) 
 p1 
@@ -744,6 +741,7 @@ Tuesdays group
 2. [September 19th (2)](./exampleData/class_19092023.R)
 2. [October 3rd](./exampleData/script_class2tuesday.R)
 3. [October 10th](./exampleData/class_10102023.R)
+3. [October 17th](./exampleData/class_17102023.R)
 
 Fridays group
 

@@ -1066,7 +1066,7 @@ Karen Cristine Goncalves, Ph.D.
 <div id="tabset-8-1">
 <p>We will use the <a href="exampleData/TimeSeries_example.csv">time series data</a></p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co"># Load the data</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a>timeSeries.File <span class="ot">=</span> <span class="st">"karengoncalves.github.io/ProgrammingClasses/r/exampleData/TimeSeries_example.csv"</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>timeSeries.File <span class="ot">=</span> <span class="st">"karengoncalves.github.io/Programming_classes/r/exampleData/TimeSeries_example.csv"</span></span>
 <span id="cb40-3"><a href="#cb40-3"></a>timeSeries <span class="ot">=</span> <span class="fu">read.csv</span>(timeSeries.File, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">str</span>(timeSeries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1122,10 +1122,8 @@ Karen Cristine Goncalves, Ph.D.
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">ggplot</span>(timeSeriesLong) <span class="sc">+</span></span>
 <span id="cb46-2"><a href="#cb46-2"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> TimePoint, <span class="at">y =</span> Growth_measure, </span>
 <span id="cb46-3"><a href="#cb46-3"></a>              <span class="at">group =</span> Treatment, </span>
-<span id="cb46-4"><a href="#cb46-4"></a>              <span class="co">#' this is important</span></span>
-<span id="cb46-5"><a href="#cb46-5"></a>              <span class="co">#' repeat this code without this line to see why</span></span>
-<span id="cb46-6"><a href="#cb46-6"></a>              <span class="at">color =</span> Treatment)) <span class="sc">+</span></span>
-<span id="cb46-7"><a href="#cb46-7"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-4"><a href="#cb46-4"></a>              <span class="at">color =</span> Treatment)) <span class="sc">+</span></span>
+<span id="cb46-5"><a href="#cb46-5"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img data-src="Packages_Functions_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
 </div>
@@ -1150,10 +1148,9 @@ Karen Cristine Goncalves, Ph.D.
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="co"># We put inside ggplot() what is common to all layers</span></span>
 <span id="cb48-2"><a href="#cb48-2"></a>p1 <span class="ot">=</span> <span class="fu">ggplot</span>(GrowthMeasureStats, </span>
 <span id="cb48-3"><a href="#cb48-3"></a>       <span class="fu">aes</span>(<span class="at">x =</span> TimePoint, </span>
-<span id="cb48-4"><a href="#cb48-4"></a>           <span class="at">group =</span> Treatment, </span>
-<span id="cb48-5"><a href="#cb48-5"></a>           <span class="at">color =</span> Treatment)) <span class="sc">+</span></span>
-<span id="cb48-6"><a href="#cb48-6"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Mean)) </span>
-<span id="cb48-7"><a href="#cb48-7"></a>p1 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb48-4"><a href="#cb48-4"></a>           <span class="at">color =</span> Treatment)) <span class="sc">+</span></span>
+<span id="cb48-5"><a href="#cb48-5"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Mean)) </span>
+<span id="cb48-6"><a href="#cb48-6"></a>p1 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img data-src="Packages_Functions_files/figure-revealjs/unnamed-chunk-30-1.png" width="960"></p>
 </div>
@@ -1212,7 +1209,7 @@ F-statistic:  9800 on 5 and 102 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre><code>package 'lsmeans' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-    C:\Users\karen\AppData\Local\Temp\RtmpY3jFu2\downloaded_packages</code></pre>
+    C:\Users\karen\AppData\Local\Temp\Rtmp6JoW4X\downloaded_packages</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1265,6 +1262,7 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <li><a href="./exampleData/class_19092023.R">September 19th (2)</a></li>
 <li><a href="./exampleData/script_class2tuesday.R">October 3rd</a></li>
 <li><a href="./exampleData/class_10102023.R">October 10th</a></li>
+<li><a href="./exampleData/class_17102023.R">October 17th</a></li>
 </ol>
 <p>Fridays group</p>
 <ol type="1">
