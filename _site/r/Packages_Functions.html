@@ -1040,10 +1040,6 @@ Karen Cristine Goncalves, Ph.D.
 <ul>
 <li>Visualize data <strong>across time</strong> - points are connected because they are the same sample at different times.</li>
 </ul>
-<div class="panel-tabset">
-<ul id="tabset-9" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-9-1">Simple</a></li><li><a href="#tabset-9-2">Advanced</a></li></ul>
-<div class="tab-content">
-<div id="tabset-9-1">
 <p>Let’s say we want to see how the labs of 2 PIs have grown across the years and compare the two.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="co"># Let's create a time series to plot</span></span>
@@ -1059,78 +1055,91 @@ Karen Cristine Goncalves, Ph.D.
 <span id="cb39-11"><a href="#cb39-11"></a><span class="fu">ggplot</span>(LabSize.Long, </span>
 <span id="cb39-12"><a href="#cb39-12"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> LabMembers, <span class="at">color =</span> PI)) <span class="sc">+</span></span>
 <span id="cb39-13"><a href="#cb39-13"></a>    <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img data-src="Packages_Functions_files/figure-revealjs/unnamed-chunk-24-1.png" width="960"></p>
+
 </div>
-</div>
-</div>
-<div id="tabset-9-2">
+<img data-src="Packages_Functions_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" class="r-stretch"></section>
+<section id="advanced-line-graph" class="slide level2">
+<h2>Advanced line graph</h2>
 <div class="panel-tabset">
-<ul id="tabset-8" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-8-1">Input</a></li><li><a href="#tabset-8-2">Prepare the data</a></li><li><a href="#tabset-8-3">Calculate stats</a></li><li><a href="#tabset-8-4">Line chart</a></li><li><a href="#tabset-8-5">Line chart with error bars</a></li></ul>
+<ul id="tabset-8" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-8-1">Input</a></li><li><a href="#tabset-8-2">Prepare the data</a></li><li><a href="#tabset-8-3">Line chart</a></li><li><a href="#tabset-8-4">Calculate stats</a></li><li><a href="#tabset-8-5">Line chart with error bars</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1">
 <p>We will use the <a href="exampleData/TimeSeries_example.csv">time series data</a></p>
-<div class="sourceCode" id="cb40" data-code-line-numbers="|1-3|4-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co"># Load the data</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a>timeSeries <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"karengoncalves.github.io/ProgrammingClasses/r/exampleData/TimeSeries_example.csv"</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co"># Load the data</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>timeSeries.File <span class="ot">=</span> <span class="st">"karengoncalves.github.io/ProgrammingClasses/r/exampleData/TimeSeries_example.csv"</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a>timeSeries <span class="ot">=</span> <span class="fu">read.csv</span>(timeSeries.File, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">str</span>(timeSeries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   12 obs. of  1 variable:
- $ X.Control_3.Control_2.Control_1.TreatmentA_1.TreatmentA_2.TreatmentA_3.TreatmentB_3.TreatmentB_2.TreatmentB_1: chr  "1,1,1,1,1,1,1,1,Day_1,0,0,0,0,0,0,0,0,0" "2,2,2,2,2,2,2,2,Day_2,1.96,2.04,2,2.94,3,3.06,1.53,1.47,1.5" "3,3,3,3,3,3,3,3,Day_3,3.98,4.02,4,6.03,6,5.97,3,2.985,3.015" "4,4,4,4,4,4,4,4,Day_4,6.18,6,5.82,8.73,9.27,9,4.5,4.365,4.635" ...</code></pre>
+<pre><code>'data.frame':   12 obs. of  10 variables:
+ $ X           : chr  "Day_1" "Day_2" "Day_3" "Day_4" ...
+ $ Control_3   : num  0 1.96 3.98 6.18 7.52 ...
+ $ Control_2   : num  0 2.04 4.02 6 8 ...
+ $ Control_1   : num  0 2 4 5.82 8.48 ...
+ $ TreatmentA_1: num  0 2.94 6.03 8.73 12 ...
+ $ TreatmentA_2: num  0 3 6 9.27 11.28 ...
+ $ TreatmentA_3: num  0 3.06 5.97 9 12.72 ...
+ $ TreatmentB_3: num  0 1.53 3 4.5 6.36 ...
+ $ TreatmentB_2: num  0 1.47 2.98 4.37 5.64 ...
+ $ TreatmentB_1: num  0 1.5 3.02 4.63 6 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="co"># Let's add a column indicating the time points</span></span>
-<span id="cb43-2"><a href="#cb43-2"></a>timeSeries<span class="sc">$</span>TimePoint <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"T"</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(timeSeries))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="co"># Let's rename the first column that indicate the time points</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="fu">names</span>(timeSeries)[<span class="dv">1</span>] <span class="ot">=</span> <span class="st">"TimePoint"</span> </span>
+<span id="cb43-3"><a href="#cb43-3"></a>timeSeries<span class="sc">$</span>TimePoint <span class="ot">=</span> </span>
+<span id="cb43-4"><a href="#cb43-4"></a>    <span class="fu">gsub</span>(<span class="st">"Day_"</span>, <span class="st">""</span>, timeSeries<span class="sc">$</span>TimePoint) <span class="sc">|&gt;</span></span>
+<span id="cb43-5"><a href="#cb43-5"></a>    <span class="fu">as.numeric</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-8-2">
 <p>Let’s transform the data to format long and add a column with the name of the treatment group</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>timeSeriesLong <span class="ot">=</span> <span class="fu">pivot_longer</span>(</span>
-<span id="cb44-2"><a href="#cb44-2"></a>    timeSeries,</span>
-<span id="cb44-3"><a href="#cb44-3"></a>    <span class="at">cols =</span> <span class="sc">!</span>TimePoint,</span>
-<span id="cb44-4"><a href="#cb44-4"></a>    <span class="at">names_to =</span> <span class="st">"Replicates"</span>,</span>
-<span id="cb44-5"><a href="#cb44-5"></a>    <span class="at">values_to =</span> <span class="st">"Growth_measure"</span></span>
-<span id="cb44-6"><a href="#cb44-6"></a>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Treatment =</span> <span class="fu">str_split_i</span>(Replicates, <span class="at">pattern =</span> <span class="st">"_"</span>, <span class="at">i =</span> <span class="dv">1</span>))</span>
-<span id="cb44-7"><a href="#cb44-7"></a></span>
-<span id="cb44-8"><a href="#cb44-8"></a><span class="fu">head</span>(timeSeriesLong)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb44-2"><a href="#cb44-2"></a></span>
+<span id="cb44-3"><a href="#cb44-3"></a>timeSeriesLong <span class="ot">=</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb44-4"><a href="#cb44-4"></a>    timeSeries,</span>
+<span id="cb44-5"><a href="#cb44-5"></a>    <span class="at">cols =</span> <span class="sc">!</span>TimePoint, </span>
+<span id="cb44-6"><a href="#cb44-6"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"Treatment"</span>, <span class="st">"Replicates"</span>),</span>
+<span id="cb44-7"><a href="#cb44-7"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span>,</span>
+<span id="cb44-8"><a href="#cb44-8"></a>    <span class="at">values_to =</span> <span class="st">"Growth_measure"</span></span>
+<span id="cb44-9"><a href="#cb44-9"></a>)</span>
+<span id="cb44-10"><a href="#cb44-10"></a></span>
+<span id="cb44-11"><a href="#cb44-11"></a><span class="fu">head</span>(timeSeriesLong)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
-  TimePoint Replicates                                  Growth_measure Treatment
-  &lt;chr&gt;     &lt;chr&gt;                                       &lt;chr&gt;          &lt;chr&gt;    
-1 T1        X.Control_3.Control_2.Control_1.TreatmentA… 1,1,1,1,1,1,1… X.Control
-2 T2        X.Control_3.Control_2.Control_1.TreatmentA… 2,2,2,2,2,2,2… X.Control
-3 T3        X.Control_3.Control_2.Control_1.TreatmentA… 3,3,3,3,3,3,3… X.Control
-4 T4        X.Control_3.Control_2.Control_1.TreatmentA… 4,4,4,4,4,4,4… X.Control
-5 T5        X.Control_3.Control_2.Control_1.TreatmentA… 5,5,5,5,5,5,5… X.Control
-6 T6        X.Control_3.Control_2.Control_1.TreatmentA… 6,6,6,6,6,6,6… X.Control</code></pre>
+  TimePoint Treatment  Replicates Growth_measure
+      &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;               &lt;dbl&gt;
+1         1 Control    3                       0
+2         1 Control    2                       0
+3         1 Control    1                       0
+4         1 TreatmentA 1                       0
+5         1 TreatmentA 2                       0
+6         1 TreatmentA 3                       0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># We need to specify the order of the time points!</span></span>
-<span id="cb46-2"><a href="#cb46-2"></a>timeSeriesLong<span class="sc">$</span>TimePoint <span class="ot">=</span> <span class="fu">factor</span>(timeSeriesLong<span class="sc">$</span>TimePoint,</span>
-<span id="cb46-3"><a href="#cb46-3"></a>                  <span class="at">levels =</span> timeSeries<span class="sc">$</span>TimePoint)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-8-3">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">ggplot</span>(timeSeriesLong) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> TimePoint, <span class="at">y =</span> Growth_measure, </span>
+<span id="cb46-3"><a href="#cb46-3"></a>              <span class="at">group =</span> Treatment, </span>
+<span id="cb46-4"><a href="#cb46-4"></a>              <span class="co">#' this is important</span></span>
+<span id="cb46-5"><a href="#cb46-5"></a>              <span class="co">#' repeat this code without this line to see why</span></span>
+<span id="cb46-6"><a href="#cb46-6"></a>              <span class="at">color =</span> Treatment)) <span class="sc">+</span></span>
+<span id="cb46-7"><a href="#cb46-7"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="Packages_Functions_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
+</div>
+</div>
+</div>
+<div id="tabset-8-4">
 <p>Now let’s create another table with the mean, standard deviation and coefficient of variation of each treatment per time point</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>GrowthMeasureStats <span class="ot">=</span> timeSeriesLong <span class="sc">%&gt;%</span></span>
 <span id="cb47-2"><a href="#cb47-2"></a>    <span class="fu">group_by</span>(Treatment, TimePoint) <span class="sc">%&gt;%</span></span>
 <span id="cb47-3"><a href="#cb47-3"></a>    <span class="fu">summarise</span>(</span>
 <span id="cb47-4"><a href="#cb47-4"></a>        <span class="at">Mean =</span> <span class="fu">mean</span>(Growth_measure),</span>
-<span id="cb47-5"><a href="#cb47-5"></a>        <span class="at">StdEnv =</span> <span class="fu">sd</span>(Growth_measure),</span>
-<span id="cb47-6"><a href="#cb47-6"></a>        <span class="at">CoefVar =</span> <span class="fu">sd</span>(Growth_measure) <span class="sc">/</span> </span>
-<span id="cb47-7"><a href="#cb47-7"></a>            <span class="fu">mean</span>(Growth_measure)</span>
-<span id="cb47-8"><a href="#cb47-8"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div id="tabset-8-4">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">ggplot</span>(GrowthMeasureStats) <span class="sc">+</span></span>
-<span id="cb48-2"><a href="#cb48-2"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> TimePoint, <span class="at">y =</span> Mean, </span>
-<span id="cb48-3"><a href="#cb48-3"></a>              <span class="at">group =</span> Treatment, <span class="co"># this is important, repeat this code without this line to see why</span></span>
-<span id="cb48-4"><a href="#cb48-4"></a>              <span class="at">color =</span> Treatment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img data-src="Packages_Functions_files/figure-revealjs/unnamed-chunk-29-1.png" width="960"></p>
-</div>
+<span id="cb47-5"><a href="#cb47-5"></a>        <span class="at">StdEnv =</span> <span class="fu">sd</span>(Growth_measure)</span>
+<span id="cb47-6"><a href="#cb47-6"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-8-5">
@@ -1138,20 +1147,93 @@ Karen Cristine Goncalves, Ph.D.
 <p>We need to tell it “use this value as maximum and this as minimum”</p>
 <p>See that we set “ymin” and “ymax”. If you have standard deviation for the x-axis, you can add it with “xmin” and “xmax”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="co"># We put inside ggplot() what is common to all layers</span></span>
-<span id="cb49-2"><a href="#cb49-2"></a><span class="fu">ggplot</span>(GrowthMeasureStats, <span class="fu">aes</span>(</span>
-<span id="cb49-3"><a href="#cb49-3"></a>    <span class="at">x =</span> TimePoint, </span>
-<span id="cb49-4"><a href="#cb49-4"></a>    <span class="at">group =</span> Treatment, <span class="co"># this is important, repeat this code without this line to see why</span></span>
-<span id="cb49-5"><a href="#cb49-5"></a>    <span class="at">color =</span> Treatment)) <span class="sc">+</span></span>
-<span id="cb49-6"><a href="#cb49-6"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Mean)) <span class="sc">+</span></span>
-<span id="cb49-7"><a href="#cb49-7"></a>    <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> Mean <span class="sc">-</span> StdEnv,</span>
-<span id="cb49-8"><a href="#cb49-8"></a>              <span class="at">ymax =</span> Mean <span class="sc">+</span> StdEnv),</span>
-<span id="cb49-9"><a href="#cb49-9"></a>              <span class="at">width =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="co"># We put inside ggplot() what is common to all layers</span></span>
+<span id="cb48-2"><a href="#cb48-2"></a>p1 <span class="ot">=</span> <span class="fu">ggplot</span>(GrowthMeasureStats, </span>
+<span id="cb48-3"><a href="#cb48-3"></a>       <span class="fu">aes</span>(<span class="at">x =</span> TimePoint, </span>
+<span id="cb48-4"><a href="#cb48-4"></a>           <span class="at">group =</span> Treatment, </span>
+<span id="cb48-5"><a href="#cb48-5"></a>           <span class="at">color =</span> Treatment)) <span class="sc">+</span></span>
+<span id="cb48-6"><a href="#cb48-6"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Mean)) </span>
+<span id="cb48-7"><a href="#cb48-7"></a>p1 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img data-src="Packages_Functions_files/figure-revealjs/unnamed-chunk-30-1.png" width="960"></p>
 </div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>p1 <span class="sc">+</span> <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> Mean <span class="sc">-</span> StdEnv,</span>
+<span id="cb49-2"><a href="#cb49-2"></a>               <span class="at">ymax =</span> Mean <span class="sc">+</span> StdEnv),</span>
+<span id="cb49-3"><a href="#cb49-3"></a>           <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb49-4"><a href="#cb49-4"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="Packages_Functions_files/figure-revealjs/unnamed-chunk-30-2.png" width="960"></p>
 </div>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="test-if-the-curves-are-different" class="slide level2">
+<h2>Test if the curves are different</h2>
+<div class="panel-tabset">
+<ul id="tabset-9" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-9-1">Linear model (regression)</a></li><li><a href="#tabset-9-2">Check which curves are different</a></li></ul>
+<div class="tab-content">
+<div id="tabset-9-1">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="co"># Create the linear model of Growth_measure ~ TimePoint, adding the Treatment interaction</span></span>
+<span id="cb50-2"><a href="#cb50-2"></a>linear.model <span class="ot">=</span> <span class="fu">lm</span>(Growth_measure <span class="sc">~</span> TimePoint<span class="sc">*</span>Treatment, <span class="at">data =</span> timeSeriesLong)</span>
+<span id="cb50-3"><a href="#cb50-3"></a><span class="fu">summary</span>(linear.model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Growth_measure ~ TimePoint * Treatment, data = timeSeriesLong)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+ -1.80  -0.06   0.00   0.06   1.80 
+
+Coefficients:
+                              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                   -2.00000    0.14189 -14.095  &lt; 2e-16 ***
+TimePoint                      2.00000    0.01928 103.740  &lt; 2e-16 ***
+TreatmentTreatmentA           -1.00000    0.20066  -4.984 2.56e-06 ***
+TreatmentTreatmentB            0.50000    0.20066   2.492   0.0143 *  
+TimePoint:TreatmentTreatmentA  1.00000    0.02726  36.678  &lt; 2e-16 ***
+TimePoint:TreatmentTreatmentB -0.50000    0.02726 -18.339  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.3993 on 102 degrees of freedom
+Multiple R-squared:  0.9979,    Adjusted R-squared:  0.9978 
+F-statistic:  9800 on 5 and 102 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-9-2">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">install.packages</span>(<span class="st">"lsmeans"</span>); <span class="fu">library</span>(<span class="st">"lsmeans"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>package 'lsmeans' successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+    C:\Users\karen\AppData\Local\Temp\RtmpuIWQJq\downloaded_packages</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>linear.model.trends <span class="ot">&lt;-</span> <span class="fu">lstrends</span>(linear.model, <span class="st">"Treatment"</span>, <span class="at">var=</span><span class="st">"TimePoint"</span>)</span>
+<span id="cb54-2"><a href="#cb54-2"></a><span class="fu">summary</span>(linear.model.trends)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Treatment  TimePoint.trend     SE  df lower.CL upper.CL
+ Control                2.0 0.0193 102     1.96     2.04
+ TreatmentA             3.0 0.0193 102     2.96     3.04
+ TreatmentB             1.5 0.0193 102     1.46     1.54
+
+Confidence level used: 0.95 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="fu">pairs</span>(linear.model.trends)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> contrast                estimate     SE  df t.ratio p.value
+ Control - TreatmentA        -1.0 0.0273 102 -36.678  &lt;.0001
+ Control - TreatmentB         0.5 0.0273 102  18.339  &lt;.0001
+ TreatmentA - TreatmentB      1.5 0.0273 102  55.016  &lt;.0001
+
+P value adjustment: tukey method for comparing a family of 3 estimates </code></pre>
 </div>
 </div>
 </div>

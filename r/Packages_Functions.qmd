@@ -583,10 +583,6 @@ Line graph - ```geom_line```
 
 - Visualize data **across time** - points are connected because they are the same sample at different times. 
 
-:::{.panel-tabset}
-
-# Simple
-
 Let's say we want to see how the labs of 2 PIs have grown across the years and compare the two.
 
 ```{r}
@@ -605,7 +601,7 @@ ggplot(LabSize.Long,
 	geom_line()
 ```
 
-# Advanced
+## Advanced line graph
 
 
 :::{.panel-tabset}
@@ -614,19 +610,25 @@ ggplot(LabSize.Long,
 
 We will use the [time series data](exampleData/TimeSeries_example.csv)
 
-```{.r code-line-numbers="|1-3|4-5"}
+```{.r}
 # Load the data
-timeSeries = read.csv("karengoncalves.github.io/ProgrammingClasses/r/exampleData/TimeSeries_example.csv", row.names = 1)
+timeSeries.File = "karengoncalves.github.io/ProgrammingClasses/r/exampleData/TimeSeries_example.csv"
+timeSeries = read.csv(timeSeries.File, row.names = 1)
 ```
+
 ```{r, echo = F}
-timeSeries = read.csv("exampleData/TimeSeries_example.csv", row.names = 1)
+timeSeries = read.csv("exampleData/TimeSeries_example.csv")
 ```
 
 
 ```{r}
 str(timeSeries)
-# Let's add a column indicating the time points
-timeSeries$TimePoint = paste0("T", 1:nrow(timeSeries))
+# Let's rename the first column that indicate the time points
+names(timeSeries)[1] = "TimePoint" 
+timeSeries$TimePoint = 
+	gsub("Day_", "", timeSeries$TimePoint) |>
+	as.numeric()
+
 ```
 
 # Prepare the data
@@ -634,19 +636,29 @@ timeSeries$TimePoint = paste0("T", 1:nrow(timeSeries))
 Let's transform the data to format long and add a column with the name of the treatment group
 
 ```{r}
+library(tidyverse)
 
 timeSeriesLong = pivot_longer(
 	timeSeries,
-	cols = !TimePoint,
-	names_to = "Replicates",
+	cols = !TimePoint, 
+	names_to = c("Treatment", "Replicates"),
+	names_sep = "_",
 	values_to = "Growth_measure"
-) %>% mutate(Treatment = str_split_i(Replicates, pattern = "_", i = 1))
+)
 
 head(timeSeriesLong)	
+```
 
-# We need to specify the order of the time points!
-timeSeriesLong$TimePoint = factor(timeSeriesLong$TimePoint,
-				  levels = timeSeries$TimePoint)
+# Line chart
+
+```{r}
+ggplot(timeSeriesLong) +
+	geom_line(aes(x = TimePoint, y = Growth_measure, 
+		      group = Treatment, 
+		      #' this is important
+		      #' repeat this code without this line to see why
+		      color = Treatment)) +
+	scale_x_continuous(breaks = 1:12)
 ```
 
 # Calculate stats
@@ -659,20 +671,10 @@ GrowthMeasureStats = timeSeriesLong %>%
 	group_by(Treatment, TimePoint) %>%
 	summarise(
 		Mean = mean(Growth_measure),
-		StdEnv = sd(Growth_measure),
-		CoefVar = sd(Growth_measure) / 
-			mean(Growth_measure)
+		StdEnv = sd(Growth_measure)
 	)
 ```
 
-# Line chart
-
-```{r}
-ggplot(GrowthMeasureStats) +
-	geom_line(aes(x = TimePoint, y = Mean, 
-		      group = Treatment, # this is important, repeat this code without this line to see why
-		      color = Treatment))
-```
 # Line chart with error bars
 
 For the error bars, we cannot simply say "here, this is the standard deviation".
@@ -682,17 +684,46 @@ We need to tell it "use this value as maximum and this as minimum"
 See that we set "ymin" and "ymax". If you have standard deviation for the x-axis, you can add it with "xmin" and "xmax".
 ```{r}
 # We put inside ggplot() what is common to all layers
-ggplot(GrowthMeasureStats, aes(
-	x = TimePoint, 
-	group = Treatment, # this is important, repeat this code without this line to see why
-	color = Treatment)) +
-	geom_line(aes(y = Mean)) +
-	geom_errorbar(aes(ymin = Mean - StdEnv,
-			  ymax = Mean + StdEnv),
-			  width = 0.2)
+p1 = ggplot(GrowthMeasureStats, 
+       aes(x = TimePoint, 
+           group = Treatment, 
+           color = Treatment)) +
+	geom_line(aes(y = Mean)) 
+p1 
+
+p1 + geom_errorbar(aes(ymin = Mean - StdEnv,
+		       ymax = Mean + StdEnv),
+		   width = 0.2) +
+	scale_x_continuous(breaks = 1:12)
 ```
 :::
+
+## Test if the curves are different
+
+:::{.panel-tabset}
+
+# Linear model (regression)
+
+```{r}
+# Create the linear model of Growth_measure ~ TimePoint, adding the Treatment interaction
+linear.model = lm(Growth_measure ~ TimePoint*Treatment, data = timeSeriesLong)
+summary(linear.model)
+
+```
+# Check which curves are different
+
+```{r}
+install.packages("lsmeans"); library("lsmeans")
+```
+
+```{r}
+linear.model.trends <- lstrends(linear.model, "Treatment", var="TimePoint")
+summary(linear.model.trends)
+pairs(linear.model.trends)
+```
 :::
+
+
 
 ## References
 
