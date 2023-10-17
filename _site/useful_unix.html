@@ -64,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed">
+<body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -97,6 +97,11 @@ ul.task-list li input[type="checkbox"] {
   </li>  
 </ul>
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -105,9 +110,53 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#basic-concepts" id="toc-basic-concepts" class="nav-link active" data-scroll-target="#basic-concepts">Basic concepts</a></li>
+  <li><a href="#basic-commands" id="toc-basic-commands" class="nav-link" data-scroll-target="#basic-commands">Basic commands</a>
+  <ul class="collapse">
+  <li><a href="#saving-result-to-a-file" id="toc-saving-result-to-a-file" class="nav-link" data-scroll-target="#saving-result-to-a-file">Saving result to a file</a></li>
+  <li><a href="#where-am-i" id="toc-where-am-i" class="nav-link" data-scroll-target="#where-am-i">Where am I?</a></li>
+  <li><a href="#list-files-ls" id="toc-list-files-ls" class="nav-link" data-scroll-target="#list-files-ls">List files : <code>ls</code></a></li>
+  <li><a href="#open-and-read-files-less-or-more" id="toc-open-and-read-files-less-or-more" class="nav-link" data-scroll-target="#open-and-read-files-less-or-more">Open and read files : <code>less</code> or <code>more</code></a></li>
+  <li><a href="#print-text-to-the-screen-cat" id="toc-print-text-to-the-screen-cat" class="nav-link" data-scroll-target="#print-text-to-the-screen-cat">Print text to the screen : <code>cat</code></a></li>
+  <li><a href="#view-beginning-or-end-of-a-file-head-and-tail" id="toc-view-beginning-or-end-of-a-file-head-and-tail" class="nav-link" data-scroll-target="#view-beginning-or-end-of-a-file-head-and-tail">View beginning or end of a file : <code>head</code> and <code>tail</code></a></li>
+  <li><a href="#edit-text-file-nano" id="toc-edit-text-file-nano" class="nav-link" data-scroll-target="#edit-text-file-nano">Edit text file : <code>nano</code></a></li>
+  <li><a href="#search-for-word-in-text-file-grep" id="toc-search-for-word-in-text-file-grep" class="nav-link" data-scroll-target="#search-for-word-in-text-file-grep">Search for word in text file : <code>grep</code></a></li>
+  <li><a href="#clean-the-screen-clear" id="toc-clean-the-screen-clear" class="nav-link" data-scroll-target="#clean-the-screen-clear">Clean the screen : <code>clear</code></a></li>
+  <li><a href="#see-commands-used-previously-history" id="toc-see-commands-used-previously-history" class="nav-link" data-scroll-target="#see-commands-used-previously-history">See commands used previously : <code>history</code></a></li>
+  <li><a href="#copy-files-or-folders-cp" id="toc-copy-files-or-folders-cp" class="nav-link" data-scroll-target="#copy-files-or-folders-cp">Copy files or folders : <code>cp</code></a></li>
+  <li><a href="#remove-files-or-folders-rm" id="toc-remove-files-or-folders-rm" class="nav-link" data-scroll-target="#remove-files-or-folders-rm">Remove files or folders : <code>rm</code></a></li>
+  <li><a href="#create-foldersdirectories-mkdir" id="toc-create-foldersdirectories-mkdir" class="nav-link" data-scroll-target="#create-foldersdirectories-mkdir">Create folders/directories: <code>mkdir</code></a>
+  <ul class="collapse">
+  <li><a href="#rmdir-remove-directory-use-with-the-path-to-a-folder-to-delete-it-forever-same-as-rm.-only-works-if-the-folder-is-empty." id="toc-rmdir-remove-directory-use-with-the-path-to-a-folder-to-delete-it-forever-same-as-rm.-only-works-if-the-folder-is-empty." class="nav-link" data-scroll-target="#rmdir-remove-directory-use-with-the-path-to-a-folder-to-delete-it-forever-same-as-rm.-only-works-if-the-folder-is-empty."><code>rmdir</code>: remove directory: use with the path to a folder to delete it FOREVER (same as <code>rm</code>). Only works if the folder is empty.</a></li>
+  </ul></li>
+  <li><a href="#syncronize-files-between-your-computer-and-a-server-rsync-or-scp" id="toc-syncronize-files-between-your-computer-and-a-server-rsync-or-scp" class="nav-link" data-scroll-target="#syncronize-files-between-your-computer-and-a-server-rsync-or-scp">Syncronize files between your computer and a server : <code>rsync</code> or <code>scp</code></a></li>
+  <li><a href="#connect-to-server-ssh" id="toc-connect-to-server-ssh" class="nav-link" data-scroll-target="#connect-to-server-ssh">Connect to server : <code>ssh</code></a></li>
+  </ul></li>
+  <li><a href="#commands-specific-to-the-server" id="toc-commands-specific-to-the-server" class="nav-link" data-scroll-target="#commands-specific-to-the-server">Commands specific to the server</a>
+  <ul class="collapse">
+  <li><a href="#softwares" id="toc-softwares" class="nav-link" data-scroll-target="#softwares">Softwares</a>
+  <ul class="collapse">
+  <li><a href="#available-softwares" id="toc-available-softwares" class="nav-link" data-scroll-target="#available-softwares">Available softwares</a></li>
+  </ul></li>
+  <li><a href="#sbatch" id="toc-sbatch" class="nav-link" data-scroll-target="#sbatch"><code>sbatch</code></a></li>
+  <li><a href="#srun" id="toc-srun" class="nav-link" data-scroll-target="#srun"><code>srun</code></a></li>
+  <li><a href="#salloc" id="toc-salloc" class="nav-link" data-scroll-target="#salloc"><code>salloc</code></a></li>
+  <li><a href="#squeue" id="toc-squeue" class="nav-link" data-scroll-target="#squeue"><code>squeue</code></a></li>
+  <li><a href="#scancel" id="toc-scancel" class="nav-link" data-scroll-target="#scancel"><code>scancel</code></a></li>
+  <li><a href="#diskusage_report" id="toc-diskusage_report" class="nav-link" data-scroll-target="#diskusage_report"><code>diskusage_report</code></a></li>
+  </ul></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -135,12 +184,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Basic commands</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Commands specific to the server</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Resources</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<section id="basic-concepts" class="level2">
-<h2 class="anchored" data-anchor-id="basic-concepts">Basic concepts</h2>
+<section id="basic-concepts" class="level1">
+<h1>Basic concepts</h1>
 <p>Absolute path: includes the root (starts with a “/”)</p>
 <p>Relative path: is dependent on your location in the computer. For example, if the file or folder to which you refer is present in the your current folder, you need simply write its name.</p>
 <p>Path here will be used to refer to both absolute and relative paths, unless specified</p>
@@ -153,18 +198,22 @@ ul.task-list li input[type="checkbox"] {
 <li><code>;</code> has the same effect as a new line. So you can write multiple commands in the same line by separating them with a <code>;</code></li>
 </ul>
 </section>
+<section id="basic-commands" class="level1">
+<h1>Basic commands</h1>
 <section id="saving-result-to-a-file" class="level2">
 <h2 class="anchored" data-anchor-id="saving-result-to-a-file">Saving result to a file</h2>
 <p><code>&gt;</code> will take what would be printed to the screen and put in a file. What comes before <code>&gt;</code> is a command, what comes after it is a file name. If a file of the same name already exists, it will be replaced.</p>
 <p><code>&gt;&gt;</code> is similar to <code>&gt;</code> but if a file of the same name as we the one we gave already exists, it will simply add what would be printed to the screen to the end of the file instead of replacing it.</p>
 </section>
-<section id="commands-are-normally-are-acronyms" class="level2">
-<h2 class="anchored" data-anchor-id="commands-are-normally-are-acronyms">Commands are normally are acronyms</h2>
+<section id="where-am-i" class="level2">
+<h2 class="anchored" data-anchor-id="where-am-i">Where am I?</h2>
+<p>Commands are normally are acronyms</p>
 <p><strong>Directory</strong> is the same as <strong>Folder</strong>. Working directory means the folder in which you currently are.</p>
 <p><code>pwd</code>: <em>print working directory</em>: prints the absolute path of your current location in the computer.</p>
 <p><code>cd</code>: <em>change directory</em>: use <code>cd</code> followed by the path to a folder to change your location in the computer.</p>
-<section id="list-files-ls" class="level3">
-<h3 class="anchored" data-anchor-id="list-files-ls">List files : <code>ls</code></h3>
+</section>
+<section id="list-files-ls" class="level2">
+<h2 class="anchored" data-anchor-id="list-files-ls">List files : <code>ls</code></h2>
 <p>Used alone, it will print the contents of the current directory. If it is followed by a path to a directory, will print its contents. Options (letters or words preceded by “-” or “–”, respectively) will change how and what is printed.</p>
 <ul>
 <li><code>ls -a</code> or <code>ls --all</code>
@@ -177,8 +226,8 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 </section>
-<section id="open-and-read-files-less-or-more" class="level3">
-<h3 class="anchored" data-anchor-id="open-and-read-files-less-or-more">Open and read files : <code>less</code> or <code>more</code></h3>
+<section id="open-and-read-files-less-or-more" class="level2">
+<h2 class="anchored" data-anchor-id="open-and-read-files-less-or-more">Open and read files : <code>less</code> or <code>more</code></h2>
 <p>Softwares to open text files as read-only.</p>
 <ul>
 <li>Use <code>less --help</code> or <code>man less</code> to see a manual on how to use <code>less</code> and <code>more --help</code> or <code>man more</code> to see how to use <code>more</code></li>
@@ -192,8 +241,8 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 </section>
-<section id="print-text-to-the-screen-cat" class="level3">
-<h3 class="anchored" data-anchor-id="print-text-to-the-screen-cat">Print text to the screen : <code>cat</code></h3>
+<section id="print-text-to-the-screen-cat" class="level2">
+<h2 class="anchored" data-anchor-id="print-text-to-the-screen-cat">Print text to the screen : <code>cat</code></h2>
 <p>Prints file to the screen</p>
 <ul>
 <li><code>cat file1</code>: will print the content of file1 to the screen. If the file is a binary file (.bam), or if it is compressed (.zip, .tar, .gz), the printed text will be all gibberish</li>
@@ -201,16 +250,16 @@ ul.task-list li input[type="checkbox"] {
 <li><code>cat file1 &gt; file2; cat file3 &gt;&gt; file2</code>: is the same as <code>cat file1 file3 &gt; file2</code>.</li>
 </ul>
 </section>
-<section id="view-beginning-or-end-of-a-file-head-and-tail" class="level3">
-<h3 class="anchored" data-anchor-id="view-beginning-or-end-of-a-file-head-and-tail">View beginning or end of a file : <code>head</code> and <code>tail</code></h3>
+<section id="view-beginning-or-end-of-a-file-head-and-tail" class="level2">
+<h2 class="anchored" data-anchor-id="view-beginning-or-end-of-a-file-head-and-tail">View beginning or end of a file : <code>head</code> and <code>tail</code></h2>
 <p>Prints the first (<code>head</code>) or last (<code>tail</code>) 10 lines of a file to the screen. If you have a big file and you just want to see if it looks fine or what it contains, use this</p>
 <ul>
 <li><code>head file1</code>: will print the first 10 lines of file1</li>
 <li><code>head -n 20 file1</code>: the option <code>-n</code> allows you to specify the number of lines you want to be printed</li>
 </ul>
 </section>
-<section id="edit-text-file-nano" class="level3">
-<h3 class="anchored" data-anchor-id="edit-text-file-nano">Edit text file : <code>nano</code></h3>
+<section id="edit-text-file-nano" class="level2">
+<h2 class="anchored" data-anchor-id="edit-text-file-nano">Edit text file : <code>nano</code></h2>
 <p>Software to edit text in the server. Used alone will open an empty file. When you try to close the file (Ctrl + x) will ask if you want to save it and ask for a name for the path where to save it.</p>
 <ul>
 <li><code>nano file1</code>
@@ -223,23 +272,23 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 </section>
-<section id="search-for-word-in-text-file-grep" class="level3">
-<h3 class="anchored" data-anchor-id="search-for-word-in-text-file-grep">Search for word in text file : <code>grep</code></h3>
+<section id="search-for-word-in-text-file-grep" class="level2">
+<h2 class="anchored" data-anchor-id="search-for-word-in-text-file-grep">Search for word in text file : <code>grep</code></h2>
 <p>Searches a text in a file</p>
 <ul>
 <li><code>grep "word" file1</code>: will print to the screen every line of file 1 that contains “word” in it.</li>
 </ul>
 </section>
-<section id="clean-the-screen-clear" class="level3">
-<h3 class="anchored" data-anchor-id="clean-the-screen-clear">Clean the screen : <code>clear</code></h3>
+<section id="clean-the-screen-clear" class="level2">
+<h2 class="anchored" data-anchor-id="clean-the-screen-clear">Clean the screen : <code>clear</code></h2>
 <p>Will clear you screen, so you will not be able to see the previous commands by looking up or scrolling. You can still use the up and down arrows to look at the commands you have used in the session.</p>
 </section>
-<section id="see-commands-used-previously-history" class="level3">
-<h3 class="anchored" data-anchor-id="see-commands-used-previously-history">See commands used previously : <code>history</code></h3>
+<section id="see-commands-used-previously-history" class="level2">
+<h2 class="anchored" data-anchor-id="see-commands-used-previously-history">See commands used previously : <code>history</code></h2>
 <p>Shows the list of commands you have used in the computer with the date and time of use. Does not contain ALL the commands you have ever used, since old lines are deleted. So if you think you may need to see the command again, copy it to a file.</p>
 </section>
-<section id="copy-files-or-folders-cp" class="level3">
-<h3 class="anchored" data-anchor-id="copy-files-or-folders-cp">Copy files or folders : <code>cp</code></h3>
+<section id="copy-files-or-folders-cp" class="level2">
+<h2 class="anchored" data-anchor-id="copy-files-or-folders-cp">Copy files or folders : <code>cp</code></h2>
 <p><em>Copy</em>: use <code>cp</code> followed by the path of the file you want to copy and the path to where you want to put the copy.</p>
 <ul>
 <li><code>cp file1 file2</code>
@@ -260,8 +309,8 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 </section>
-<section id="remove-files-or-folders-rm" class="level3">
-<h3 class="anchored" data-anchor-id="remove-files-or-folders-rm">Remove files or folders : <code>rm</code></h3>
+<section id="remove-files-or-folders-rm" class="level2">
+<h2 class="anchored" data-anchor-id="remove-files-or-folders-rm">Remove files or folders : <code>rm</code></h2>
 <p><em>Remove</em>: use <code>rm</code> followed by the path to a file or folder you wish to delete. It will delete FOREVER, <strong>there is no trashbin when you use <code>rm</code></strong>, so use with care</p>
 <ul>
 <li><code>rm file1 file2 file3</code>
@@ -282,15 +331,15 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 </section>
-<section id="create-foldersdirectories-mkdir" class="level3">
-<h3 class="anchored" data-anchor-id="create-foldersdirectories-mkdir">Create folders/directories: <code>mkdir</code></h3>
+<section id="create-foldersdirectories-mkdir" class="level2">
+<h2 class="anchored" data-anchor-id="create-foldersdirectories-mkdir">Create folders/directories: <code>mkdir</code></h2>
 <p><em>make directory</em>: use <code>mkdir</code> followed by the name you want to give to the new folder. You can create multiple folders at once by simply separating the names with a space</p>
-<section id="rmdir-remove-directory-use-with-the-path-to-a-folder-to-delete-it-forever-same-as-rm.-only-works-if-the-folder-is-empty." class="level4">
-<h4 class="anchored" data-anchor-id="rmdir-remove-directory-use-with-the-path-to-a-folder-to-delete-it-forever-same-as-rm.-only-works-if-the-folder-is-empty."><code>rmdir</code>: remove directory: use with the path to a folder to delete it FOREVER (same as <code>rm</code>). Only works if the folder is empty.</h4>
+<section id="rmdir-remove-directory-use-with-the-path-to-a-folder-to-delete-it-forever-same-as-rm.-only-works-if-the-folder-is-empty." class="level3">
+<h3 class="anchored" data-anchor-id="rmdir-remove-directory-use-with-the-path-to-a-folder-to-delete-it-forever-same-as-rm.-only-works-if-the-folder-is-empty."><code>rmdir</code>: remove directory: use with the path to a folder to delete it FOREVER (same as <code>rm</code>). Only works if the folder is empty.</h3>
 </section>
 </section>
-<section id="syncronize-files-between-your-computer-and-a-server-rsync-or-scp" class="level3">
-<h3 class="anchored" data-anchor-id="syncronize-files-between-your-computer-and-a-server-rsync-or-scp">Syncronize files between your computer and a server : <code>rsync</code> or <code>scp</code></h3>
+<section id="syncronize-files-between-your-computer-and-a-server-rsync-or-scp" class="level2">
+<h2 class="anchored" data-anchor-id="syncronize-files-between-your-computer-and-a-server-rsync-or-scp">Syncronize files between your computer and a server : <code>rsync</code> or <code>scp</code></h2>
 <p>Will copy files and folders from one location to another. Use it with the path of the files and folders you wish to copy and the path to where you want the copy to be placed. You will be required to put your password with this command.</p>
 <p>In the commands below, you can replace <code>rsync</code> by <code>scp</code>. The second is more secure.</p>
 <ul>
@@ -314,8 +363,8 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 </section>
-<section id="connect-to-server-ssh" class="level3">
-<h3 class="anchored" data-anchor-id="connect-to-server-ssh">Connect to server : <code>ssh</code></h3>
+<section id="connect-to-server-ssh" class="level2">
+<h2 class="anchored" data-anchor-id="connect-to-server-ssh">Connect to server : <code>ssh</code></h2>
 <p><em>Secure shell protocol</em>: will allow you to connect to a server and write commands into it.</p>
 <ul>
 <li><code>ssh user@server.ca</code>
@@ -330,8 +379,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<section id="commands-specific-to-the-server" class="level1">
+<h1>Commands specific to the server</h1>
 <section id="softwares" class="level2">
 <h2 class="anchored" data-anchor-id="softwares">Softwares</h2>
 <p>In the server, you do not need to install most softwares, as they are already installed and are called modules. These modules are what you need to load to your session to be able to use the software.</p>
@@ -514,8 +563,9 @@ module save blast</code></pre>
 <h2 class="anchored" data-anchor-id="diskusage_report"><code>diskusage_report</code></h2>
 <p>Prints a report of the use of the server by you in your home and scratch directories, as well as your directories in the project folders (each sponsor has a different one, so you may have files in different project folders). The report includes the space used and the number of files in each directory, as well as the limits of these directories.</p>
 </section>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+</section>
+<section id="resources" class="level1">
+<h1>Resources</h1>
 <ul>
 <li><a href="https://bioinformaticsworkbook.org/list.html#gsc.tab=0">Bioinformatics workbook</a></li>
 <li><a href="https://www.gnu.org/software/sed/">GNU.org - SED</a></li>
@@ -530,13 +580,11 @@ module save blast</code></pre>
 <li><a href="https://www.tutorialspoint.com/awk/awk_loops.htm">TutorialsPoint - loops</a></li>
 <li><a href="https://linuxhint.com/for_loop_awk_command/">Linus hint - loops</a></li>
 </ul>
-</div>
-</div>
-</div>
 
 
+</section>
 
-</main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -771,6 +819,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">Copyright 2023, Ph.D.&nbsp;Karen Cristine Goncalves</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

@@ -15,6 +15,9 @@ project:
     - "unix/.Rmd"
 website:
   title: "Programming classes"
+  back-to-top-navigation: true
+  reader-mode: true
+  page-footer: "Copyright 2023, Ph.D. Karen Cristine Goncalves" 
   navbar:
     background: primary
     left:

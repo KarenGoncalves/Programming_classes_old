@@ -5,8 +5,14 @@ callout-appearance: simple
 format: 
   html:
     toc: true
+    toc-depth: 3
+    toc-location: left
+    code-copy: true
+    code-line-numbers: true
 ---
 
+
+# Commands
 
 ## Get help
 
@@ -389,3 +395,28 @@ Allows you to:
 		- If `range` is specified, `skip` and `n_max` are ignored
 		- You can include the name of the sheet: `range = "MY_SHEET!H40:T80"`
 			- <span style="color: red">SHEET</span><span style="color: cyan"> EXCLAMATION_POINT </span><span style="color: yellow">CELL_RANGE
+
+# Resources
+
+- [Base R cheatsheet](https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf)
+- [Datacamp R cheatsheet](https://images.datacamp.com/image/upload/v1654763044/Marketing/Blog/R_Cheat_Sheet.pdf)
+- [apply functions](https://github.com/rstudio/cheatsheets/raw/main/purrr.pdf)
+- [Colors](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf)
+- Basic plots
+	- [HBC training](https://hbctraining.github.io/Intro-to-R/lessons/basic_plots_in_r.html)
+	- [R Base Graphics: An Idiot's Guide](https://rstudio-pubs-static.s3.amazonaws.com/7953_4e3efd5b9415444ca065b1167862c349.html)
+	- [Statistical tools for high-throughput data analysis](http://www.sthda.com/english/wiki/r-base-graphs)
+	- [TC Technology Knowledge Base](https://teacherscollege.screenstepslive.com/a/1130011-plot-data-in-r-studio)	
+- Package specific
+	- [All tidyverse packages](https://tidyverse.tidyverse.org/index.html)
+	- [stringr cheatsheet](https://rstudio.github.io/cheatsheets/html/strings.html)
+	- Tutorials on all types of plots with ggplot2
+		- [ggplot2 cheatsheet](https://rstudio.github.io/cheatsheets/html/data-visualization.html)
+		- [r-statistics](http://r-statistics.co/ggplot2-Tutorial-With-R.html)
+		- [Cedric Scherer - advanced](https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/)
+	- Tutorials on data manipulation with dplyr
+		- [dplyr cheatsheet](https://rstudio.github.io/cheatsheets/html/data-transformation.html)
+		- [Tidyverse](https://dplyr.tidyverse.org/)
+		- [R official](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html)
+		- [Genomics class](https://genomicsclass.github.io/book/pages/dplyr_tutorial.html)
+
