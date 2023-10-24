@@ -10,8 +10,9 @@ project:
     - "*/media/*jpg"
   render:
     - "*.qmd"
-    - "*.rmd"
+    - "*.Rmd"
     - "r/*.qmd"
+    - "r/*Rmd"
     - "unix/.Rmd"
 website:
   title: "Programming classes"
