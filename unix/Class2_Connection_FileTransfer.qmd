@@ -1,26 +1,28 @@
 ---
 title: "Connecting to the server and tranfering files"
-author: "Karen Cristine Goncalves"
-date: "2023-01-29"
-output:
-    slidy_presentation:
-        incremental: true
+fontsize: 1.5em
+linkcolor: grey
+callout-appearance: simple
+format: 
+  revealjs:
+    transition: none
+    theme: dark
+    scrollable: true
+author: "Karen Cristine Goncalves, Ph.D."
+date: "2023-01-26"
 ---
 
-<style>
-.code {
-background-color: grey;
-color: black
-}
+<!-- <style> -->
+<!-- .code { -->
+<!-- background-color: grey; -->
+<!-- color: white; -->
+<!-- font-size: 1.5em -->
+<!-- } -->
 
-p, li {
-line-height: 1em;
-font-size: 0.75em
-word-wrap: true
-}
-
-a { color: red}
-</style>
+<!-- li { -->
+<!-- line-height: 2em -->
+<!-- } -->
+<!-- </style> -->
 
 ## Logging in {#slide1}
 

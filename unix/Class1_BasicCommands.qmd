@@ -1,24 +1,28 @@
 ---
 title: "Basic commands"
-author: "Karen Cristine Goncalves"
+fontsize: 1.5em
+linkcolor: grey
+callout-appearance: simple
+format: 
+  revealjs:
+    transition: none
+    theme: dark
+    scrollable: true
+author: "Karen Cristine Goncalves, Ph.D."
 date: "2023-01-26"
-font-family: serif
-output: 
-    slidy_presentation:
-        incremental: true	
 ---
 
-<style>
-.code {
-background-color: grey;
-color: white;
-font-size: 1.5em
-}
+<!-- <style> -->
+<!-- .code { -->
+<!-- background-color: grey; -->
+<!-- color: white; -->
+<!-- font-size: 1.5em -->
+<!-- } -->
 
-li {
-line-height: 2em
-}
-</style>
+<!-- li { -->
+<!-- line-height: 2em -->
+<!-- } -->
+<!-- </style> -->
 
 ## Basics
 

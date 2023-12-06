@@ -1,222 +1,5 @@
 [
   {
-    "objectID": "unix/Class6_SED.html",
-    "href": "unix/Class6_SED.html",
-    "title": "Class 6 - sed command",
-    "section": "",
-    "text": "Always start with sed\nPut commands inside single quotes ''\n\nIf you want to use a variable, use \"\""
-  },
-  {
-    "objectID": "unix/Class6_SED.html#sed",
-    "href": "unix/Class6_SED.html#sed",
-    "title": "Class 6 - sed command",
-    "section": "",
-    "text": "Always start with sed\nPut commands inside single quotes ''\n\nIf you want to use a variable, use \"\""
-  },
-  {
-    "objectID": "unix/Class6_SED.html#sed---delete-specific-lines",
-    "href": "unix/Class6_SED.html#sed---delete-specific-lines",
-    "title": "Class 6 - sed command",
-    "section": "SED - delete specific lines",
-    "text": "SED - delete specific lines\nIf you do not have it, download the file prots.fasta and put it in the folder with the previous classes files.\n# delete lines 1 to 10 in ~/blastClass/prots.fasta\nwc -l ~/blastClass/prots.fasta\nsed '1,10d' ~/blastClass/prots.fasta | wc -l\n\n\n# delete all lines appearing after the line containing Lychi\nsed '/Lychi/q' ~/blastClass/prots.fasta | less\n\n# delete lines containing the word \"partial\"\nsed '/partial/d' ~/blastClass/prots.fasta | less\nIn the second case, if the word is not found in the file, the whole file will be printed."
-  },
-  {
-    "objectID": "unix/Class6_SED.html#sed---replace-words",
-    "href": "unix/Class6_SED.html#sed---replace-words",
-    "title": "Class 6 - sed command",
-    "section": "SED - replace words",
-    "text": "SED - replace words\n# In each line of the ~/blastClass/prots.fasta file, replace the first \"_\" (separates then species from the protein ID)\nsed 's/_/ protein /' ~/blastClass/prots.fasta | less\n\n# In the ~/blastClass/prots.fasta file, replace all \"_\" (separates then species from the protein ID)\nsed 's/_/-/g' ~/blastClass/prots.fasta | less\n\nsed 's/WORD_SEARCHED/REPLACEMENT/g' input_file\n\ns - substitute\ng - global (everywhere)"
-  },
-  {
-    "objectID": "unix/Class6_SED.html#sed---replace-words-in-specific-lines",
-    "href": "unix/Class6_SED.html#sed---replace-words-in-specific-lines",
-    "title": "Class 6 - sed command",
-    "section": "SED - replace words in specific lines",
-    "text": "SED - replace words in specific lines\nTry the command with and without the number 1\n# In line 1 of the ~/blastClass/prots.fasta file, replace the first \"Agapanthus\" in the line\nsed '1 s/Agapanthus/Ag_/' ~/blastClass/prots.fasta | less\n\n# In line 1 of the ~/blastClass/prots.fasta file, replace all \"Agapanthus_africanus\" \nsed '1 s/Agapanthus/Ag_/g' ~/blastClass/prots.fasta | less\nsed 'LINE_NUMBER s/WORD_SEARCHED/REPLACEMENT/g' input_file\n\nLINE_NUMBER - a digit indicating the number of the line where you want the replacement to occur\ns - substitute\ng - global (everywhere)"
-  },
-  {
-    "objectID": "unix/Class6_SED.html#sed---print-only-lines-replaced",
-    "href": "unix/Class6_SED.html#sed---print-only-lines-replaced",
-    "title": "Class 6 - sed command",
-    "section": "SED - print only lines replaced",
-    "text": "SED - print only lines replaced\n# Replace PF0 with PFAMID PF0, and see which proteins have a match in PFAM\nsed -n 's/PF0/PFAMID PF0/p'  ~/blastClass/prots.fasta | less\n\n-n - do not print lines\n/p - print lines where replacement occurred\n\nWithout -n, every line would be printing, with lines replaced being printed twice (once automatically, then because you asked to see the replacement)"
-  },
-  {
-    "objectID": "unix/Class6_SED.html#sed---write-the-result-to-a-file",
-    "href": "unix/Class6_SED.html#sed---write-the-result-to-a-file",
-    "title": "Class 6 - sed command",
-    "section": "SED - write the result to a file",
-    "text": "SED - write the result to a file\nUse w filename\n# Replace the \"&gt;\" in the ~/blastClass/prots.fasta file and save result to ~/blastClass/protsSED.fasta\nsed \"s/&gt;/Fasta entry /w $HOME/blastClass/protsSED.fasta\" ~/blastClass/prots.fasta\n\nw - write to file $HOME/blastClass/protsSED.fasta"
-  },
-  {
-    "objectID": "unix/Class6_SED.html#sed---work-with-text-with-regular-expressions-regex",
-    "href": "unix/Class6_SED.html#sed---work-with-text-with-regular-expressions-regex",
-    "title": "Class 6 - sed command",
-    "section": "SED - work with text with REGular EXpressions (REGEX)",
-    "text": "SED - work with text with REGular EXpressions (REGEX)\nUse the option -E: sed -E ''\n$ - line end; ^ Line begins\n[] - when any character in a list is accepted in the search, put the list inside the []\n\nEx. sed -En '/&gt;[ABC]/p' ~/blastClass/prots.fasta will print lines for proteins of species that start with A, B or C\n[A-Z] - any upper case letter of the alphabet\n[a-z] - any lower case letter of the alphabet\n[0-9] - any number (in grep, same as \\d)\n[A-Za-z0-9] - any letter or number\n. - any character. Ex.: sed -En '/&gt;A.a/p' ~/blastClass/prots.fasta\n* - find anything 0 or more times. Ex.: remove anything after the space - sed -En 's/ .+$//g' ~/blastClass/prots.fasta | less\n+ - find the previous character or [] one or more times.\n{Ns,NE} - find the previous character at least Ns times and maximum NE times"
-  },
-  {
-    "objectID": "unix/Class6_SED.html#resources",
-    "href": "unix/Class6_SED.html#resources",
-    "title": "Class 6 - sed command",
-    "section": "Resources",
-    "text": "Resources\n\nSED utilities\nSED command examples\nMore SED examples\nEven more SED examples"
-  },
-  {
-    "objectID": "unix/Class4_blast.html",
-    "href": "unix/Class4_blast.html",
-    "title": "Class 4 - Running blast on the server",
-    "section": "",
-    "text": "Click on Session -&gt; SSH\n\nAdd the Remote Host : cedar.computecanada.ca\nClick on Specify username then add yours, you can save your user name and password in the\nClick OK: will ask your password (when you type, nothing will appear, but it is writing)\n\nssh YOUR_USERNAME@cedar.computecanada.ca\n\nReplace YOUR_USERNAME with your username, in my case: karencgs"
-  },
-  {
-    "objectID": "unix/Class4_blast.html#slide1",
-    "href": "unix/Class4_blast.html#slide1",
-    "title": "Class 4 - Running blast on the server",
-    "section": "",
-    "text": "Click on Session -&gt; SSH\n\nAdd the Remote Host : cedar.computecanada.ca\nClick on Specify username then add yours, you can save your user name and password in the\nClick OK: will ask your password (when you type, nothing will appear, but it is writing)\n\nssh YOUR_USERNAME@cedar.computecanada.ca\n\nReplace YOUR_USERNAME with your username, in my case: karencgs"
-  },
-  {
-    "objectID": "unix/Class4_blast.html#running-commands-in-the-server",
-    "href": "unix/Class4_blast.html#running-commands-in-the-server",
-    "title": "Class 4 - Running blast on the server",
-    "section": "Running commands in the server",
-    "text": "Running commands in the server\nWhen you log in, you are one of hundreds or thousands of people that are sharing the computer in the server, so you should simply run commands that you know or think that could take too much time.\nPlace files you want to use and you scripts in your Home folder\n\nTo move them, use : mv myFile ~\n\nTo run a command, you need to ask for resources, like time and memory, and wait for them to be available.\n\nYou need to be in $SCRATCH or in ~/projects/username to be able to submit a job"
-  },
-  {
-    "objectID": "unix/Class4_blast.html#running-commands-in-the-server---part-2",
-    "href": "unix/Class4_blast.html#running-commands-in-the-server---part-2",
-    "title": "Class 4 - Running blast on the server",
-    "section": "Running commands in the server - part 2",
-    "text": "Running commands in the server - part 2\nGo to $SCRATCH and write a simple script in nano:\n\ncd $SCRATCH; nano $HOME/myTry.sh\n\n#!/bin/sh\n\necho \"&gt;seq1\nATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGC\n&gt;seq2\nGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCAT\" &gt; $HOME/myFasta.fa\n\ngrep \"&gt;\" $HOME/myFasta.fa"
-  },
-  {
-    "objectID": "unix/Class4_blast.html#running-commands-in-the-server---part-3",
-    "href": "unix/Class4_blast.html#running-commands-in-the-server---part-3",
-    "title": "Class 4 - Running blast on the server",
-    "section": "Running commands in the server - part 3",
-    "text": "Running commands in the server - part 3\nGive the script the right permissions and submit your script to the queue of jobs\nchmod u=rwx $HOME/myTry.sh\nsrun --time=00:01:00 sh $HOME/myTry.sh\n\nsrun is one of the commands to submit a script\n--time is the option to tell how much time you need to execute the commands in the script\n\nTime format: D-HH:MM:SS (D=day, H=hour, M=minute, S=second)\n\nOther options:\n\n--account=def-projectName - if you are associated with different accounts (def-desgagne, def-laboidp, def-germain1), you need to specify the one that will be billed for the current job. Replace def-projectName with the correct account\n--mem=XXG or --mem-per-cpu=XXG - specify how much memory the script needs. For a small blast (less than 100 query sequences), 2G is enough\n--cpus-per-task=XX - how many processors you need (big blast jobs run faster if using many cpus)"
-  },
-  {
-    "objectID": "unix/Class4_blast.html#running-blast---part-1",
-    "href": "unix/Class4_blast.html#running-blast---part-1",
-    "title": "Class 4 - Running blast on the server",
-    "section": "Running blast - part 1",
-    "text": "Running blast - part 1\n\nFirst, you need to load the software (modules) needed into your session (every time you log in, or in your script)\n\nmodule load StdEnv/2020 gcc/9.3.0 blast+\n\nPay attention to the upper and lower cases!!\n\n\nWrite the blast script\n\n#!/bin/sh\nblastp -query $HOME/myProtein.fa -db $HOME/database -outfmt 7 -out $HOME/myBlastpResult.txt\n\n-query - use this option to specify the file which you want to blast (here, I want to blast myProtein.fa)\n-db - use this option to specify the database you want to search (need to be the full path, but omit the extension)\n\nIf I create a protein database in $HOME called “proteins”, several files will be created, I just put $HOME/proteins in the script\nGo to the github.com/KarenGoncalves/Amaryllidaceae_database/wiki/Search-by-sequence-using-blast-in-the-command-line to get the path to the databases\n\n-outfmt 7 - specifies the type of output, here I want a table, if you don’t specify, you get something similar to the webpage result\n-out - use this option to specify where to save the output (similar to &gt; myBlastpResult)"
-  },
-  {
-    "objectID": "unix/Class4_blast.html#running-blast---part-2",
-    "href": "unix/Class4_blast.html#running-blast---part-2",
-    "title": "Class 4 - Running blast on the server",
-    "section": "Running blast - part 2",
-    "text": "Running blast - part 2\nA more general script could take arguments from the command line every time\nThis is called $HOME/myGeneralBlast.sh\n#!/bin/sh\nblastp -query $1 -db $2 -outfmt 7 -out $3\nTo run it, we need to do:\nchmod u=rwx $HOME/myGeneralBlast.sh\nsh $HOME/myGeneralBlast.sh $HOME/myProtein.fa $HOME/database $HOME/myBlastpResult.txt"
-  },
-  {
-    "objectID": "unix/Class4_blast.html#running-blast---part-3",
-    "href": "unix/Class4_blast.html#running-blast---part-3",
-    "title": "Class 4 - Running blast on the server",
-    "section": "Running blast - part 3",
-    "text": "Running blast - part 3\nYou can (MUST) write a script to run blast by submitting a job. Ex. $HOME/srun_blast.sh:\n#!/bin/sh\n\nmodule load StdEnv/2020 gcc/9.3.0 blast+\n\nblastp -query $1 -db $2 -outfmt 7 -out $3\nAgain, give the permissions and submit the job:\nchmod u=rwx $HOME/srun_blast.sh\ncd $SCRATCH\nsrun --time=00:10:00 --mem=2G\\\n sh $HOME/srun_blast.sh $HOME/myProtein.fa $HOME/database $HOME/myBlastpResult.txt\n\nNote that with srun you cannot close your session until the job is finished, so if your script takes too long to run or stays too long in the queue, you must either wait for it to finish or cancel it and submit another time"
-  },
-  {
-    "objectID": "unix/Class4_blast.html#running-blast-with-sbatch---part-1",
-    "href": "unix/Class4_blast.html#running-blast-with-sbatch---part-1",
-    "title": "Class 4 - Running blast on the server",
-    "section": "Running blast with sbatch - part 1",
-    "text": "Running blast with sbatch - part 1\nWith sbatch, once your job is in the queue, you can close your session or continue doing other things in it.\nYou can use the same script you used for srun:\n$HOME/srun_blast.sh:\n#!/bin/sh\n\nmodule load StdEnv/2020 gcc/9.3.0 blast+\n\nblastp -query $1 -db $2 -outfmt 7 -out $3\nAgain, give the permissions and submit the job:\nchmod u=rwx $HOME/srun_blast.sh\ncd $SCRATCH\nsbatch --time=00:10:00 --mem=2G\\\n sh $HOME/srun_blast.sh $HOME/myProtein.fa $HOME/database $HOME/myBlastpResult.txt"
-  },
-  {
-    "objectID": "unix/Class4_blast.html#running-blast-with-sbatch---part-2",
-    "href": "unix/Class4_blast.html#running-blast-with-sbatch---part-2",
-    "title": "Class 4 - Running blast on the server",
-    "section": "Running blast with sbatch - part 2",
-    "text": "Running blast with sbatch - part 2\nAnother option is to write the resources request in the script itself.\n$HOME/sbatch_blast.sh:\n#!/bin/sh\n#SBATCH --time=00:10:00\n#SBATCH --mem=2G\n\nmodule load StdEnv/2020 gcc/9.3.0 blast+\n\nblastp -query $HOME/myProtein.fa\\\n -db $HOME/database -outfmt 7\\\n -out $HOME/myBlastResult.txt\n\nThe lines that start with “#SBATCH” are the instructions to the queue. Other possible instructions:\n\n#SBATCH --account=def-project - same as the account information for srun\n\nUnlike srun, with sbatch you need to either give the full path to each file in their names OR you need to add the line cd myFolder (where myFolder is the full path to folder where have your files)\n\nThis is because, with sbatch, it is like you are logging in again"
-  },
-  {
-    "objectID": "unix/Class4_blast.html#creating-a-master-blast-script---part-1",
-    "href": "unix/Class4_blast.html#creating-a-master-blast-script---part-1",
-    "title": "Class 4 - Running blast on the server",
-    "section": "Creating a master blast script - part 1",
-    "text": "Creating a master blast script - part 1\nYou can use echo to write a script that takes the values from the command line and outputs a blast script ready to submit with sbatch.\nEx. $HOME/create_master_blast.sh\n#!/bin/sh\n\n### Variables ###\nmyQuery=$1\ndatabase=$2\noutput=$3\nscriptName=$4\n\n## Create script ##\necho '#!/bin/sh\n#SBATCH --time=00:10:00\n#SBATCH --mem=2G\n\nmodule load StdEnv/2020 gcc/9.3.0 blast+\n\nblastp -query' $myQuery '\\\n -db' $database '-outfmt 7\\\n -out' $output &gt; $scriptName\n \n## Give permissions ##\nchmod u=rwx $scriptName"
-  },
-  {
-    "objectID": "unix/Class4_blast.html#creating-a-master-blast-script---part-2",
-    "href": "unix/Class4_blast.html#creating-a-master-blast-script---part-2",
-    "title": "Class 4 - Running blast on the server",
-    "section": "Creating a master blast script - part 2",
-    "text": "Creating a master blast script - part 2\nThe script has 3 blocks:\n\nVariables - we save the values from the command line into variables that echo will use. We need to give 4 values: the input sequence path, the path to the database, the path to where we want the output and the name we want to give to the script.\nThe body of the script, in which we use echo to put write the file\nThe permissions - we give the right permissions to the new script directly inside the one that created it.\n\nNow, all we need to do is:\nsh $HOME/create_master_blast.sh\\\n $HOME/myProtein.fa\\\n $HOME/database\\\n $HOME/myBlastResult.txt\\\n $HOME/master_blast.sh\n \nsbatch $HOME/master_blast.sh # srun sh $HOME/master_blast.sh also works"
-  },
-  {
-    "objectID": "unix/Class2_Connection_FileTransfer.html",
-    "href": "unix/Class2_Connection_FileTransfer.html",
-    "title": "Connecting to the server and tranfering files",
-    "section": "",
-    "text": "Click on Session -&gt; SSH\nAdd the Remote Host : cedar.computecanada.ca\nClick on Specify username then add yours\nClick OK: will ask your password (when you type, nothing will appear, but it is writing)"
-  },
-  {
-    "objectID": "unix/Class2_Connection_FileTransfer.html#slide1",
-    "href": "unix/Class2_Connection_FileTransfer.html#slide1",
-    "title": "Connecting to the server and tranfering files",
-    "section": "",
-    "text": "Click on Session -&gt; SSH\nAdd the Remote Host : cedar.computecanada.ca\nClick on Specify username then add yours\nClick OK: will ask your password (when you type, nothing will appear, but it is writing)"
-  },
-  {
-    "objectID": "unix/Class2_Connection_FileTransfer.html#slide2",
-    "href": "unix/Class2_Connection_FileTransfer.html#slide2",
-    "title": "Connecting to the server and tranfering files",
-    "section": "Logging in",
-    "text": "Logging in\n\n\n\n\nssh cedar.computecanada.ca\n\nWill ask your user name then your password (what you type won’t appear on the screen)\n\nssh YOUR_USERNAME@cedar.computecanada.ca\n\nReplace YOUR_USERNAME with your username, in my case: karencgs\nWill ask your password"
-  },
-  {
-    "objectID": "unix/Class2_Connection_FileTransfer.html#slide3",
-    "href": "unix/Class2_Connection_FileTransfer.html#slide3",
-    "title": "Connecting to the server and tranfering files",
-    "section": "Server organization",
-    "text": "Server organization\n\nIn the server, type (do not consider what comes after #):\n\n\n\n\npwd # after you log in, should be /home/username/\nwhoami # username\necho \"$SCRATCH\"\necho \"$HOME\"\nls $HOME/projects/\n\n\n\n\n\n$HOME : Store scripts, software files, things you use frequently without necessarily modifying them\n$SCRATCH : Use to run scripts, submit jobs (scripts that take too long or use a lot of resources)\n/projects/ : Use as medium to long term storage (raw data, final results of analyses), share files with people of the same project\n\nCheck file authorizations so that other can use what you share"
-  },
-  {
-    "objectID": "unix/Class2_Connection_FileTransfer.html#slide4",
-    "href": "unix/Class2_Connection_FileTransfer.html#slide4",
-    "title": "Connecting to the server and tranfering files",
-    "section": "Transfer files to server",
-    "text": "Transfer files to server\n\n\n\n\nIn MobaxTerm, log in to the server, click on the left panel on the world button (SFTP)\nLeft panel: buttons for upload, download, etc.\nUnder the buttons is a bar to put the path to the desired folder\nOnce you are in the folder you want, click on a file and click the button for download to select where you want to save it"
-  },
-  {
-    "objectID": "unix/Class2_Connection_FileTransfer.html#slide5",
-    "href": "unix/Class2_Connection_FileTransfer.html#slide5",
-    "title": "Connecting to the server and tranfering files",
-    "section": "Transfer files to server",
-    "text": "Transfer files to server\n\n\n\n\nIn MobaxTerm, create a SFTP session (like an SSH session)"
-  },
-  {
-    "objectID": "unix/Class2_Connection_FileTransfer.html#slide6",
-    "href": "unix/Class2_Connection_FileTransfer.html#slide6",
-    "title": "Connecting to the server and tranfering files",
-    "section": "Transfer files to server",
-    "text": "Transfer files to server\n\n\n\n\nFolders in your computer\nContent of folder selected in panel 1\nFolders in the server\nStatus of the connection and of transfers"
-  },
-  {
-    "objectID": "unix/Class2_Connection_FileTransfer.html#slide7",
-    "href": "unix/Class2_Connection_FileTransfer.html#slide7",
-    "title": "Connecting to the server and tranfering files",
-    "section": "Transfer files to server",
-    "text": "Transfer files to server\n\nrsync : FROM YOUR COMPUTER TO THE SERVER!!!! - Never from the server to your computer (for security)\n\nTo enter path to server, you need to add the log in info\nPath to file(s) to transfer\nPath to destination\n\n\n# Type the following in your computer's terminal (not in the server!!!)\nrsync file_in_computer username@cedar.computecanada.ca:/home/username/\n# Will ask for password to server\n# copies file_in_computer to the server in the folder /home/username\n\nrsync username@cedar.computecanada.ca:/home/username/file_in_server ./\n# Will ask for password to server\n# copies /home/username/file_in_server from the server my computer"
-  },
-  {
-    "objectID": "unix/Class2_Connection_FileTransfer.html#slide8",
-    "href": "unix/Class2_Connection_FileTransfer.html#slide8",
-    "title": "Connecting to the server and tranfering files",
-    "section": "Exercise - transfer fasta file",
-    "text": "Exercise - transfer fasta file\n\nDownload this fasta file to a folder of your choice in your computer\nUse rsync to transfer it to the server in a folder called unix_class in $HOME\nEdit the file with nano and remove two sequences, save to another file.\nTransfer new file to your computer using rsync"
-  },
-  {
-    "objectID": "unix/Class2_Connection_FileTransfer.html#resources",
-    "href": "unix/Class2_Connection_FileTransfer.html#resources",
-    "title": "Connecting to the server and tranfering files",
-    "section": "Resources",
-    "text": "Resources\n\nHow to connect to the server\nList of webinars (5-10min) on how to use the server\nTypes of folders in the server\nHow to transfer data"
-  },
-  {
     "objectID": "r/working_with_dataframes.html",
     "href": "r/working_with_dataframes.html",
     "title": "Working with tables",
@@ -434,6 +217,279 @@
     "text": "readxl package - Part of the tidyverse package\nAllows you to:\n\nCheck the names of the sheets of an excel file: excel_sheets(MY_EXCEL_FILE)\nRead sheets of an excel file as tibbles (a type of data.frame):\n\nread_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET)\nYou can specify what defines NA: read_excel(file = MY_EXCEL_FILE, sheet = MY_SHEET, na = \".\")\nInstead of header = T, you use col_names = T\nYou can specify the number of rows to skip in the beginning with skip = N\nYou can specify the number of rows to read with n_max = N\nYou can specify which cols and rows to read with range = \"H40:T80\"\n\nIf range is specified, skip and n_max are ignored\nYou can include the name of the sheet: range = \"MY_SHEET!H40:T80\"\n\nSHEET EXCLAMATION_POINT CELL_RANGE"
   },
   {
+    "objectID": "unix/Class5_AWK.html#awk---print-specific-columns",
+    "href": "unix/Class5_AWK.html#awk---print-specific-columns",
+    "title": "Class 5 - AWK command",
+    "section": "AWK - print specific columns",
+    "text": "AWK - print specific columns\n\nAlways put commands inside single quotes ''\nUse {print} to indicate lines or columns you want to see\nIndicate a column number using $N (replace N with the number)\nIf you want to see several columns, separate them with a ,:\n\n{print $N,$X}\n\nTo indicate the whole line, use $0"
+  },
+  {
+    "objectID": "unix/Class5_AWK.html#awk---print-specific-columns-1",
+    "href": "unix/Class5_AWK.html#awk---print-specific-columns-1",
+    "title": "Class 5 - AWK command",
+    "section": "AWK - print specific columns",
+    "text": "AWK - print specific columns\n# Print second column of the file blastp_results.txt\nawk '{print $2}' blastp_results.txt\n# Print second and third columns of the file blastp_results.txt\nawk '{print $2,$3}' blastp_results.txt"
+  },
+  {
+    "objectID": "unix/Class5_AWK.html#awk---print-line-with-specific-word",
+    "href": "unix/Class5_AWK.html#awk---print-line-with-specific-word",
+    "title": "Class 5 - AWK command",
+    "section": "AWK - print line with specific word",
+    "text": "AWK - print line with specific word\nInside the '' add the word your searching for in //\n# Print lines containing \"#\" in blastp_results.txt\nawk '/#/ {print}' blastp_results.txt\n\n# Print lines NOT containing \"#\" in blastp_results.txt\nawk '!/#/ {print}' blastp_results.txt\n\nNote that when you do not specify the column, or when you use $0, you print the whole line"
+  },
+  {
+    "objectID": "unix/Class5_AWK.html#awk---indicate-how-to-read-the-input-and-write-the-output",
+    "href": "unix/Class5_AWK.html#awk---indicate-how-to-read-the-input-and-write-the-output",
+    "title": "Class 5 - AWK command",
+    "section": "AWK - indicate how to read the input and write the output",
+    "text": "AWK - indicate how to read the input and write the output\n\nNR - number of records (normally number of lines):\n\nawk 'NR &gt; 1 {print}' blastp_results.txt\n\nwill print all but the first line\n\nawk 'NR == 1 {print $1} NR &gt; 1 {print $2}' blastp_results.txt\n\nwill print the first column for line 1 and the second column for the other lines\n\n\nNF - number of fields (normally columns):\n\nawk '{print $NF}' blastp_results.txt\n\nwill print the last column the file"
+  },
+  {
+    "objectID": "unix/Class5_AWK.html#awk---indicate-how-to-read-the-input-and-write-the-output-1",
+    "href": "unix/Class5_AWK.html#awk---indicate-how-to-read-the-input-and-write-the-output-1",
+    "title": "Class 5 - AWK command",
+    "section": "AWK - indicate how to read the input and write the output",
+    "text": "AWK - indicate how to read the input and write the output\nNote the these can be specified by adding BEGIN {}:\n\nFS - field separator - column delimiter\n\nawk 'BEGIN {FS=\",\"} {print $2}' blastp_results.csv\n\nIndicates the columns in the file blastp_results.csv are separated by commas and asks for the second column\nOutside the '' -F\",\" or --field-separator=\",\" are the same\n\n\nOFS - output field separator - column delimiter for the output\n\nawk 'BEGIN {OFS=\",\"} {print $1,$2,$3}' blastp_results.txt\n\nChanges the separation of columns from space (default for awk) to commas"
+  },
+  {
+    "objectID": "unix/Class5_AWK.html#awk---indicate-how-to-read-the-input-and-write-the-output-2",
+    "href": "unix/Class5_AWK.html#awk---indicate-how-to-read-the-input-and-write-the-output-2",
+    "title": "Class 5 - AWK command",
+    "section": "AWK - indicate how to read the input and write the output",
+    "text": "AWK - indicate how to read the input and write the output\nNote the these can be specified by adding BEGIN {}:\n\nRS - record separator\n\nawk 'BEGIN {RS=\"&gt;\"} {print $1}' myFasta.fasta\n\nTells awk that new entries are indicated with a “&gt;” symbol\n\n\nORS - record separator for the output\n\nawk 'BEGIN {ORS=\"&gt;\"} {print $1}' myFasta.txt\n\nTells awk that new entries in the output will start with the “&gt;” symbol"
+  },
+  {
+    "objectID": "unix/Class5_AWK.html#awk-example",
+    "href": "unix/Class5_AWK.html#awk-example",
+    "title": "Class 5 - AWK command",
+    "section": "AWK example",
+    "text": "AWK example\n\nSequence length\n\nawk 'BEGIN {FS = \"\\n\"; RS=\"&gt;\"}\\\n {print $1, length($2)}' ~/blastClass/myFasta.fasta"
+  },
+  {
+    "objectID": "unix/Class5_AWK.html#awk-example-1",
+    "href": "unix/Class5_AWK.html#awk-example-1",
+    "title": "Class 5 - AWK command",
+    "section": "AWK example",
+    "text": "AWK example\n\nChange fasta to a table format\n\nawk 'BEGIN {FS = \"\\n\"; RS=\"&gt;\";\\\n OFS=\"\\t\"; ORS=\"\\n\"}\\\n {print $1,$2}' ~/blastClass/myFasta.fasta"
+  },
+  {
+    "objectID": "unix/Class5_AWK.html#awk---replace-word",
+    "href": "unix/Class5_AWK.html#awk---replace-word",
+    "title": "Class 5 - AWK command",
+    "section": "AWK - replace word",
+    "text": "AWK - replace word\n\nReplace the letter N in the sequence line by '*'\n\nawk 'BEGIN {FS = \"\\n\"; RS=\"&gt;\"}\\\n {newSeq=gensub(/N/, \"*\", $2); print $1, newSeq}' ~/blastClass/myFasta.fasta"
+  },
+  {
+    "objectID": "unix/Class5_AWK.html#awk---print-with-one-condition",
+    "href": "unix/Class5_AWK.html#awk---print-with-one-condition",
+    "title": "Class 5 - AWK command",
+    "section": "AWK - print with one condition",
+    "text": "AWK - print with one condition\n\nConditions inside {} come after if and inside () OR they go outside the {}\n\n# Print line if column 3 has a value greater than 80\nawk '{if ($3 &gt; 80) print}' ~/blastClass/myFasta.fasta\n\nOr they go outside the {}\n\n# Print line if column 3 has a value greater than 80\nawk '$3 &gt; 80 {print}' ~/blastClass/myFasta.fasta"
+  },
+  {
+    "objectID": "unix/Class5_AWK.html#awk---print-with-multiple-conditions",
+    "href": "unix/Class5_AWK.html#awk---print-with-multiple-conditions",
+    "title": "Class 5 - AWK command",
+    "section": "AWK - print with multiple conditions",
+    "text": "AWK - print with multiple conditions\n\nWhen the conditions must all be met, separate them with &&\n\n\n\n# Print line if column 3 has a value greater than 80 AND column 4 has a value greater than 150\nawk '{if ($3 &gt; 80 && $4 &gt; 150) print}' ~/blastClass/myFasta.fasta\n    \n# This also gives the same result\nawk '$3 &gt; 80 && $4 &gt; 150 {print}' ~/blastClass/myFasta.fasta"
+  },
+  {
+    "objectID": "unix/Class5_AWK.html#awk---print-with-multiple-conditions-1",
+    "href": "unix/Class5_AWK.html#awk---print-with-multiple-conditions-1",
+    "title": "Class 5 - AWK command",
+    "section": "AWK - print with multiple conditions",
+    "text": "AWK - print with multiple conditions\n\nWhen only one condition must be met, separate them with ||\n\n# Print line if column 3 has a value greater than 80 OR column 4 has a value greater than 150\nawk '{if ($3 &gt; 80 || $4 &gt; 150) print}' ~/blastClass/myFasta.fasta\n\nawk '$3 &gt; 80 || $4 &gt; 150 { print }' ~/blastClass/myFasta.fasta"
+  },
+  {
+    "objectID": "unix/Class5_AWK.html#resources",
+    "href": "unix/Class5_AWK.html#resources",
+    "title": "Class 5 - AWK command",
+    "section": "Resources",
+    "text": "Resources\n\nAWK manual\nAWK examples\nAWK cheatsheet\nAWK - working with text"
+  },
+  {
+    "objectID": "unix/Class3_runningJobs.html#run-jobs",
+    "href": "unix/Class3_runningJobs.html#run-jobs",
+    "title": "Class 3 - Running Jobs",
+    "section": "Run jobs",
+    "text": "Run jobs\nCannot run/execute any of those commands from ~\nThe three possibilities:\n\nsrun - Use to submit a script to be executed in real time (the process of running the job will be printed in the screen instead of saved into a file)\nsbatch - Use to submit a script to be executed later\nsalloc - Use to allocate resources for a job in real time.\n\nBasically, you ask for memory and CPUS for a determinate amount of time and when the “allocate” the resources to you, you work in real time in a computer more potent than yours."
+  },
+  {
+    "objectID": "unix/Class3_runningJobs.html#run-jobs---srun",
+    "href": "unix/Class3_runningJobs.html#run-jobs---srun",
+    "title": "Class 3 - Running Jobs",
+    "section": "Run jobs - srun",
+    "text": "Run jobs - srun\nsrun NEEDED_INFO script/command\n\nBefore running srun, need to load software required need to the session\n\nAdding module load software to the script does not work\n\nInformation needed\n\n--account=acount_name - def-laboidp or def-desgagne or def-germain1\n--time=d-HH:MM:SS - time required for the script, eg. 12hs: --time=12:00:00\n--mem=1G - memory required (here, 1G, default 254M)"
+  },
+  {
+    "objectID": "unix/Class3_runningJobs.html#srun---exammple",
+    "href": "unix/Class3_runningJobs.html#srun---exammple",
+    "title": "Class 3 - Running Jobs",
+    "section": "srun - exammple",
+    "text": "srun - exammple\n\n\nmodule load StdEnv/2020 blast+ # load the softwares\ncd $SCRATCH\n\nsrun --account=def-desgagne --time=01:00:00 --mem=1024M\\\n blastp -query prots.fasta\\\n -db $myDatabase\\\n -out prots_Databased.txt\\\n -outfmt '7' # output in table format\n\n\n\nThe file prots.fasta is in the current folder, or its path is given in full\n\nsame for the output prots_Database.txt\n\nWhen you use \\ to separate one command in several lines, add a space in the next line to separate the words"
+  },
+  {
+    "objectID": "unix/Class3_runningJobs.html#note-on-blast",
+    "href": "unix/Class3_runningJobs.html#note-on-blast",
+    "title": "Class 3 - Running Jobs",
+    "section": "Note on blast",
+    "text": "Note on blast\n\n$myDatabase\n\nAdd the full path, without the extension\nUse right type of database (the first letter of the extension indicates the type of database)\n\n.p* - protein database\n.n* - nucleotide database"
+  },
+  {
+    "objectID": "unix/Class3_runningJobs.html#run-jobs---sbatch",
+    "href": "unix/Class3_runningJobs.html#run-jobs---sbatch",
+    "title": "Class 3 - Running Jobs",
+    "section": "Run jobs - sbatch",
+    "text": "Run jobs - sbatch\nsbatch script or sbatch NEEDED_INFO script\n\nUsed to submit a script to be executed later.\nEssentials for the script:\n\nFirst line indicates the program that translates the script to computer language: #!/bin/sh\nLines starting with #SBATCH tell the scheduler what we need for this job"
+  },
+  {
+    "objectID": "unix/Class3_runningJobs.html#sbatch---script-example",
+    "href": "unix/Class3_runningJobs.html#sbatch---script-example",
+    "title": "Class 3 - Running Jobs",
+    "section": "sbatch - script example",
+    "text": "sbatch - script example\n\n\n#!/bin/sh\n#SBATCH --account=def-desgagne\n#SBATCH --time=01:00:00 \n#SBATCH --mem=1024M\n\nmodule load StdEnv/2020 blast+\n\nmyDatabase=/database/path\n\ncd $SCRATCH\n\nblastp -query prots.fasta\\\n -db $myDatabase\\\n -out prots_Databased.txt\\\n -outfmt '7' # output in table format\n\n\n\nNote that here the “module load” line is INSIDE the script"
+  },
+  {
+    "objectID": "unix/Class3_runningJobs.html#run-jobs---salloc",
+    "href": "unix/Class3_runningJobs.html#run-jobs---salloc",
+    "title": "Class 3 - Running Jobs",
+    "section": "Run jobs - salloc",
+    "text": "Run jobs - salloc\nsalloc - salloc NEEDED_INFO\n\nUsed to allocate resources for a job in real time.\nBasically, you ask for memory and CPUS for a determinate amount of time and when the “allocate” the resources to you, you work in real time in a computer more potent than yours."
+  },
+  {
+    "objectID": "unix/Class3_runningJobs.html#resources",
+    "href": "unix/Class3_runningJobs.html#resources",
+    "title": "Class 3 - Running Jobs",
+    "section": "Resources",
+    "text": "Resources\n\nHow to run jobs"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#basics",
+    "href": "unix/Class1_BasicCommands.html#basics",
+    "title": "Basic commands",
+    "section": "Basics",
+    "text": "Basics\n\nCommands are separated by a new line (Enter, Return) or a semicolon (;)\nThe first word in a command is what you are asking the computer to do (a function)\nSpaces are used to separate file names, commands, etc.\nSome commands allow you to customize their output with options\n\nThese are single letters, a word, or several words preceded by - or --\n\nYou can get help for a command by using the help option (either -h , --help ) or the command man (for manual)\n\n\n\nls --help\nman ls"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#about-spaces-and-file-names",
+    "href": "unix/Class1_BasicCommands.html#about-spaces-and-file-names",
+    "title": "Basic commands",
+    "section": "About spaces and file names",
+    "text": "About spaces and file names\nPut name in quotes if it has spaces (test code below)\ntouch Programming Class.txt\nls\n\ntouch \"Programming Class.txt\"\nls\nQuotes are NORMALLY (not always) interchangeable (test code below)\necho \"This is good\"\necho 'This is good'\nDo not start with one quote type and end with another"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#shortcuts---part-1",
+    "href": "unix/Class1_BasicCommands.html#shortcuts---part-1",
+    "title": "Basic commands",
+    "section": "Shortcuts - part 1",
+    "text": "Shortcuts - part 1\n\n~ or $HOME : your home folder (can be defined by the user)\n. : the folder that you are currently in\n..: the folder that contains the one you are currently in\nCtrl+C: cancel a command\nIn MobaxTerm, find and modify useful shortcuts by clicking on Settings -&gt; Keyboard shortcuts"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#shortcuts---part-2",
+    "href": "unix/Class1_BasicCommands.html#shortcuts---part-2",
+    "title": "Basic commands",
+    "section": "Shortcuts - part 2",
+    "text": "Shortcuts - part 2\n\nwhoami\n\nprints your username (if saved in the computer)\n\nUse tab to complete words\nIn a current command or in a text file, move the cursor faster by using Ctrl+Arrow (right or left arrow in a command line, in a text file up and down arrow too) (this works everywhere!!!)"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#basic-commands---part-1",
+    "href": "unix/Class1_BasicCommands.html#basic-commands---part-1",
+    "title": "Basic commands",
+    "section": "Basic commands - part 1",
+    "text": "Basic commands - part 1\n\ncd\n\nacronym for “change directory” (directory = folder)\nIf used alone, opens your home folder\nThe name of the folder to which you want to go comes after cd\n\ncd , cd ~ and cd $HOME are synonyms\n\ncd - - takes you to the previous folder"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#basic-commands---part-2",
+    "href": "unix/Class1_BasicCommands.html#basic-commands---part-2",
+    "title": "Basic commands",
+    "section": "Basic commands - part 2",
+    "text": "Basic commands - part 2\n\npwd\n\nacronym for “print working directory” (directory = folder)\nequivalent to the R function getwd() or python’s os.getcwd()\nprints the full path to your current folder\nA full path always starts from the root (/)"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#basic-commands---part-3",
+    "href": "unix/Class1_BasicCommands.html#basic-commands---part-3",
+    "title": "Basic commands",
+    "section": "Basic commands - part 3",
+    "text": "Basic commands - part 3\n\nls\n\nlists the contents of your current folder\nCheck slide 2 where we used this command\n\nUse &gt; after a command to save the output\n\npwd &gt; myFolder\ncat myFolder\n\nUse &gt;&gt; to add the current output to a previous file\n\nls &gt;&gt; myFolder\ncat myFolder"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#managing-text-files---part-1",
+    "href": "unix/Class1_BasicCommands.html#managing-text-files---part-1",
+    "title": "Basic commands",
+    "section": "Managing text files - part 1",
+    "text": "Managing text files - part 1\n\ncat : prints the contents of the file to the screen (check slide 9\n\nDo not use it with files are that not text (images, pdfs, compressed files) or is too big\nIf several files names are put after the command, one file is printed followed by the next (conCATenation)\n\nhead and tail: prints to the screen the first/last 10 lines of the file"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#managing-text-files---part-2",
+    "href": "unix/Class1_BasicCommands.html#managing-text-files---part-2",
+    "title": "Basic commands",
+    "section": "Managing text files - part 2",
+    "text": "Managing text files - part 2\n\nless : opens the file as “read-only”\n\nSearch for a word in a file inside less by typing “/” followed by the word\nTo close less, press Q\n\nmore : opens the file as “read-only”, when the file is closed, prints it to the screen"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#managing-text-files---part-3",
+    "href": "unix/Class1_BasicCommands.html#managing-text-files---part-3",
+    "title": "Basic commands",
+    "section": "Managing text files - part 3",
+    "text": "Managing text files - part 3\n\nnano : open a text file to edit it.\ngrep : searches for a word/phrase in the file and prints the lines that match\n\nCan search for several phrases (one per line) in a file by using the option -f\nIf you don’t care about the upper/lower case, use the option -i or --ignore-case"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#managing-text-files---part-4",
+    "href": "unix/Class1_BasicCommands.html#managing-text-files---part-4",
+    "title": "Basic commands",
+    "section": "Managing text files - part 4",
+    "text": "Managing text files - part 4\nSearch for lines that have the word programming in the file myFolder created in slide 9\ngrep \"Programming\" myFolder\n\nwc : word count. Counts the number of characters, words and lines in a file\necho : repeats the text that follows it (check slide 4)"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#exercise",
+    "href": "unix/Class1_BasicCommands.html#exercise",
+    "title": "Basic commands",
+    "section": "Exercise",
+    "text": "Exercise\n\nSave a fasta file into your home folder with the name myFasta.fa\nUse grep to find all the lines with sequence IDs.\n\nNote - put the word or phrase you will search for inside \"\""
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#exercise---solution",
+    "href": "unix/Class1_BasicCommands.html#exercise---solution",
+    "title": "Basic commands",
+    "section": "Exercise - Solution",
+    "text": "Exercise - Solution\n\nSave a fasta file into your home folder with the name myFasta.fa\nUse grep to find all the lines with sequence IDs.\n\nNote - put the word or phrase you will search for inside \"\"\n\n\n\n\n# In all fasta files, the sequence ID line is indicated by the symbol &gt;, so we just need to look for it\ngrep \"&gt;\" myFasta.fa\n\n\n\nNormally, if you just search for one word, the quotes are not needed, by in this case, the symbol \"&gt;\" could also mean “send the output to”, which would replace the myFasta.fa file"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#managing-files---part-1",
+    "href": "unix/Class1_BasicCommands.html#managing-files---part-1",
+    "title": "Basic commands",
+    "section": "Managing files - part 1",
+    "text": "Managing files - part 1\n\ncp : acronym for copy\n\ncp file file2 : creates a copy of the file “file” and saves it in the file “file2”\ncp file folder : creates a copy of the file “file” and saves it with the same name in the folder “folder”\ncp file file2 folder: both files “file” and “file2” are copied into the folder “folder” with the same names\ncp folder folder2 -r : the option -r allows the copy of the entire folder.\n\nIf folder2 doesn’t exist, it will be created to hold the same files as “folder”\nIf folder2 exists, a copy of “folder” will be created inside of folder2"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#managing-files---part-2",
+    "href": "unix/Class1_BasicCommands.html#managing-files---part-2",
+    "title": "Basic commands",
+    "section": "Managing files - part 2",
+    "text": "Managing files - part 2\n\nmv : acronym for move. Move file from one place to another\n\nmv file file2 : renames “file” as “file2”\nmv file folder : moves “file” into the folder “folder”\nmv file file2 folder: both files “file” and “file2” are moved into the folder “folder” with the same names\nmv folder folder2 :\n\nIf folder2 doesn’t exist, it is the same as renaming “folder” as “folder2”\nIf folder2 exists, “folder” is moved to that folder"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#managing-files---part-3",
+    "href": "unix/Class1_BasicCommands.html#managing-files---part-3",
+    "title": "Basic commands",
+    "section": "Managing files - part 3",
+    "text": "Managing files - part 3\n\nrm : acronym for remove. Deletes files. They are PERMANENTELY deleted, there is no trash bin here!!!!!!!\n\nrm file file2 : deletes both files\nrm file file2 -i : asks the user if they really want to delete each file, if y is pressed, the file is deleted (-i for interactive)"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#managing-folders",
+    "href": "unix/Class1_BasicCommands.html#managing-folders",
+    "title": "Basic commands",
+    "section": "Managing folders",
+    "text": "Managing folders\n\nmkdir : acronym for “make directory”. Creates new folders with the specified names.\n\nGives an error if something with the same name already exists in the current folder.\nIf many names are given (separated by spaces, creates all names folders)\n\nrmdir : acronym for “remove directory”. Deletes empty folders.\n\nIf the folder is not empty, gives an error.\nIf many names are given (separated by spaces, deletes all names folders if they are empty\n\nrm -r folder : as in cp, the option -r allows the rm to work with a folder. It deletes everything in the folder, then deletes the folder itself"
+  },
+  {
+    "objectID": "unix/Class1_BasicCommands.html#resources-for-help",
+    "href": "unix/Class1_BasicCommands.html#resources-for-help",
+    "title": "Basic commands",
+    "section": "Resources for help",
+    "text": "Resources for help\nGlossary of commands\nBook on basic unix commands"
+  },
+  {
     "objectID": "r/Working_with_your_data.html#datasets-and-scripts",
     "href": "r/Working_with_your_data.html#datasets-and-scripts",
     "title": "Working with your data - Elisa",
@@ -606,7 +662,7 @@
     "href": "r/Packages_Functions.html#test-if-the-curves-are-different",
     "title": "R class - packages and functions",
     "section": "Test if the curves are different",
-    "text": "Test if the curves are different\n\nLinear model (regression)Check which curves are different\n\n\n\n# Create the linear model of Growth_measure ~ TimePoint, adding the Treatment interaction\nlinear.model = lm(Growth_measure ~ TimePoint*Treatment, data = timeSeriesLong)\nsummary(linear.model)\n\n\nCall:\nlm(formula = Growth_measure ~ TimePoint * Treatment, data = timeSeriesLong)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n -1.80  -0.06   0.00   0.06   1.80 \n\nCoefficients:\n                              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)                   -2.00000    0.14189 -14.095  &lt; 2e-16 ***\nTimePoint                      2.00000    0.01928 103.740  &lt; 2e-16 ***\nTreatmentTreatmentA           -1.00000    0.20066  -4.984 2.56e-06 ***\nTreatmentTreatmentB            0.50000    0.20066   2.492   0.0143 *  \nTimePoint:TreatmentTreatmentA  1.00000    0.02726  36.678  &lt; 2e-16 ***\nTimePoint:TreatmentTreatmentB -0.50000    0.02726 -18.339  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.3993 on 102 degrees of freedom\nMultiple R-squared:  0.9979,    Adjusted R-squared:  0.9978 \nF-statistic:  9800 on 5 and 102 DF,  p-value: &lt; 2.2e-16\n\n\n\n\n\ninstall.packages(\"lsmeans\"); library(\"lsmeans\")\n\npackage 'lsmeans' successfully unpacked and MD5 sums checked\n\nThe downloaded binary packages are in\n    C:\\Users\\karen\\AppData\\Local\\Temp\\RtmpiCGVar\\downloaded_packages\n\n\n\nlinear.model.trends &lt;- lstrends(linear.model, \"Treatment\", var=\"TimePoint\")\nsummary(linear.model.trends)\n\n Treatment  TimePoint.trend     SE  df lower.CL upper.CL\n Control                2.0 0.0193 102     1.96     2.04\n TreatmentA             3.0 0.0193 102     2.96     3.04\n TreatmentB             1.5 0.0193 102     1.46     1.54\n\nConfidence level used: 0.95 \n\npairs(linear.model.trends)\n\n contrast                estimate     SE  df t.ratio p.value\n Control - TreatmentA        -1.0 0.0273 102 -36.678  &lt;.0001\n Control - TreatmentB         0.5 0.0273 102  18.339  &lt;.0001\n TreatmentA - TreatmentB      1.5 0.0273 102  55.016  &lt;.0001\n\nP value adjustment: tukey method for comparing a family of 3 estimates"
+    "text": "Test if the curves are different\n\nLinear model (regression)Check which curves are different\n\n\n\n# Create the linear model of Growth_measure ~ TimePoint, adding the Treatment interaction\nlinear.model = lm(Growth_measure ~ TimePoint*Treatment, data = timeSeriesLong)\nsummary(linear.model)\n\n\nCall:\nlm(formula = Growth_measure ~ TimePoint * Treatment, data = timeSeriesLong)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n -1.80  -0.06   0.00   0.06   1.80 \n\nCoefficients:\n                              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)                   -2.00000    0.14189 -14.095  &lt; 2e-16 ***\nTimePoint                      2.00000    0.01928 103.740  &lt; 2e-16 ***\nTreatmentTreatmentA           -1.00000    0.20066  -4.984 2.56e-06 ***\nTreatmentTreatmentB            0.50000    0.20066   2.492   0.0143 *  \nTimePoint:TreatmentTreatmentA  1.00000    0.02726  36.678  &lt; 2e-16 ***\nTimePoint:TreatmentTreatmentB -0.50000    0.02726 -18.339  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.3993 on 102 degrees of freedom\nMultiple R-squared:  0.9979,    Adjusted R-squared:  0.9978 \nF-statistic:  9800 on 5 and 102 DF,  p-value: &lt; 2.2e-16\n\n\n\n\n\ninstall.packages(\"lsmeans\"); library(\"lsmeans\")\n\npackage 'lsmeans' successfully unpacked and MD5 sums checked\n\nThe downloaded binary packages are in\n    C:\\Users\\Karen\\AppData\\Local\\Temp\\Rtmpym31NO\\downloaded_packages\n\n\n\nlinear.model.trends &lt;- lstrends(linear.model, \"Treatment\", var=\"TimePoint\")\nsummary(linear.model.trends)\n\n Treatment  TimePoint.trend     SE  df lower.CL upper.CL\n Control                2.0 0.0193 102     1.96     2.04\n TreatmentA             3.0 0.0193 102     2.96     3.04\n TreatmentB             1.5 0.0193 102     1.46     1.54\n\nConfidence level used: 0.95 \n\npairs(linear.model.trends)\n\n contrast                estimate     SE  df t.ratio p.value\n Control - TreatmentA        -1.0 0.0273 102 -36.678  &lt;.0001\n Control - TreatmentB         0.5 0.0273 102  18.339  &lt;.0001\n TreatmentA - TreatmentB      1.5 0.0273 102  55.016  &lt;.0001\n\nP value adjustment: tukey method for comparing a family of 3 estimates"
   },
   {
     "objectID": "r/Packages_Functions.html#references",
@@ -782,6 +838,202 @@
     "title": "R class - basics",
     "section": "Code from class (Tuesday’s group)",
     "text": "Code from class (Tuesday’s group)\n\nCopy the code from this link\nOr run the code below\n\nsource(\"https://karengoncalves.github.io/Programming_classes/r/exampleData/script_class1t.R\")"
+  },
+  {
+    "objectID": "unix/Class2_Connection_FileTransfer.html#slide1",
+    "href": "unix/Class2_Connection_FileTransfer.html#slide1",
+    "title": "Connecting to the server and tranfering files",
+    "section": "Logging in",
+    "text": "Logging in\n\n\n\n\nClick on Session -&gt; SSH\nAdd the Remote Host : cedar.computecanada.ca\nClick on Specify username then add yours\nClick OK: will ask your password (when you type, nothing will appear, but it is writing)"
+  },
+  {
+    "objectID": "unix/Class2_Connection_FileTransfer.html#slide2",
+    "href": "unix/Class2_Connection_FileTransfer.html#slide2",
+    "title": "Connecting to the server and tranfering files",
+    "section": "Logging in",
+    "text": "Logging in\n\n\n\n\nssh cedar.computecanada.ca\n\nWill ask your user name then your password (what you type won’t appear on the screen)\n\nssh YOUR_USERNAME@cedar.computecanada.ca\n\nReplace YOUR_USERNAME with your username, in my case: karencgs\nWill ask your password"
+  },
+  {
+    "objectID": "unix/Class2_Connection_FileTransfer.html#slide3",
+    "href": "unix/Class2_Connection_FileTransfer.html#slide3",
+    "title": "Connecting to the server and tranfering files",
+    "section": "Server organization",
+    "text": "Server organization\n\nIn the server, type (do not consider what comes after #):\n\n\n\npwd # after you log in, should be /home/username/\nwhoami # username\necho \"$SCRATCH\"\necho \"$HOME\"\nls $HOME/projects/\n\n\n\n$HOME : Store scripts, software files, things you use frequently without necessarily modifying them\n$SCRATCH : Use to run scripts, submit jobs (scripts that take too long or use a lot of resources)\n/projects/ : Use as medium to long term storage (raw data, final results of analyses), share files with people of the same project\n\nCheck file authorizations so that other can use what you share"
+  },
+  {
+    "objectID": "unix/Class2_Connection_FileTransfer.html#slide4",
+    "href": "unix/Class2_Connection_FileTransfer.html#slide4",
+    "title": "Connecting to the server and tranfering files",
+    "section": "Transfer files to server",
+    "text": "Transfer files to server\n\n\n\n\nIn MobaxTerm, log in to the server, click on the left panel on the world button (SFTP)\nLeft panel: buttons for upload, download, etc.\nUnder the buttons is a bar to put the path to the desired folder\nOnce you are in the folder you want, click on a file and click the button for download to select where you want to save it"
+  },
+  {
+    "objectID": "unix/Class2_Connection_FileTransfer.html#slide5",
+    "href": "unix/Class2_Connection_FileTransfer.html#slide5",
+    "title": "Connecting to the server and tranfering files",
+    "section": "Transfer files to server",
+    "text": "Transfer files to server\n\n\n\n\nIn MobaxTerm, create a SFTP session (like an SSH session)"
+  },
+  {
+    "objectID": "unix/Class2_Connection_FileTransfer.html#slide6",
+    "href": "unix/Class2_Connection_FileTransfer.html#slide6",
+    "title": "Connecting to the server and tranfering files",
+    "section": "Transfer files to server",
+    "text": "Transfer files to server\n\n\n\n\nFolders in your computer\nContent of folder selected in panel 1\nFolders in the server\nStatus of the connection and of transfers"
+  },
+  {
+    "objectID": "unix/Class2_Connection_FileTransfer.html#slide7",
+    "href": "unix/Class2_Connection_FileTransfer.html#slide7",
+    "title": "Connecting to the server and tranfering files",
+    "section": "Transfer files to server",
+    "text": "Transfer files to server\n\nrsync : FROM YOUR COMPUTER TO THE SERVER!!!! - Never from the server to your computer (for security)\n\nTo enter path to server, you need to add the log in info\nPath to file(s) to transfer\nPath to destination\n\n\n# Type the following in your computer's terminal (not in the server!!!)\nrsync file_in_computer username@cedar.computecanada.ca:/home/username/\n# Will ask for password to server\n# copies file_in_computer to the server in the folder /home/username\n\nrsync username@cedar.computecanada.ca:/home/username/file_in_server ./\n# Will ask for password to server\n# copies /home/username/file_in_server from the server my computer"
+  },
+  {
+    "objectID": "unix/Class2_Connection_FileTransfer.html#slide8",
+    "href": "unix/Class2_Connection_FileTransfer.html#slide8",
+    "title": "Connecting to the server and tranfering files",
+    "section": "Exercise - transfer fasta file",
+    "text": "Exercise - transfer fasta file\n\nDownload this fasta file to a folder of your choice in your computer\nUse rsync to transfer it to the server in a folder called unix_class in $HOME\nEdit the file with nano and remove two sequences, save to another file.\nTransfer new file to your computer using rsync"
+  },
+  {
+    "objectID": "unix/Class2_Connection_FileTransfer.html#resources",
+    "href": "unix/Class2_Connection_FileTransfer.html#resources",
+    "title": "Connecting to the server and tranfering files",
+    "section": "Resources",
+    "text": "Resources\n\nHow to connect to the server\nList of webinars (5-10min) on how to use the server\nTypes of folders in the server\nHow to transfer data"
+  },
+  {
+    "objectID": "unix/Class4_blast.html#slide1",
+    "href": "unix/Class4_blast.html#slide1",
+    "title": "Class 4 - Running blast on the server",
+    "section": "Logging in",
+    "text": "Logging in\n\n\n\n\nClick on Session -&gt; SSH\n\nAdd the Remote Host : cedar.computecanada.ca\nClick on Specify username then add yours, you can save your user name and password in the\nClick OK: will ask your password (when you type, nothing will appear, but it is writing)\n\nssh YOUR_USERNAME@cedar.computecanada.ca\n\nReplace YOUR_USERNAME with your username, in my case: karencgs"
+  },
+  {
+    "objectID": "unix/Class4_blast.html#running-commands-in-the-server",
+    "href": "unix/Class4_blast.html#running-commands-in-the-server",
+    "title": "Class 4 - Running blast on the server",
+    "section": "Running commands in the server",
+    "text": "Running commands in the server\nWhen you log in, you are one of hundreds or thousands of people that are sharing the computer in the server, so you should simply run commands that you know or think that could take too much time.\nPlace files you want to use and you scripts in your Home folder\n\nTo move them, use : mv myFile ~\n\nTo run a command, you need to ask for resources, like time and memory, and wait for them to be available.\n\nYou need to be in $SCRATCH or in ~/projects/username to be able to submit a job"
+  },
+  {
+    "objectID": "unix/Class4_blast.html#running-commands-in-the-server---part-2",
+    "href": "unix/Class4_blast.html#running-commands-in-the-server---part-2",
+    "title": "Class 4 - Running blast on the server",
+    "section": "Running commands in the server - part 2",
+    "text": "Running commands in the server - part 2\nGo to $SCRATCH and write a simple script in nano:\n\ncd $SCRATCH; nano $HOME/myTry.sh\n\n#!/bin/sh\n\necho \"&gt;seq1\nATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGC\n&gt;seq2\nGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCAT\" &gt; $HOME/myFasta.fa\n\ngrep \"&gt;\" $HOME/myFasta.fa"
+  },
+  {
+    "objectID": "unix/Class4_blast.html#running-commands-in-the-server---part-3",
+    "href": "unix/Class4_blast.html#running-commands-in-the-server---part-3",
+    "title": "Class 4 - Running blast on the server",
+    "section": "Running commands in the server - part 3",
+    "text": "Running commands in the server - part 3\nGive the script the right permissions and submit your script to the queue of jobs\nchmod u=rwx $HOME/myTry.sh\nsrun --time=00:01:00 sh $HOME/myTry.sh\n\nsrun is one of the commands to submit a script\n--time is the option to tell how much time you need to execute the commands in the script\n\nTime format: D-HH:MM:SS (D=day, H=hour, M=minute, S=second)\n\nOther options:\n\n--account=def-projectName - if you are associated with different accounts (def-desgagne, def-laboidp, def-germain1), you need to specify the one that will be billed for the current job. Replace def-projectName with the correct account\n--mem=XXG or --mem-per-cpu=XXG - specify how much memory the script needs. For a small blast (less than 100 query sequences), 2G is enough\n--cpus-per-task=XX - how many processors you need (big blast jobs run faster if using many cpus)"
+  },
+  {
+    "objectID": "unix/Class4_blast.html#running-blast---part-1",
+    "href": "unix/Class4_blast.html#running-blast---part-1",
+    "title": "Class 4 - Running blast on the server",
+    "section": "Running blast - part 1",
+    "text": "Running blast - part 1\n\nFirst, you need to load the software (modules) needed into your session (every time you log in, or in your script)\n\nmodule load StdEnv/2020 gcc/9.3.0 blast+\n\nPay attention to the upper and lower cases!!\n\n\nWrite the blast script\n\n#!/bin/sh\nblastp -query $HOME/myProtein.fa -db $HOME/database -outfmt 7 -out $HOME/myBlastpResult.txt\n\n-query - use this option to specify the file which you want to blast (here, I want to blast myProtein.fa)\n-db - use this option to specify the database you want to search (need to be the full path, but omit the extension)\n\nIf I create a protein database in $HOME called “proteins”, several files will be created, I just put $HOME/proteins in the script\nGo to the github.com/KarenGoncalves/Amaryllidaceae_database/wiki/Search-by-sequence-using-blast-in-the-command-line to get the path to the databases\n\n-outfmt 7 - specifies the type of output, here I want a table, if you don’t specify, you get something similar to the webpage result\n-out - use this option to specify where to save the output (similar to &gt; myBlastpResult)"
+  },
+  {
+    "objectID": "unix/Class4_blast.html#running-blast---part-2",
+    "href": "unix/Class4_blast.html#running-blast---part-2",
+    "title": "Class 4 - Running blast on the server",
+    "section": "Running blast - part 2",
+    "text": "Running blast - part 2\nA more general script could take arguments from the command line every time\nThis is called $HOME/myGeneralBlast.sh\n#!/bin/sh\nblastp -query $1 -db $2 -outfmt 7 -out $3\nTo run it, we need to do:\nchmod u=rwx $HOME/myGeneralBlast.sh\nsh $HOME/myGeneralBlast.sh $HOME/myProtein.fa $HOME/database $HOME/myBlastpResult.txt"
+  },
+  {
+    "objectID": "unix/Class4_blast.html#running-blast---part-3",
+    "href": "unix/Class4_blast.html#running-blast---part-3",
+    "title": "Class 4 - Running blast on the server",
+    "section": "Running blast - part 3",
+    "text": "Running blast - part 3\nYou can (MUST) write a script to run blast by submitting a job. Ex. $HOME/srun_blast.sh:\n#!/bin/sh\n\nmodule load StdEnv/2020 gcc/9.3.0 blast+\n\nblastp -query $1 -db $2 -outfmt 7 -out $3\nAgain, give the permissions and submit the job:\nchmod u=rwx $HOME/srun_blast.sh\ncd $SCRATCH\nsrun --time=00:10:00 --mem=2G\\\n sh $HOME/srun_blast.sh $HOME/myProtein.fa $HOME/database $HOME/myBlastpResult.txt\n\nNote that with srun you cannot close your session until the job is finished, so if your script takes too long to run or stays too long in the queue, you must either wait for it to finish or cancel it and submit another time"
+  },
+  {
+    "objectID": "unix/Class4_blast.html#running-blast-with-sbatch---part-1",
+    "href": "unix/Class4_blast.html#running-blast-with-sbatch---part-1",
+    "title": "Class 4 - Running blast on the server",
+    "section": "Running blast with sbatch - part 1",
+    "text": "Running blast with sbatch - part 1\nWith sbatch, once your job is in the queue, you can close your session or continue doing other things in it.\nYou can use the same script you used for srun:\n$HOME/srun_blast.sh:\n#!/bin/sh\n\nmodule load StdEnv/2020 gcc/9.3.0 blast+\n\nblastp -query $1 -db $2 -outfmt 7 -out $3\nAgain, give the permissions and submit the job:\nchmod u=rwx $HOME/srun_blast.sh\ncd $SCRATCH\nsbatch --time=00:10:00 --mem=2G\\\n sh $HOME/srun_blast.sh $HOME/myProtein.fa $HOME/database $HOME/myBlastpResult.txt"
+  },
+  {
+    "objectID": "unix/Class4_blast.html#running-blast-with-sbatch---part-2",
+    "href": "unix/Class4_blast.html#running-blast-with-sbatch---part-2",
+    "title": "Class 4 - Running blast on the server",
+    "section": "Running blast with sbatch - part 2",
+    "text": "Running blast with sbatch - part 2\nAnother option is to write the resources request in the script itself.\n$HOME/sbatch_blast.sh:\n#!/bin/sh\n#SBATCH --time=00:10:00\n#SBATCH --mem=2G\n\nmodule load StdEnv/2020 gcc/9.3.0 blast+\n\nblastp -query $HOME/myProtein.fa\\\n -db $HOME/database -outfmt 7\\\n -out $HOME/myBlastResult.txt\n\nThe lines that start with “#SBATCH” are the instructions to the queue. Other possible instructions:\n\n#SBATCH --account=def-project - same as the account information for srun\n\nUnlike srun, with sbatch you need to either give the full path to each file in their names OR you need to add the line cd myFolder (where myFolder is the full path to folder where have your files)\n\nThis is because, with sbatch, it is like you are logging in again"
+  },
+  {
+    "objectID": "unix/Class4_blast.html#creating-a-master-blast-script---part-1",
+    "href": "unix/Class4_blast.html#creating-a-master-blast-script---part-1",
+    "title": "Class 4 - Running blast on the server",
+    "section": "Creating a master blast script - part 1",
+    "text": "Creating a master blast script - part 1\nYou can use echo to write a script that takes the values from the command line and outputs a blast script ready to submit with sbatch.\nEx. $HOME/create_master_blast.sh\n#!/bin/sh\n\n### Variables ###\nmyQuery=$1\ndatabase=$2\noutput=$3\nscriptName=$4\n\n## Create script ##\necho '#!/bin/sh\n#SBATCH --time=00:10:00\n#SBATCH --mem=2G\n\nmodule load StdEnv/2020 gcc/9.3.0 blast+\n\nblastp -query' $myQuery '\\\n -db' $database '-outfmt 7\\\n -out' $output &gt; $scriptName\n \n## Give permissions ##\nchmod u=rwx $scriptName"
+  },
+  {
+    "objectID": "unix/Class4_blast.html#creating-a-master-blast-script---part-2",
+    "href": "unix/Class4_blast.html#creating-a-master-blast-script---part-2",
+    "title": "Class 4 - Running blast on the server",
+    "section": "Creating a master blast script - part 2",
+    "text": "Creating a master blast script - part 2\nThe script has 3 blocks:\n\nVariables - we save the values from the command line into variables that echo will use. We need to give 4 values: the input sequence path, the path to the database, the path to where we want the output and the name we want to give to the script.\nThe body of the script, in which we use echo to put write the file\nThe permissions - we give the right permissions to the new script directly inside the one that created it.\n\nNow, all we need to do is:\nsh $HOME/create_master_blast.sh\\\n $HOME/myProtein.fa\\\n $HOME/database\\\n $HOME/myBlastResult.txt\\\n $HOME/master_blast.sh\n \nsbatch $HOME/master_blast.sh # srun sh $HOME/master_blast.sh also works"
+  },
+  {
+    "objectID": "unix/Class6_SED.html#sed",
+    "href": "unix/Class6_SED.html#sed",
+    "title": "Class 6 - sed command",
+    "section": "SED",
+    "text": "SED\n\nAlways start with sed\nPut commands inside single quotes ''\n\nIf you want to use a variable, use \"\""
+  },
+  {
+    "objectID": "unix/Class6_SED.html#sed---delete-specific-lines",
+    "href": "unix/Class6_SED.html#sed---delete-specific-lines",
+    "title": "Class 6 - sed command",
+    "section": "SED - delete specific lines",
+    "text": "SED - delete specific lines\nIf you do not have it, download the file prots.fasta and put it in the folder with the previous classes files.\n# delete lines 1 to 10 in ~/blastClass/prots.fasta\nwc -l ~/blastClass/prots.fasta\nsed '1,10d' ~/blastClass/prots.fasta | wc -l\n\n\n# delete all lines appearing after the line containing Lychi\nsed '/Lychi/q' ~/blastClass/prots.fasta | less\n\n# delete lines containing the word \"partial\"\nsed '/partial/d' ~/blastClass/prots.fasta | less\nIn the second case, if the word is not found in the file, the whole file will be printed."
+  },
+  {
+    "objectID": "unix/Class6_SED.html#sed---replace-words",
+    "href": "unix/Class6_SED.html#sed---replace-words",
+    "title": "Class 6 - sed command",
+    "section": "SED - replace words",
+    "text": "SED - replace words\n# In each line of the ~/blastClass/prots.fasta file, replace the first \"_\" (separates then species from the protein ID)\nsed 's/_/ protein /' ~/blastClass/prots.fasta | less\n\n# In the ~/blastClass/prots.fasta file, replace all \"_\" (separates then species from the protein ID)\nsed 's/_/-/g' ~/blastClass/prots.fasta | less\n\nsed 's/WORD_SEARCHED/REPLACEMENT/g' input_file\n\ns - substitute\ng - global (everywhere)"
+  },
+  {
+    "objectID": "unix/Class6_SED.html#sed---replace-words-in-specific-lines",
+    "href": "unix/Class6_SED.html#sed---replace-words-in-specific-lines",
+    "title": "Class 6 - sed command",
+    "section": "SED - replace words in specific lines",
+    "text": "SED - replace words in specific lines\nTry the command with and without the number 1\n# In line 1 of the ~/blastClass/prots.fasta file, replace the first \"Agapanthus\" in the line\nsed '1 s/Agapanthus/Ag_/' ~/blastClass/prots.fasta | less\n\n# In line 1 of the ~/blastClass/prots.fasta file, replace all \"Agapanthus_africanus\" \nsed '1 s/Agapanthus/Ag_/g' ~/blastClass/prots.fasta | less\nsed 'LINE_NUMBER s/WORD_SEARCHED/REPLACEMENT/g' input_file\n\nLINE_NUMBER - a digit indicating the number of the line where you want the replacement to occur\ns - substitute\ng - global (everywhere)"
+  },
+  {
+    "objectID": "unix/Class6_SED.html#sed---print-only-lines-replaced",
+    "href": "unix/Class6_SED.html#sed---print-only-lines-replaced",
+    "title": "Class 6 - sed command",
+    "section": "SED - print only lines replaced",
+    "text": "SED - print only lines replaced\n# Replace PF0 with PFAMID PF0, and see which proteins have a match in PFAM\nsed -n 's/PF0/PFAMID PF0/p'  ~/blastClass/prots.fasta | less\n\n-n - do not print lines\n/p - print lines where replacement occurred\n\nWithout -n, every line would be printing, with lines replaced being printed twice (once automatically, then because you asked to see the replacement)"
+  },
+  {
+    "objectID": "unix/Class6_SED.html#sed---write-the-result-to-a-file",
+    "href": "unix/Class6_SED.html#sed---write-the-result-to-a-file",
+    "title": "Class 6 - sed command",
+    "section": "SED - write the result to a file",
+    "text": "SED - write the result to a file\nUse w filename\n# Replace the \"&gt;\" in the ~/blastClass/prots.fasta file and save result to ~/blastClass/protsSED.fasta\nsed \"s/&gt;/Fasta entry /w $HOME/blastClass/protsSED.fasta\" ~/blastClass/prots.fasta\n\nw - write to file $HOME/blastClass/protsSED.fasta"
+  },
+  {
+    "objectID": "unix/Class6_SED.html#sed---work-with-text-with-regular-expressions-regex",
+    "href": "unix/Class6_SED.html#sed---work-with-text-with-regular-expressions-regex",
+    "title": "Class 6 - sed command",
+    "section": "SED - work with text with REGular EXpressions (REGEX)",
+    "text": "SED - work with text with REGular EXpressions (REGEX)\nUse the option -E: sed -E ''\n$ - line end; ^ Line begins\n[] - when any character in a list is accepted in the search, put the list inside the []\n\nEx. sed -En '/&gt;[ABC]/p' ~/blastClass/prots.fasta will print lines for proteins of species that start with A, B or C\n[A-Z] - any upper case letter of the alphabet\n[a-z] - any lower case letter of the alphabet\n[0-9] - any number (in grep, same as \\d)\n[A-Za-z0-9] - any letter or number\n. - any character. Ex.: sed -En '/&gt;A.a/p' ~/blastClass/prots.fasta\n* - find anything 0 or more times. Ex.: remove anything after the space - sed -En 's/ .+$//g' ~/blastClass/prots.fasta | less\n+ - find the previous character or [] one or more times.\n{Ns,NE} - find the previous character at least Ns times and maximum NE times"
+  },
+  {
+    "objectID": "unix/Class6_SED.html#resources",
+    "href": "unix/Class6_SED.html#resources",
+    "title": "Class 6 - sed command",
+    "section": "Resources",
+    "text": "Resources\n\nSED utilities\nSED command examples\nMore SED examples\nEven more SED examples"
   },
   {
     "objectID": "useful_unix.html",
@@ -1062,299 +1314,5 @@
     "title": "Programming classes",
     "section": "Exercise",
     "text": "Exercise\n\nLoad the dataset inflammation-01.csv from The Carpentry"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html",
-    "href": "unix/Class1_BasicCommands.html",
-    "title": "Basic commands",
-    "section": "",
-    "text": "Commands are separated by a new line (Enter, Return) or a semicolon (;)\nThe first word in a command is what you are asking the computer to do (a function)\nSpaces are used to separate file names, commands, etc.\nSome commands allow you to customize their output with options\n\nThese are single letters, a word, or several words preceded by - or --\n\nYou can get help for a command by using the help option (either -h , --help ) or the command man (for manual)\n\n\n\n\nls --help\nman ls"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#basics",
-    "href": "unix/Class1_BasicCommands.html#basics",
-    "title": "Basic commands",
-    "section": "",
-    "text": "Commands are separated by a new line (Enter, Return) or a semicolon (;)\nThe first word in a command is what you are asking the computer to do (a function)\nSpaces are used to separate file names, commands, etc.\nSome commands allow you to customize their output with options\n\nThese are single letters, a word, or several words preceded by - or --\n\nYou can get help for a command by using the help option (either -h , --help ) or the command man (for manual)\n\n\n\n\nls --help\nman ls"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#about-spaces-and-file-names",
-    "href": "unix/Class1_BasicCommands.html#about-spaces-and-file-names",
-    "title": "Basic commands",
-    "section": "About spaces and file names",
-    "text": "About spaces and file names\nPut name in quotes if it has spaces (test code below)\ntouch Programming Class.txt\nls\n\ntouch \"Programming Class.txt\"\nls\nQuotes are NORMALLY (not always) interchangeable (test code below)\necho \"This is good\"\necho 'This is good'\nDo not start with one quote type and end with another"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#shortcuts---part-1",
-    "href": "unix/Class1_BasicCommands.html#shortcuts---part-1",
-    "title": "Basic commands",
-    "section": "Shortcuts - part 1",
-    "text": "Shortcuts - part 1\n\n~ or $HOME : your home folder (can be defined by the user)\n. : the folder that you are currently in\n..: the folder that contains the one you are currently in\nCtrl+C: cancel a command\nIn MobaxTerm, find and modify useful shortcuts by clicking on Settings -&gt; Keyboard shortcuts"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#shortcuts---part-2",
-    "href": "unix/Class1_BasicCommands.html#shortcuts---part-2",
-    "title": "Basic commands",
-    "section": "Shortcuts - part 2",
-    "text": "Shortcuts - part 2\n\nwhoami\n\nprints your username (if saved in the computer)\n\nUse tab to complete words\nIn a current command or in a text file, move the cursor faster by using Ctrl+Arrow (right or left arrow in a command line, in a text file up and down arrow too) (this works everywhere!!!)"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#basic-commands---part-1",
-    "href": "unix/Class1_BasicCommands.html#basic-commands---part-1",
-    "title": "Basic commands",
-    "section": "Basic commands - part 1",
-    "text": "Basic commands - part 1\n\ncd\n\nacronym for “change directory” (directory = folder)\nIf used alone, opens your home folder\nThe name of the folder to which you want to go comes after cd\n\ncd , cd ~ and cd $HOME are synonyms\n\ncd - - takes you to the previous folder"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#basic-commands---part-2",
-    "href": "unix/Class1_BasicCommands.html#basic-commands---part-2",
-    "title": "Basic commands",
-    "section": "Basic commands - part 2",
-    "text": "Basic commands - part 2\n\npwd\n\nacronym for “print working directory” (directory = folder)\nequivalent to the R function getwd() or python’s os.getcwd()\nprints the full path to your current folder\nA full path always starts from the root (/)"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#basic-commands---part-3",
-    "href": "unix/Class1_BasicCommands.html#basic-commands---part-3",
-    "title": "Basic commands",
-    "section": "Basic commands - part 3",
-    "text": "Basic commands - part 3\n\nls\n\nlists the contents of your current folder\nCheck slide 2 where we used this command\n\nUse &gt; after a command to save the output\n\npwd &gt; myFolder\ncat myFolder\n\nUse &gt;&gt; to add the current output to a previous file\n\nls &gt;&gt; myFolder\ncat myFolder"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#managing-text-files---part-1",
-    "href": "unix/Class1_BasicCommands.html#managing-text-files---part-1",
-    "title": "Basic commands",
-    "section": "Managing text files - part 1",
-    "text": "Managing text files - part 1\n\ncat : prints the contents of the file to the screen (check slide 9\n\nDo not use it with files are that not text (images, pdfs, compressed files) or is too big\nIf several files names are put after the command, one file is printed followed by the next (conCATenation)\n\nhead and tail: prints to the screen the first/last 10 lines of the file"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#managing-text-files---part-2",
-    "href": "unix/Class1_BasicCommands.html#managing-text-files---part-2",
-    "title": "Basic commands",
-    "section": "Managing text files - part 2",
-    "text": "Managing text files - part 2\n\nless : opens the file as “read-only”\n\nSearch for a word in a file inside less by typing “/” followed by the word\nTo close less, press Q\n\nmore : opens the file as “read-only”, when the file is closed, prints it to the screen"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#managing-text-files---part-3",
-    "href": "unix/Class1_BasicCommands.html#managing-text-files---part-3",
-    "title": "Basic commands",
-    "section": "Managing text files - part 3",
-    "text": "Managing text files - part 3\n\nnano : open a text file to edit it.\ngrep : searches for a word/phrase in the file and prints the lines that match\n\nCan search for several phrases (one per line) in a file by using the option -f\nIf you don’t care about the upper/lower case, use the option -i or --ignore-case"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#managing-text-files---part-4",
-    "href": "unix/Class1_BasicCommands.html#managing-text-files---part-4",
-    "title": "Basic commands",
-    "section": "Managing text files - part 4",
-    "text": "Managing text files - part 4\nSearch for lines that have the word programming in the file myFolder created in slide 9\ngrep \"Programming\" myFolder\n\nwc : word count. Counts the number of characters, words and lines in a file\necho : repeats the text that follows it (check slide 4)"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#exercise",
-    "href": "unix/Class1_BasicCommands.html#exercise",
-    "title": "Basic commands",
-    "section": "Exercise",
-    "text": "Exercise\n\nSave a fasta file into your home folder with the name myFasta.fa\nUse grep to find all the lines with sequence IDs.\n\nNote - put the word or phrase you will search for inside \"\""
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#exercise---solution",
-    "href": "unix/Class1_BasicCommands.html#exercise---solution",
-    "title": "Basic commands",
-    "section": "Exercise - Solution",
-    "text": "Exercise - Solution\n\nSave a fasta file into your home folder with the name myFasta.fa\nUse grep to find all the lines with sequence IDs.\n\nNote - put the word or phrase you will search for inside \"\"\n\n\n\n\n\n# In all fasta files, the sequence ID line is indicated by the symbol &gt;, so we just need to look for it\ngrep \"&gt;\" myFasta.fa\n\n\n\n\n\nNormally, if you just search for one word, the quotes are not needed, by in this case, the symbol \"&gt;\" could also mean “send the output to”, which would replace the myFasta.fa file"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#managing-files---part-1",
-    "href": "unix/Class1_BasicCommands.html#managing-files---part-1",
-    "title": "Basic commands",
-    "section": "Managing files - part 1",
-    "text": "Managing files - part 1\n\ncp : acronym for copy\n\ncp file file2 : creates a copy of the file “file” and saves it in the file “file2”\ncp file folder : creates a copy of the file “file” and saves it with the same name in the folder “folder”\ncp file file2 folder: both files “file” and “file2” are copied into the folder “folder” with the same names\ncp folder folder2 -r : the option -r allows the copy of the entire folder.\n\nIf folder2 doesn’t exist, it will be created to hold the same files as “folder”\nIf folder2 exists, a copy of “folder” will be created inside of folder2"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#managing-files---part-2",
-    "href": "unix/Class1_BasicCommands.html#managing-files---part-2",
-    "title": "Basic commands",
-    "section": "Managing files - part 2",
-    "text": "Managing files - part 2\n\nmv : acronym for move. Move file from one place to another\n\nmv file file2 : renames “file” as “file2”\nmv file folder : moves “file” into the folder “folder”\nmv file file2 folder: both files “file” and “file2” are moved into the folder “folder” with the same names\nmv folder folder2 :\n\nIf folder2 doesn’t exist, it is the same as renaming “folder” as “folder2”\nIf folder2 exists, “folder” is moved to that folder"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#managing-files---part-3",
-    "href": "unix/Class1_BasicCommands.html#managing-files---part-3",
-    "title": "Basic commands",
-    "section": "Managing files - part 3",
-    "text": "Managing files - part 3\n\nrm : acronym for remove. Deletes files. They are PERMANENTELY deleted, there is no trash bin here!!!!!!!\n\nrm file file2 : deletes both files\nrm file file2 -i : asks the user if they really want to delete each file, if y is pressed, the file is deleted (-i for interactive)"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#managing-folders",
-    "href": "unix/Class1_BasicCommands.html#managing-folders",
-    "title": "Basic commands",
-    "section": "Managing folders",
-    "text": "Managing folders\n\nmkdir : acronym for “make directory”. Creates new folders with the specified names.\n\nGives an error if something with the same name already exists in the current folder.\nIf many names are given (separated by spaces, creates all names folders)\n\nrmdir : acronym for “remove directory”. Deletes empty folders.\n\nIf the folder is not empty, gives an error.\nIf many names are given (separated by spaces, deletes all names folders if they are empty\n\nrm -r folder : as in cp, the option -r allows the rm to work with a folder. It deletes everything in the folder, then deletes the folder itself"
-  },
-  {
-    "objectID": "unix/Class1_BasicCommands.html#resources-for-help",
-    "href": "unix/Class1_BasicCommands.html#resources-for-help",
-    "title": "Basic commands",
-    "section": "Resources for help",
-    "text": "Resources for help\nGlossary of commands\nBook on basic unix commands"
-  },
-  {
-    "objectID": "unix/Class3_runningJobs.html",
-    "href": "unix/Class3_runningJobs.html",
-    "title": "Class 3 - Running Jobs",
-    "section": "",
-    "text": "Cannot run/execute any of those commands from ~\nThe three possibilities:\n\nsrun - Use to submit a script to be executed in real time (the process of running the job will be printed in the screen instead of saved into a file)\nsbatch - Use to submit a script to be executed later\nsalloc - Use to allocate resources for a job in real time.\n\nBasically, you ask for memory and CPUS for a determinate amount of time and when the “allocate” the resources to you, you work in real time in a computer more potent than yours."
-  },
-  {
-    "objectID": "unix/Class3_runningJobs.html#run-jobs",
-    "href": "unix/Class3_runningJobs.html#run-jobs",
-    "title": "Class 3 - Running Jobs",
-    "section": "",
-    "text": "Cannot run/execute any of those commands from ~\nThe three possibilities:\n\nsrun - Use to submit a script to be executed in real time (the process of running the job will be printed in the screen instead of saved into a file)\nsbatch - Use to submit a script to be executed later\nsalloc - Use to allocate resources for a job in real time.\n\nBasically, you ask for memory and CPUS for a determinate amount of time and when the “allocate” the resources to you, you work in real time in a computer more potent than yours."
-  },
-  {
-    "objectID": "unix/Class3_runningJobs.html#run-jobs---srun",
-    "href": "unix/Class3_runningJobs.html#run-jobs---srun",
-    "title": "Class 3 - Running Jobs",
-    "section": "Run jobs - srun",
-    "text": "Run jobs - srun\nsrun NEEDED_INFO script/command\n\nBefore running srun, need to load software required need to the session\n\nAdding module load software to the script does not work\n\nInformation needed\n\n--account=acount_name - def-laboidp or def-desgagne or def-germain1\n--time=d-HH:MM:SS - time required for the script, eg. 12hs: --time=12:00:00\n--mem=1G - memory required (here, 1G, default 254M)"
-  },
-  {
-    "objectID": "unix/Class3_runningJobs.html#srun---exammple",
-    "href": "unix/Class3_runningJobs.html#srun---exammple",
-    "title": "Class 3 - Running Jobs",
-    "section": "srun - exammple",
-    "text": "srun - exammple\n\n\n\nmodule load StdEnv/2020 blast+ # load the softwares\ncd $SCRATCH\n\nsrun --account=def-desgagne --time=01:00:00 --mem=1024M\\\n blastp -query prots.fasta\\\n -db $myDatabase\\\n -out prots_Databased.txt\\\n -outfmt '7' # output in table format\n\n\n\nThe file prots.fasta is in the current folder, or its path is given in full\n\nsame for the output prots_Database.txt\n\nWhen you use \\ to separate one command in several lines, add a space in the next line to separate the words"
-  },
-  {
-    "objectID": "unix/Class3_runningJobs.html#note-on-blast",
-    "href": "unix/Class3_runningJobs.html#note-on-blast",
-    "title": "Class 3 - Running Jobs",
-    "section": "Note on blast",
-    "text": "Note on blast\n\n$myDatabase\n\nAdd the full path, without the extension\nUse right type of database (the first letter of the extension indicates the type of database)\n\n.p* - protein database\n.n* - nucleotide database"
-  },
-  {
-    "objectID": "unix/Class3_runningJobs.html#run-jobs---sbatch",
-    "href": "unix/Class3_runningJobs.html#run-jobs---sbatch",
-    "title": "Class 3 - Running Jobs",
-    "section": "Run jobs - sbatch",
-    "text": "Run jobs - sbatch\nsbatch script or sbatch NEEDED_INFO script\n\nUsed to submit a script to be executed later.\nEssentials for the script:\n\nFirst line indicates the program that translates the script to computer language: #!/bin/sh\nLines starting with #SBATCH tell the scheduler what we need for this job"
-  },
-  {
-    "objectID": "unix/Class3_runningJobs.html#sbatch---script-example",
-    "href": "unix/Class3_runningJobs.html#sbatch---script-example",
-    "title": "Class 3 - Running Jobs",
-    "section": "sbatch - script example",
-    "text": "sbatch - script example\n\n\n\n#!/bin/sh\n#SBATCH --account=def-desgagne\n#SBATCH --time=01:00:00 \n#SBATCH --mem=1024M\n\nmodule load StdEnv/2020 blast+\n\nmyDatabase=/database/path\n\ncd $SCRATCH\n\nblastp -query prots.fasta\\\n -db $myDatabase\\\n -out prots_Databased.txt\\\n -outfmt '7' # output in table format\n\n\n\nNote that here the “module load” line is INSIDE the script"
-  },
-  {
-    "objectID": "unix/Class3_runningJobs.html#run-jobs---salloc",
-    "href": "unix/Class3_runningJobs.html#run-jobs---salloc",
-    "title": "Class 3 - Running Jobs",
-    "section": "Run jobs - salloc",
-    "text": "Run jobs - salloc\nsalloc - salloc NEEDED_INFO\n\nUsed to allocate resources for a job in real time.\nBasically, you ask for memory and CPUS for a determinate amount of time and when the “allocate” the resources to you, you work in real time in a computer more potent than yours."
-  },
-  {
-    "objectID": "unix/Class3_runningJobs.html#resources",
-    "href": "unix/Class3_runningJobs.html#resources",
-    "title": "Class 3 - Running Jobs",
-    "section": "Resources",
-    "text": "Resources\n\nHow to run jobs"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html",
-    "href": "unix/Class5_AWK.html",
-    "title": "Class 5 - AWK command",
-    "section": "",
-    "text": "Always put commands inside single quotes ''\nUse {print} to indicate lines or columns you want to see\nIndicate a column number using $N (replace N with the number)\nIf you want to see several columns, separate them with a ,:\n\n{print $N,$X}\n\nTo indicate the whole line, use $0"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#awk---print-specific-columns",
-    "href": "unix/Class5_AWK.html#awk---print-specific-columns",
-    "title": "Class 5 - AWK command",
-    "section": "",
-    "text": "Always put commands inside single quotes ''\nUse {print} to indicate lines or columns you want to see\nIndicate a column number using $N (replace N with the number)\nIf you want to see several columns, separate them with a ,:\n\n{print $N,$X}\n\nTo indicate the whole line, use $0"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#awk---print-specific-columns-1",
-    "href": "unix/Class5_AWK.html#awk---print-specific-columns-1",
-    "title": "Class 5 - AWK command",
-    "section": "AWK - print specific columns",
-    "text": "AWK - print specific columns\n# Print second column of the file blastp_results.txt\nawk '{print $2}' blastp_results.txt\n# Print second and third columns of the file blastp_results.txt\nawk '{print $2,$3}' blastp_results.txt"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#awk---print-line-with-specific-word",
-    "href": "unix/Class5_AWK.html#awk---print-line-with-specific-word",
-    "title": "Class 5 - AWK command",
-    "section": "AWK - print line with specific word",
-    "text": "AWK - print line with specific word\nInside the '' add the word your searching for in //\n# Print lines containing \"#\" in blastp_results.txt\nawk '/#/ {print}' blastp_results.txt\n\n# Print lines NOT containing \"#\" in blastp_results.txt\nawk '!/#/ {print}' blastp_results.txt\n\nNote that when you do not specify the column, or when you use $0, you print the whole line"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#awk---indicate-how-to-read-the-input-and-write-the-output",
-    "href": "unix/Class5_AWK.html#awk---indicate-how-to-read-the-input-and-write-the-output",
-    "title": "Class 5 - AWK command",
-    "section": "AWK - indicate how to read the input and write the output",
-    "text": "AWK - indicate how to read the input and write the output\n\nNR - number of records (normally number of lines):\n\nawk 'NR &gt; 1 {print}' blastp_results.txt\n\nwill print all but the first line\n\nawk 'NR == 1 {print $1} NR &gt; 1 {print $2}' blastp_results.txt\n\nwill print the first column for line 1 and the second column for the other lines\n\n\nNF - number of fields (normally columns):\n\nawk '{print $NF}' blastp_results.txt\n\nwill print the last column the file"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#awk---indicate-how-to-read-the-input-and-write-the-output-1",
-    "href": "unix/Class5_AWK.html#awk---indicate-how-to-read-the-input-and-write-the-output-1",
-    "title": "Class 5 - AWK command",
-    "section": "AWK - indicate how to read the input and write the output",
-    "text": "AWK - indicate how to read the input and write the output\nNote the these can be specified by adding BEGIN {}:\n\nFS - field separator - column delimiter\n\nawk 'BEGIN {FS=\",\"} {print $2}' blastp_results.csv\n\nIndicates the columns in the file blastp_results.csv are separated by commas and asks for the second column\nOutside the '' -F\",\" or --field-separator=\",\" are the same\n\n\nOFS - output field separator - column delimiter for the output\n\nawk 'BEGIN {OFS=\",\"} {print $1,$2,$3}' blastp_results.txt\n\nChanges the separation of columns from space (default for awk) to commas"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#awk---indicate-how-to-read-the-input-and-write-the-output-2",
-    "href": "unix/Class5_AWK.html#awk---indicate-how-to-read-the-input-and-write-the-output-2",
-    "title": "Class 5 - AWK command",
-    "section": "AWK - indicate how to read the input and write the output",
-    "text": "AWK - indicate how to read the input and write the output\nNote the these can be specified by adding BEGIN {}:\n\nRS - record separator\n\nawk 'BEGIN {RS=\"&gt;\"} {print $1}' myFasta.fasta\n\nTells awk that new entries are indicated with a “&gt;” symbol\n\n\nORS - record separator for the output\n\nawk 'BEGIN {ORS=\"&gt;\"} {print $1}' myFasta.txt\n\nTells awk that new entries in the output will start with the “&gt;” symbol"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#awk-example",
-    "href": "unix/Class5_AWK.html#awk-example",
-    "title": "Class 5 - AWK command",
-    "section": "AWK example",
-    "text": "AWK example\n\nSequence length\n\nawk 'BEGIN {FS = \"\\n\"; RS=\"&gt;\"}\\\n {print $1, length($2)}' ~/blastClass/myFasta.fasta"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#awk-example-1",
-    "href": "unix/Class5_AWK.html#awk-example-1",
-    "title": "Class 5 - AWK command",
-    "section": "AWK example",
-    "text": "AWK example\n\nChange fasta to a table format\n\nawk 'BEGIN {FS = \"\\n\"; RS=\"&gt;\";\\\n OFS=\"\\t\"; ORS=\"\\n\"}\\\n {print $1,$2}' ~/blastClass/myFasta.fasta"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#awk---replace-word",
-    "href": "unix/Class5_AWK.html#awk---replace-word",
-    "title": "Class 5 - AWK command",
-    "section": "AWK - replace word",
-    "text": "AWK - replace word\n\nReplace the letter N in the sequence line by '*'\n\nawk 'BEGIN {FS = \"\\n\"; RS=\"&gt;\"}\\\n {newSeq=gensub(/N/, \"*\", $2); print $1, newSeq}' ~/blastClass/myFasta.fasta"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#awk---print-with-one-condition",
-    "href": "unix/Class5_AWK.html#awk---print-with-one-condition",
-    "title": "Class 5 - AWK command",
-    "section": "AWK - print with one condition",
-    "text": "AWK - print with one condition\n\nConditions inside {} come after if and inside () OR they go outside the {}\n\n# Print line if column 3 has a value greater than 80\nawk '{if ($3 &gt; 80) print}' ~/blastClass/myFasta.fasta\n\nOr they go outside the {}\n\n# Print line if column 3 has a value greater than 80\nawk '$3 &gt; 80 {print}' ~/blastClass/myFasta.fasta"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#awk---print-with-multiple-conditions",
-    "href": "unix/Class5_AWK.html#awk---print-with-multiple-conditions",
-    "title": "Class 5 - AWK command",
-    "section": "AWK - print with multiple conditions",
-    "text": "AWK - print with multiple conditions\n\nWhen the conditions must all be met, separate them with &&\n\n\n\n\n# Print line if column 3 has a value greater than 80 AND column 4 has a value greater than 150\nawk '{if ($3 &gt; 80 && $4 &gt; 150) print}' ~/blastClass/myFasta.fasta\n    \n# This also gives the same result\nawk '$3 &gt; 80 && $4 &gt; 150 {print}' ~/blastClass/myFasta.fasta"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#awk---print-with-multiple-conditions-1",
-    "href": "unix/Class5_AWK.html#awk---print-with-multiple-conditions-1",
-    "title": "Class 5 - AWK command",
-    "section": "AWK - print with multiple conditions",
-    "text": "AWK - print with multiple conditions\n\nWhen only one condition must be met, separate them with ||\n\n# Print line if column 3 has a value greater than 80 OR column 4 has a value greater than 150\nawk '{if ($3 &gt; 80 || $4 &gt; 150) print}' ~/blastClass/myFasta.fasta\n\nawk '$3 &gt; 80 || $4 &gt; 150 { print }' ~/blastClass/myFasta.fasta"
-  },
-  {
-    "objectID": "unix/Class5_AWK.html#resources",
-    "href": "unix/Class5_AWK.html#resources",
-    "title": "Class 5 - AWK command",
-    "section": "Resources",
-    "text": "Resources\n\nAWK manual\nAWK examples\nAWK cheatsheet\nAWK - working with text"
   }
 ]

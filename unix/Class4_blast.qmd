@@ -1,30 +1,28 @@
 ---
 title: "Class 4 - Running blast on the server"
-author: "Karen Cristine Goncalves"
 date: "2023-03-06"
-output:
-    slidy_presentation:
-        incremental: true	
+fontsize: 1.5em
+linkcolor: grey
+callout-appearance: simple
+format: 
+  revealjs:
+    transition: none
+    theme: dark
+    scrollable: true
+author: "Karen Cristine Goncalves, Ph.D."
 ---
 
-<style>
-.code {
-background-color: rgba(0,0,0,0.1);
-border: 0.75px solid blue;
-color: #0066ff;
-font-weight: bold;
-}
+<!-- <style> -->
+<!-- .code { -->
+<!-- background-color: grey; -->
+<!-- color: white; -->
+<!-- font-size: 1.5em -->
+<!-- } -->
 
-a {
-color: purple;
-  text-decoration-line: underline;
-}
-p, li {
-line-height: 1em;
-font-size: 0.75em
-word-wrap: true
-}
-</style>
+<!-- li { -->
+<!-- line-height: 2em -->
+<!-- } -->
+<!-- </style> -->
 
 ## Logging in {#slide1}
 

@@ -1,28 +1,28 @@
 ---
 title: "Class 6 - sed command"
-author: "Karen Cristine Goncalves"
 date: "2023-04-04"
-font-family: serif
-output: 
-    slidy_presentation:
-        incremental: true
+fontsize: 1.5em
+linkcolor: grey
+callout-appearance: simple
+format: 
+  revealjs:
+    transition: none
+    theme: dark
+    scrollable: true
+author: "Karen Cristine Goncalves, Ph.D."
 ---
 
-<style>
-.code {
-background-color: grey;
-color: black;
-font-size: 2;
-font-weight: bold;
-line-height: 2.3em;
-}
+<!-- <style> -->
+<!-- .code { -->
+<!-- background-color: grey; -->
+<!-- color: white; -->
+<!-- font-size: 1.5em -->
+<!-- } -->
 
-p, li {
-line-height: 1.4em;
-font-size: 1.6em;
-word-wrap: true
-}
-</style>
+<!-- li { -->
+<!-- line-height: 2em -->
+<!-- } -->
+<!-- </style> -->
 
 ## SED
 
