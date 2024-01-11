@@ -406,20 +406,13 @@ Karen C. Goncalves, Ph.D.
 </section>
 <section id="packages" class="slide level2">
 <h2>Packages</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># start by creating a vector with all the packages you need</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>pkgs <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"rmarkdown"</span>, <span class="st">"tidyverse"</span>, <span class="st">"venn"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># We check which packages are NOT (!) installed</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>pkgs.To.Install <span class="ot">=</span> <span class="fu">which</span>(<span class="sc">!</span> pkgs <span class="sc">%in%</span> <span class="fu">installed.packages</span>())</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># any() checks if there is at least one TRUE in the vector</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="cf">if</span> (<span class="fu">length</span>(pkgs.To.Install) <span class="sc">!=</span> <span class="dv">0</span>) <span class="fu">install.packages</span>(pkgs[pkgs.To.Install])</span>
-<span id="cb1-9"><a href="#cb1-9"></a></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="cf">for</span> (curPkg <span class="cf">in</span> pkgs) <span class="fu">library</span>(curPkg, <span class="at">character.only =</span> T) </span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># curPkg is a variable that takes the value of each element in pkgs</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># Every time the function library() is run, curPkg changes value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Most packages for bioinformatics are not downloadable with a simple <code>install.packages</code>, as they are not stored in <a href="https://cran.r-project.org/">CRAN</a>, the basic website for R packages. Instead, they are in <a href="https://www.bioconductor.org/">Bioconductor</a>, and some are in specific github repositories (think about the <a href="https://github.com/KarenGoncalves/R_class_examples">R_class_examples</a>).</p>
-<p><strong>So how do I use these packages????</strong></p>
+<p>Before, we installed packages with the code below</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>pkgs <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"rmarkdown"</span>, <span class="st">"tidyverse"</span>, <span class="st">"venn"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>pkgs.To.Install <span class="ot">=</span> <span class="fu">which</span>(<span class="sc">!</span> pkgs <span class="sc">%in%</span> <span class="fu">installed.packages</span>())</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="cf">if</span> (<span class="fu">length</span>(pkgs.To.Install) <span class="sc">!=</span> <span class="dv">0</span>) <span class="fu">install.packages</span>(pkgs[pkgs.To.Install])</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="cf">for</span> (curPkg <span class="cf">in</span> pkgs) <span class="fu">library</span>(curPkg, <span class="at">character.only =</span> T) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>However, most packages for bioinformatics are not downloadable with a simple <code>install.packages</code>, as they are not stored in <a href="https://cran.r-project.org/">CRAN</a>, the basic website for R packages.</p>
+<p>Instead, they are in <a href="https://www.bioconductor.org/">Bioconductor</a>, and some are in specific github repositories (think about the <a href="https://github.com/KarenGoncalves/R_class_examples">R_class_examples</a>).</p>
 </section>
 <section id="installing-packages-from-other-sources" class="slide level2">
 <h2>Installing packages from other sources</h2>
@@ -427,26 +420,22 @@ Karen C. Goncalves, Ph.D.
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Bioconductor packages</a></li><li><a href="#tabset-1-2">Github packages</a></li></ul>
 <div class="tab-content" data-collapse="true">
 <div id="tabset-1-1">
-<p>For this, we use the package BiocManager.</p>
+<p>For these, we use the package BiocManager.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb2-2"><a href="#cb2-2"></a>    <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a>pkgs.bioconductor <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"msa"</span>, <span class="st">"Biostrings"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5"></a></span>
-<span id="cb2-6"><a href="#cb2-6"></a>pkgs.To.Install <span class="ot">=</span> <span class="fu">which</span>(<span class="sc">!</span> pkgs.bioconductor <span class="sc">%in%</span> <span class="fu">installed.packages</span>())</span>
-<span id="cb2-7"><a href="#cb2-7"></a></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="cf">if</span> (<span class="fu">length</span>(pkgs.To.Install) <span class="sc">!=</span> <span class="dv">0</span>) {</span>
-<span id="cb2-9"><a href="#cb2-9"></a>    BiocManager<span class="sc">::</span><span class="fu">install</span>(pkgs.bioconductor[pkgs.To.Install])    </span>
-<span id="cb2-10"><a href="#cb2-10"></a>}</span>
-<span id="cb2-11"><a href="#cb2-11"></a></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="cf">for</span> (curPkg <span class="cf">in</span> pkgs.bioconductor) <span class="fu">library</span>(curPkg, <span class="at">character.only =</span> T) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3"></a>pkgs.bioconductor <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"msa"</span>, <span class="st">"Biostrings"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>pkgs.To.Install <span class="ot">=</span> <span class="fu">which</span>(<span class="sc">!</span> pkgs.bioconductor <span class="sc">%in%</span> <span class="fu">installed.packages</span>())</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="cf">if</span> (<span class="fu">length</span>(pkgs.To.Install) <span class="sc">!=</span> <span class="dv">0</span>) {</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    BiocManager<span class="sc">::</span><span class="fu">install</span>(pkgs.bioconductor[pkgs.To.Install])    </span>
+<span id="cb2-7"><a href="#cb2-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-tip callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>In <code>BiocManager::install</code>, the <code>::</code> indicates that the function “install” comes from the package “BiocManager”. So even if there is another package with the same function, R will know which one to use.</p>
+<p>In <code>BiocManager::install</code>, the <code>::</code> indicates that the function “install” comes from the package “BiocManager”.</p>
+<p>So even if there is another package with the same function, R will know which one to use.</p>
 </div>
 </div>
 </div>
@@ -474,24 +463,169 @@ Karen C. Goncalves, Ph.D.
 <span id="cb3-3"><a href="#cb3-3"></a>}</span>
 <span id="cb3-4"><a href="#cb3-4"></a></span>
 <span id="cb3-5"><a href="#cb3-5"></a>repos.github <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"YuLab-SMU/ggmsa"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># In the line below, we remove the folder name</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a>pkgs.github <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">".+/"</span>, <span class="st">""</span>, repos.github)</span>
-<span id="cb3-8"><a href="#cb3-8"></a>pkgs.To.Install <span class="ot">=</span> <span class="fu">which</span>(<span class="sc">!</span> pkgs.github <span class="sc">%in%</span> <span class="fu">installed.packages</span>())</span>
-<span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="cf">if</span> (<span class="fu">length</span>(pkgs.To.Install) <span class="sc">!=</span> <span class="dv">0</span>) {</span>
-<span id="cb3-11"><a href="#cb3-11"></a>    <span class="co"># To install the package, we need the folder + package name</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a>    devtools<span class="sc">::</span><span class="fu">install_github</span>(repos.github[pkgs.To.Install]) </span>
-<span id="cb3-13"><a href="#cb3-13"></a>}</span>
-<span id="cb3-14"><a href="#cb3-14"></a></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="cf">for</span> (curPkg <span class="cf">in</span> pkgs.github) <span class="fu">library</span>(curPkg, <span class="at">character.only =</span> T) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-6"><a href="#cb3-6"></a>pkgs.github <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">".+/"</span>, <span class="st">""</span>, repos.github) <span class="co"># remove the folder name</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>pkgs.To.Install <span class="ot">=</span> <span class="fu">which</span>(<span class="sc">!</span> pkgs.github <span class="sc">%in%</span> <span class="fu">installed.packages</span>())</span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="cf">if</span> (<span class="fu">length</span>(pkgs.To.Install) <span class="sc">!=</span> <span class="dv">0</span>) {</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="co"># To install the package, we need the folder + package name</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>    devtools<span class="sc">::</span><span class="fu">install_github</span>(repos.github[pkgs.To.Install]) </span>
+<span id="cb3-12"><a href="#cb3-12"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="reading-fasta-files" class="slide level2">
-<h2>Reading fasta files</h2>
+<section id="simplified-install" class="slide level2">
+<h2>Simplified install</h2>
+<p>Copy the code below to load all the necessary packages.</p>
+<p>In future, just come back here, copy the code below and change the list of packages.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>devtools<span class="sc">::</span><span class="fu">source_gist</span>(<span class="st">"https://gist.github.com/KarenGoncalves/0db105bceff4ff69547ee25460dda978"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">install_from_dif_sources</span>(</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="at">cran_packages =</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"tinytex"</span>),</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="at">bioconductor_packages =</span> <span class="fu">c</span>(<span class="st">"Biostrings"</span>, <span class="st">"msa"</span>, <span class="st">"treeio"</span>, <span class="st">"ggtree"</span>),</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="at">github_packages =</span> <span class="st">"YuLab-SMU/ggmsa"</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-tip callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>The link <a href="https://gist.github.com/KarenGoncalves/0db105bceff4ff69547ee25460dda978">https://gist.github.com/KarenGoncalves/0db105bceff4ff69547ee25460dda978</a> contains the R script that creates functions to load the packages from different sources: CRAN (the typical source), Bioconductor and github.</p>
+<p>So you just need to give the link to the function <code>devtools::source_gist()</code> and then you can use the function <code>install_from_dif_sources</code></p>
+</div>
+</div>
+</div>
+</section>
+<section id="reading-and-writing-fasta-files" class="slide level2">
+<h2>Reading and writing fasta files</h2>
 <p>Put in your script the codes from the two previous slides, as we will use the packages “tidyverse”, “Biostrings”, “msa” and “ggmsa”.</p>
-<p>If you have a protein fasta file, copy it to your <code>inputs</code> folder, else use the following: <a href="./exampleData/Reductases.fasta">reductases.fasta</a></p>
+<p>If you have protein sequences in a fasta file, copy it to your <code>inputs</code> folder, else use the following: <a href="./exampleData/Reductases.fasta">reductases.fasta</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># To open a fasta file with multiple sequences, use the function readDNAStringSet() or readAAStringSet()</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>fasta_input <span class="ot">=</span> <span class="st">"https://karengoncalves.github.io/Programming_classes/r/exampleData/Reductases.fasta"</span> <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="fu">readAAStringSet</span>(<span class="at">format =</span> <span class="st">"fasta"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="fu">head</span>(fasta_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AAStringSet object of length 6:
+    width seq                                               names               
+[1]   318 MATENKILILGPTGAIGRHIVWA...IEASEAYPDVTYTTADEYLNQFV IFR Medicago sativa
+[2]   330 MAAGFLFHMGSLPAIATVGHKSK...GEATKLYPEVGYTTVVEYMKRYV PILR2 Linum usita...
+[3]   598 MVGSIVGSNMAATDARFLSSNFG...VAHLPDKANNYLTPALSVLEKNT HC173 Arabidopsis...
+[4]   323 MTTGKGKILILGATGYLGKYMVK...EYLKICLVNPPKPKLATYAQPST IGS1 Petunia hybrida
+[5]   314 MEENGMKSKILIFGGTGYIGNHM...FTTIDELLDIFVHDPPPPASAAF EGS1 Ocimum basil...
+[6]   310 MVASEKSKILIIGGTGYIGKYLV...VEATELYPKVKYTTVDEFYNKFV IFRH Nicotiana gl...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># If you want to select just one or two sequences and export it, you can do:</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">writeXStringSet</span>(fasta_input[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], </span>
+<span id="cb7-3"><a href="#cb7-3"></a>        <span class="at">filepath =</span> <span class="st">"input_subset.fasta"</span>, </span>
+<span id="cb7-4"><a href="#cb7-4"></a>        <span class="at">format =</span> <span class="st">"fasta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="multiple-sequence-alignment-msa" class="slide level2">
+<h2>Multiple Sequence Alignment (MSA)</h2>
+<p>Make things easy for yourself later, add the names of the parameters of each function so you know what you need to put next time.</p>
+<ul>
+<li>There are 4 functions for MSA:
+<ul>
+<li><code>msaClustalW</code> - ClustalW is a general purpose multiple alignment program for DNA or proteins. <a href="http://www.clustal.org/download/clustalw_help.txt"><sup>1</sup></a>
+<ul>
+<li><code>cluster</code> parameter can be either Neighbor Joining (<code>"nj"</code>) or Unweighted Pair Group Method with Arithmetic mean (<code>"upgma"</code>)
+<ul>
+<li>Do not use <code>"upgma"</code> if you are on windows and your R version is 4.x (x being any number) - R crashes</li>
+</ul></li>
+</ul></li>
+<li><code>msaClustalOmega</code> - New MSA tool that uses seeded guide trees and HMM profile-profile techniques to generate alignments. Suitable for medium-large alignments.<a href="https://www.ebi.ac.uk/Tools/msa/"><sup>2</sup></a>
+<ul>
+<li>default <code>substitutionMatrix</code>: <code>"Gonnet"</code>; other options: <code>"BLOSUM30"</code>, <code>"BLOSUM40</code>, <code>"BLOSUM50"</code>, <code>"BLOSUM65"</code> and <code>"BLOSUM80"</code>.</li>
+</ul></li>
+<li><code>msaMuscle</code> - Accurate MSA tool, especially good with proteins. Suitable for medium alignments.<a href="https://www.ebi.ac.uk/Tools/msa/"><sup>2</sup></a>
+<ul>
+<li><code>cluster</code> parameter can be either NJ (<code>"neighborjoining"</code>) or UPGMA (<code>"upgma"</code>) - UPGMA gives better results <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC517706/"><sup>3</sup></a></li>
+</ul></li>
+<li><code>msa</code> - you can set the method with the argument <code>method</code> or just put the sequences and use the default (<code>"Clustalw"</code>) (other options: <code>"ClustalOmega"</code>, <code>"Muscle"</code>)</li>
+</ul></li>
+<li>Add <code>verbose = T</code> so that the parameters used are printed to the screen and you can take not for your publications.</li>
+</ul>
+</section>
+<section id="running-msa" class="slide level2">
+<h2>Running MSA</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># The dataset used as example has 48 sequences, we will subset it for the alignment, selecting only 10</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>fasta_for_alignment <span class="ot">&lt;-</span> fasta_input[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co"># use ?msa to know what you need to put in the function and what the default values are</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>myFirstAlignment <span class="ot">&lt;-</span> <span class="fu">msa</span>(fasta_for_alignment, </span>
+<span id="cb8-5"><a href="#cb8-5"></a>            <span class="at">method =</span> <span class="st">"ClustalOmega"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6"></a>            <span class="at">verbose =</span> T</span>
+<span id="cb8-7"><a href="#cb8-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>params: clustalo --R -o tempClustalOmega.aln --outfmt=clustal --seqtype=protein --force --gapopen=6.000000 --gapext=1.000000 --cluster-size=100 --iter=0 --output-order=tree-order
+using Gonnet</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>myFirstAlignment</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ClustalOmega 1.2.0 
+
+Call:
+   msa(fasta_for_alignment, method = "ClustalOmega", verbose = T)
+
+MsaAAMultipleAlignment with 10 rows and 780 columns
+     aln                                                   names
+ [1] -------------------------...------------------------- 5BPOR Digitalis l...
+ [2] -------------------------...----------ATYAQPST------- IGS1 Petunia hybrida
+ [3] -------------------------...----------AAF------------ EGS1 Ocimum basil...
+ [4] -------------------------...------------------------- PILR2 Linum usita...
+ [5] -------------------------...------------------------- IFR Medicago sativa
+ [6] -------------------------...------------------------- IFRH Nicotiana gl...
+ [7] MVGSIVGSNMAATDARFLSSNFGNS...ELVAHLPDKANNYLTPALSVLEKNT HC173 Arabidopsis...
+ [8] -------------------------...------------------------- ADH1 Catharanthus...
+ [9] -------------------------...------------------------- ADH1 Euphorbia la...
+[10] -------------------------...------------------------- ADRC1 Arabidopsis...
+ Con -------------------------...------------------------- Consensus </code></pre>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Visualizing the result</strong></p>
+</div>
+<div class="callout-content">
+<p>Just calling the MSA result will not show the whole alignment. For that you can use <code>print()</code></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">print</span>(myFirstAlignment, <span class="at">show =</span> <span class="st">"complete"</span>, <span class="at">showConsensus =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="use-ggmsa-for-visualization" class="slide level2">
+<h2>Use ggmsa for visualization</h2>
+<p>To see the alignment as a plot, we can use <code>ggmsa</code>.</p>
+<p>However, we need to change the type of object of the alignment result, as ggmsa only accepts “AAMultipleAlignment” objects</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># The original result is of class MsaAAMultipleAlignment</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>myFirstAlignment2 <span class="ot">&lt;-</span> myFirstAlignment</span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="fu">class</span>(myFirstAlignment2) <span class="ot">&lt;-</span>  <span class="st">"AAMultipleAlignment"</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co"># We will plot only a part of the alignment - from the AA 220 to the AA 250 - so it is visible </span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
+<span id="cb13-7"><a href="#cb13-7"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
+<span id="cb13-8"><a href="#cb13-8"></a>      <span class="at">seq_name =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># We can see also the consensus highlighted</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
+<span id="cb14-3"><a href="#cb14-3"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
+<span id="cb14-4"><a href="#cb14-4"></a>      <span class="at">seq_name =</span> T, <span class="at">consensus_views =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-4-2.png" width="960"></p>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">#ggsave("First_alignment_consensus_220_250.tiff")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 <div class="footer footer-default">
 
