@@ -5,6 +5,7 @@ project:
     - "*/exampleData/*tsv"
     - "*/exampleData/*txt"
     - "*/exampleData/*xlsx"
+    - "*/exampleData/*fasta"
     - "*/media/*mp4"
     - "*/media/*png"
     - "*/media/*jpg"
@@ -12,6 +13,7 @@ project:
     - "*.qmd"
     - "r/*.qmd"
     - "unix/.Rmd"
+    - "unix/.qmd"
 website:
   title: "Programming classes"
   back-to-top-navigation: true

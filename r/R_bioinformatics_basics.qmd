@@ -99,5 +99,5 @@ If you have a protein fasta file, copy it to your `inputs` folder, else use the 
 
 ```{r}
 # To open a fasta file with multiple sequences, use the function readDNAStringSet() or readAAStringSet()
-reductases_input 
+# reductases_input 
 ```
