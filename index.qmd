@@ -33,10 +33,14 @@ line-height: 1.75em
 
 # R 
 
+## Basics
+
 0. [Check this before the first class](./r/Before_1stClass.html)
 	- [Example data for class 1](https://karengoncalves.github.io/Programming_classes/r/exampleData/Class1_exampleData.txt)
 1. [Class 1 - basics](./r/basics.html)
 1. [Class 2 - Packages and functions](./r/Packages_Functions.html)
+
+## Bioinformatics
 
 # Statistics
 

@@ -47,7 +47,7 @@ data.frame(badNames, explanation, goodNames) %>%
 		format = "html", 
 		col.names = c("Bad names", "Why?", "Good names"), 
 		caption = "Give meaningful names to your variables, or else you may not remember what they are when you read the script later ") %>% 
-	kableExtra::kable_classic(lightable_options = "hover")
+	kableExtra::kable_minimal()
 
 ```
 
@@ -247,7 +247,7 @@ Use the function `names` to check or set the names of your columns
 :::
 
 
-## Happy ending - your first graph(s)
+## See how much you've learned! - Make your first graph(s)
 
 Let's use the dataset `iris` that is inside R:
 

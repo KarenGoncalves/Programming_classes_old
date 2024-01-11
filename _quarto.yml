@@ -10,9 +10,7 @@ project:
     - "*/media/*jpg"
   render:
     - "*.qmd"
-    - "*.Rmd"
     - "r/*.qmd"
-    - "r/*Rmd"
     - "unix/.Rmd"
 website:
   title: "Programming classes"
@@ -29,4 +27,6 @@ website:
         text: Karen Goncalves
 format:
   html:
-    theme: darkly
+    theme:
+      - darkly
+      - custom.scss

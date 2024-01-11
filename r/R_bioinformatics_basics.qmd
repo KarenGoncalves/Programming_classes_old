@@ -1,0 +1,103 @@
+---
+title: "R for bioinformatics - basics"
+author: "Karen C. Goncalves, Ph.D."
+fontsize: 1.25em
+linkcolor: grey
+callout-appearance: simple
+format: 
+  revealjs:
+    transition: none
+    theme: dark
+    scrollable: true
+date: "January 2024"
+incremental: false
+---
+
+## Packages
+
+```{.r}
+# start by creating a vector with all the packages you need
+pkgs = c("rmarkdown", "tidyverse", "venn")
+
+# We check which packages are NOT (!) installed
+pkgs.To.Install = which(! pkgs %in% installed.packages())
+
+# any() checks if there is at least one TRUE in the vector
+if (length(pkgs.To.Install) != 0) install.packages(pkgs[pkgs.To.Install])
+
+for (curPkg in pkgs) library(curPkg, character.only = T) 
+# curPkg is a variable that takes the value of each element in pkgs
+# Every time the function library() is run, curPkg changes value
+```
+
+Most packages for bioinformatics are not downloadable with a simple `install.packages`, as they are not stored in [CRAN](https://cran.r-project.org/), the basic website for R packages. Instead, they are in [Bioconductor](https://www.bioconductor.org/), and some are in specific github repositories (think about the [R_class_examples](https://github.com/KarenGoncalves/R_class_examples)).
+
+**So how do I use these packages????**
+
+## Installing packages from other sources
+
+:::{.panel-tabset collapse="true"}
+
+# Bioconductor packages
+
+For this, we use the package BiocManager.
+
+```{.r}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+pkgs.bioconductor = c("msa", "Biostrings")
+
+pkgs.To.Install = which(! pkgs.bioconductor %in% installed.packages())
+
+if (length(pkgs.To.Install) != 0) {
+	BiocManager::install(pkgs.bioconductor[pkgs.To.Install])	
+}
+
+for (curPkg in pkgs.bioconductor) library(curPkg, character.only = T) 
+```
+
+:::{.callout-tip}
+In `BiocManager::install`, the `::` indicates that the function "install" comes from the package "BiocManager". So even if there is another package with the same function, R will know which one to use.
+:::
+
+# Github packages
+
+:::{.callout-tip}
+Github is a website that has folders for each user, and each user may have multiple folders: one for each project. Example, in:
+
+- https://github.com/KarenGoncalves/R_class_examples
+	- `KarenGoncalves/` is my folder in the website, in there I have over 20 folders, one for each project.
+	- R_class_examples is one of them.
+:::
+
+```{.r}
+if (! "devtools" %in% installed.packages()) {
+	install.packages("devtools")
+}
+
+repos.github = c("YuLab-SMU/ggmsa")
+# In the line below, we remove the folder name
+pkgs.github = gsub(".+/", "", repos.github)
+pkgs.To.Install = which(! pkgs.github %in% installed.packages())
+
+if (length(pkgs.To.Install) != 0) {
+	# To install the package, we need the folder + package name
+	devtools::install_github(repos.github[pkgs.To.Install])	
+}
+
+for (curPkg in pkgs.github) library(curPkg, character.only = T) 
+```
+
+:::
+
+## Reading fasta files
+
+Put in your script the codes from the two previous slides, as we will use the packages "tidyverse", "Biostrings", "msa" and "ggmsa".
+
+If you have a protein fasta file, copy it to your `inputs` folder, else use the following: [reductases.fasta](./exampleData/Reductases.fasta)
+
+```{r}
+# To open a fasta file with multiple sequences, use the function readDNAStringSet() or readAAStringSet()
+reductases_input 
+```
