@@ -482,8 +482,8 @@ Karen C. Goncalves, Ph.D.
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>devtools<span class="sc">::</span><span class="fu">source_gist</span>(<span class="st">"https://gist.github.com/KarenGoncalves/0db105bceff4ff69547ee25460dda978"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="fu">install_from_dif_sources</span>(</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    <span class="at">cran_packages =</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"tinytex"</span>),</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    <span class="at">bioconductor_packages =</span> <span class="fu">c</span>(<span class="st">"Biostrings"</span>, <span class="st">"msa"</span>, <span class="st">"treeio"</span>, <span class="st">"ggtree"</span>, <span class="st">"ape"</span>, <span class="st">"seqinr"</span>),</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="at">cran_packages =</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"tinytex"</span>, <span class="st">"patchwork"</span>),</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="at">bioconductor_packages =</span> <span class="fu">c</span>(<span class="st">"Biostrings"</span>, <span class="st">"msa"</span>, <span class="st">"treeio"</span>, <span class="st">"ggtree"</span>, <span class="st">"ape"</span>, <span class="st">"seqinr"</span>, <span class="st">"phangorn"</span>),</span>
 <span id="cb4-6"><a href="#cb4-6"></a>    <span class="at">github_packages =</span> <span class="st">"YuLab-SMU/ggmsa"</span></span>
 <span id="cb4-7"><a href="#cb4-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -692,16 +692,235 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </section>
 <section id="make-a-phylogenetic-tree" class="slide level2">
 <h2>Make a phylogenetic tree</h2>
-<p>We will use <code>ape</code> and <code>seqinr</code> to create a tree from the alignment. But we need to again transform the type of object we got from the <code>msa</code></p>
+<p><strong>Learn what is necessary to make a tree, how to read it and what conclusions you can and cannot draw from them.</strong></p>
+<ul>
+<li>Sequences used for the tree are the leaves/tips.</li>
+<li>The point where the tree starts (the center if it is circular, or the first tip to separate from the rest of the tree) is the root</li>
+<li>The lines drawing the tree are the branches/edges.</li>
+<li>Going from the leaves to the root, the point where two branches connect is called a node</li>
+</ul>
+</section>
+<section id="compute-the-distance-matrix" class="slide level2">
+<h2>Compute the distance matrix</h2>
+<p>We will use <code>ape</code> and <code>seqinr</code> to create a tree from the alignment. But we need to, again, transform the type of object we got from the <code>msa</code>.</p>
+<p>Then we calculate a distance matrix.</p>
+<div class="callout callout-tip callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>A distance matrix shows how different each sequence is from the others. It has as many rows as columns, since every sequence is compared to the others.</p>
+<p>Its diagonal is all <code>0</code>s, since the difference between a sequence and itself is <code>0</code>.</p>
+</div>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>myFirstAlignment3 <span class="ot">&lt;-</span> </span>
-<span id="cb20-2"><a href="#cb20-2"></a>    <span class="fu">msaConvert</span>(myFirstAlignment,</span>
-<span id="cb20-3"><a href="#cb20-3"></a>           <span class="at">type=</span><span class="st">"seqinr::alignment"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a>    <span class="fu">msaConvert</span>(<span class="at">x =</span> myFirstAlignment,</span>
+<span id="cb20-3"><a href="#cb20-3"></a>           <span class="at">type =</span> <span class="st">"seqinr::alignment"</span>)</span>
 <span id="cb20-4"><a href="#cb20-4"></a></span>
 <span id="cb20-5"><a href="#cb20-5"></a><span class="co"># Then, we create a distance matrix</span></span>
 <span id="cb20-6"><a href="#cb20-6"></a>distance_alignment <span class="ot">&lt;-</span> </span>
-<span id="cb20-7"><a href="#cb20-7"></a>    <span class="fu">dist.alignment</span>(myFirstAlignment3 )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-7"><a href="#cb20-7"></a>    <span class="fu">dist.alignment</span>(<span class="at">x =</span> myFirstAlignment3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="tree-computation" class="slide level2">
+<h2>Tree computation</h2>
+<p>Then, we use the distance matrix to compute the tree, joining sequences most similar, then joining groups of sequences. Each method of computing will do this joining differently.</p>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">nj</a></li><li><a href="#tabset-3-2">bionj</a></li><li><a href="#tabset-3-3">fastme</a></li><li><a href="#tabset-3-4">UPGMA/WPGMA</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<p>This function performs the neighbor-joining tree estimation of <a href="https://academic.oup.com/mbe/article/4/4/406/1029664?login=false">Saitou and Nei (1987)</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">nj</span>(<span class="at">X =</span> distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"ape::nj()"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-9-1.png" width="960"></p>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">nj</span>(<span class="at">X =</span> distance_alignment) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2"></a>    <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"phangorn::NJ()"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-9-2.png" width="960"></p>
+</div>
+</div>
+</div>
+<div id="tabset-3-2">
+<p>This function performs the BIONJ algorithm of <a href="https://academic.oup.com/mbe/article/14/7/685/1119804?login=false">Gascuel (1997)</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">bionj</span>(<span class="at">X =</span> distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"ape::bionj"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">UNJ</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"phangorn::UNJ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-10-2.png" width="960"></p>
+</div>
+</div>
+</div>
+<div id="tabset-3-3">
+<p>The two FastME (fast minimum evolution) functions (balanced - bal - and ordinary least-squares - ols) perform the minimum evolution algorithm of <a href="https://www.liebertpub.com/doi/10.1089/106652702761034136">Desper and Gascuel (2002)</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">fastme.bal</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"FastME BAL"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">fastme.ols</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"FastME OLS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-11-2.png" width="960"></p>
+</div>
+</div>
+</div>
+<div id="tabset-3-4">
+<ul>
+<li>UPGMA: uses the function <code>hclust</code> (hierarchical clustering) with <code>method = "average"</code>, then transforms the dendrogram into the class <code>phylo</code>.</li>
+<li>WPGMA: uses the function <code>hclust</code> with <code>method = "mcquitty"</code>, then transforms the dendrogram into the class <code>phylo</code>.</li>
+</ul>
+<p>Run <code>?hclust</code> then look the section “Details”: the methods are explained with more details with references.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">upgma</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"UPGMA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">wpgma</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"WPGMA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-12-2.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="customizing-the-plot" class="slide level2">
+<h2>Customizing the plot</h2>
+<p>We can use dplyr to separate protein and species names ggplot to plot the tree and the labels separately, and finally join tree and labels with ggarrange.</p>
+<div class="panel-tabset">
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Get the tree</a></li><li><a href="#tabset-4-2">Prepare the labels</a></li><li><a href="#tabset-4-3">Plot the labels</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>upgma_tree <span class="ot">&lt;-</span> <span class="fu">upgma</span>(distance_alignment)</span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="co"># We save the tree in a object so we can access the leaf labes with $tip.label</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-4-2">
+<p>We will use a function called <code>parse</code> to italicize only the species name. It evaluates the text and executes functions inside it! Example, in:</p>
+<p><code>"'TYDC '~italic('Narcissus pseudonarcissus')"</code></p>
+<p>The texts <code>'TYDC '</code> and <code>'Narcissus pseudonarcissus'</code> (in italic) are joined by the symbol <code>~</code>.</p>
+<p>In this case, the protein name has just letters and numbers and is at the start of the sequence name, followed by the species name. So we can use <code>gsub</code> to create the label we want.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>Seqnames_tree <span class="ot">&lt;-</span> </span>
+<span id="cb30-2"><a href="#cb30-2"></a>    <span class="fu">gsub</span>(<span class="st">"(</span><span class="sc">\\</span><span class="st">w+) (.+)"</span>, </span>
+<span id="cb30-3"><a href="#cb30-3"></a>         <span class="st">"'</span><span class="sc">\\</span><span class="st">1 '~italic('</span><span class="sc">\\</span><span class="st">2')"</span>,</span>
+<span id="cb30-4"><a href="#cb30-4"></a>         upgma_tree<span class="sc">$</span>tip.label)</span>
+<span id="cb30-5"><a href="#cb30-5"></a>upgma_tree<span class="sc">$</span>tip.label <span class="ot">&lt;-</span> Seqnames_tree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Check the result before plotting. See that your result looks like the example with <code>TYDC</code> above, as you need to use both double and single quotes.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-3">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">ggtree</span>(upgma_tree) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>    <span class="co"># use geom_tiplab to plot the seqnames</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a>    <span class="co"># add parse = T so R executes the function inside the text</span></span>
+<span id="cb31-4"><a href="#cb31-4"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T) <span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.7</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>    <span class="co"># the upper x limit may change depending on the length of your labels, play around until you get the whole label but little empty space</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="more-customization" class="slide level2">
+<h2>More customization</h2>
+<p>Let’s say you want to add bars marking different groups in a tree, like the vertical bars marking the clades in the figure below (<a href="(https://doi.org/10.1266/GGS.81.243)">Figure 3 in Hori et al.&nbsp;2006</a>:</p>
+<p><img data-src="https://d3i71xaburhd42.cloudfront.net/82a7b788497724f0aee9b8b3ff45650c3489edfb/5-Figure3-1.png" style="width:40.0%"></p>
+<div class="panel-tabset">
+<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">Identify the nodes</a></li><li><a href="#tabset-5-2">Mark groups</a></li><li><a href="#tabset-5-3">Highlight groups</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1">
+<p>Just as we added the names of the leaves, we can add the names of the nodes with <code>geom_text(aes(label=node))</code></p>
+<p>We may need to play around with the <code>hjust</code>, which goes after <code>aes()</code>, inside <code>geom_text()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">ggtree</span>(upgma_tree) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> node), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T, <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-16-1.png" width="960"></p>
+</div>
+</div>
+</div>
+<div id="tabset-5-2">
+<p>In our example tree, there are 2 main groups: nodes 12 and 13. We can use the function<code>geom_cladelabel</code> to mark each one</p>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>There is also <code>geom_cladelab</code>, but you cannot change the color of the text with it</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">ggtree</span>(upgma_tree) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>    <span class="co"># we do not need the line below anymore</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a>    <span class="co">#geom_text(aes(label = node), hjust = -.2) +</span></span>
+<span id="cb34-4"><a href="#cb34-4"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a>    <span class="fu">geom_cladelabel</span>(<span class="at">node =</span> <span class="dv">12</span>, <span class="at">label =</span> <span class="st">"Node 12"</span>,</span>
+<span id="cb34-6"><a href="#cb34-6"></a>            <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">offset =</span> .<span class="dv">35</span>) <span class="sc">+</span></span>
+<span id="cb34-7"><a href="#cb34-7"></a>    <span class="fu">geom_cladelabel</span>(<span class="at">node =</span> <span class="dv">13</span>, <span class="at">label =</span> <span class="st">"Node 13"</span>,</span>
+<span id="cb34-8"><a href="#cb34-8"></a>            <span class="at">color =</span> <span class="st">"green4"</span>, <span class="at">offset =</span> .<span class="dv">35</span>,</span>
+<span id="cb34-9"><a href="#cb34-9"></a>            <span class="at">barsize =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb34-10"><a href="#cb34-10"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
+</div>
+</div>
+</div>
+<div id="tabset-5-3">
+<p>You can draw a rectangle around the node and its branches using <code>geom_highlight</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">ggtree</span>(upgma_tree) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>    <span class="co"># we do not need the line below anymore</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a>    <span class="co">#geom_text(aes(label = node), hjust = -.2) +</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T) <span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a>    <span class="fu">geom_highlight</span>(<span class="at">node =</span> <span class="dv">12</span>,</span>
+<span id="cb35-6"><a href="#cb35-6"></a>               <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb35-7"><a href="#cb35-7"></a>    <span class="co"># change the transparency of the rectangle with alpha</span></span>
+<span id="cb35-8"><a href="#cb35-8"></a>    <span class="fu">geom_cladelabel</span>(<span class="at">node =</span> <span class="dv">13</span>, <span class="at">label =</span> <span class="st">"Node 13"</span>,</span>
+<span id="cb35-9"><a href="#cb35-9"></a>            <span class="at">color =</span> <span class="st">"green4"</span>, <span class="at">offset =</span> .<span class="dv">35</span>,</span>
+<span id="cb35-10"><a href="#cb35-10"></a>            <span class="at">barsize =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb35-11"><a href="#cb35-11"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="resources" class="slide level2">
+<h2>Resources</h2>
+<ul>
+<li><a href="https://www.bioconductor.org/packages/release/bioc/vignettes/msa/inst/doc/msa.pdf">Multiple sequence alignment in R - msa</a></li>
+<li><a href="https://cran.r-project.org/web/packages/ape/vignettes/DrawingPhylogenies.pdf">ape: phylogenetic trees</a></li>
+<li><a href="https://yulab-smu.top/ggmsa/">ggmsa</a></li>
+<li><a href="https://bioconnector.github.io/workshops/r-ggtree.html">ggtree</a></li>
+<li><a href="https://cran.r-project.org/web/packages/phangorn/vignettes/Trees.html">phangorn</a></li>
+</ul>
 
 <div class="footer footer-default">
 

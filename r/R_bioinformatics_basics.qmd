@@ -96,8 +96,8 @@ In future, just come back here, copy the code below and change the list of packa
 devtools::source_gist("https://gist.github.com/KarenGoncalves/0db105bceff4ff69547ee25460dda978")
 
 install_from_dif_sources(
-	cran_packages = c("tidyverse", "tinytex"),
-	bioconductor_packages = c("Biostrings", "msa", "treeio", "ggtree", "ape", "seqinr"),
+	cran_packages = c("tidyverse", "tinytex", "patchwork"),
+	bioconductor_packages = c("Biostrings", "msa", "treeio", "ggtree", "ape", "seqinr", "phangorn"),
 	github_packages = "YuLab-SMU/ggmsa"
 )
 ```
@@ -243,17 +243,204 @@ ggmsa(myFirstAlignment2,
 
 ## Make a phylogenetic tree
 
-We will use `ape` and `seqinr` to create a tree from the alignment. But we need to again transform the type of object we got from the `msa`
+**Learn what is necessary to make a tree, how to read it and what conclusions you can and cannot draw from them.**
+
+- Sequences used for the tree are the leaves/tips.
+- The point where the tree starts (the center if it is circular, or the first tip to separate from the rest of the tree) is the root
+- The lines drawing the tree are the branches/edges.
+- Going from the leaves to the root, the point where two branches connect is called a node
+
+
+## Compute the distance matrix
+
+We will use `ape` and `seqinr` to create a tree from the alignment. But we need to, again, transform the type of object we got from the `msa`.
+
+Then we calculate a distance matrix.
+
+:::{.callout-tip}
+A distance matrix shows how different each sequence is from the others. It has as many rows as columns, since every sequence is compared to the others. 
+
+Its diagonal is all `0`s, since the difference between a sequence and itself is `0`.
+:::
 
 ```{r}
 myFirstAlignment3 <- 
-	msaConvert(myFirstAlignment,
-		   type="seqinr::alignment")
+	msaConvert(x = myFirstAlignment,
+		   type = "seqinr::alignment")
 
 # Then, we create a distance matrix
 distance_alignment <- 
-	dist.alignment(myFirstAlignment3 )
+	dist.alignment(x = myFirstAlignment3)
+```
 
+
+## Tree computation
+
+Then, we use the distance matrix to compute the tree, joining sequences most similar, then joining groups of sequences. Each method of computing will do this joining differently.
+
+:::{.panel-tabset}
+
+# nj
+
+This function performs the neighbor-joining tree estimation of [Saitou and Nei (1987)](https://academic.oup.com/mbe/article/4/4/406/1029664?login=false).
+
+
+```{r}
+nj(X = distance_alignment) %>% plot(main = "ape::nj()")
+
+nj(X = distance_alignment) %>% 
+	plot(main = "phangorn::NJ()")
+```
+
+# bionj
+
+This function performs the BIONJ algorithm of [Gascuel (1997)](https://academic.oup.com/mbe/article/14/7/685/1119804?login=false).
+
+```{r}
+bionj(X = distance_alignment) %>% plot(main = "ape::bionj")
+UNJ(distance_alignment) %>% plot(main = "phangorn::UNJ")
+```
+
+# fastme
+
+The two FastME (fast minimum evolution) functions (balanced - bal - and ordinary least-squares - ols) perform the minimum evolution algorithm of [Desper and Gascuel (2002)](https://www.liebertpub.com/doi/10.1089/106652702761034136).
+
+```{r}
+fastme.bal(distance_alignment) %>% plot(main = "FastME BAL")
+
+fastme.ols(distance_alignment) %>% plot(main = "FastME OLS")
+```
+
+# UPGMA/WPGMA
+
+- UPGMA: uses the function `hclust` (hierarchical clustering) with `method = "average"`, then transforms the dendrogram into the class `phylo`. 
+- WPGMA:  uses the function `hclust` with `method = "mcquitty"`, then transforms the dendrogram into the class `phylo`. 
+
+Run `?hclust` then look the section "Details": the methods are explained with more details with references.
+
+```{r}
+upgma(distance_alignment) %>% plot(main = "UPGMA")
+
+wpgma(distance_alignment) %>% plot(main = "WPGMA")
+```
+
+:::
+
+## Customizing the plot
+
+We can use dplyr to separate protein and species names ggplot to plot the tree and the labels separately, and finally join tree and labels with ggarrange.
+
+:::{.panel-tabset}
+
+# Get the tree
+
+```{r}
+upgma_tree <- upgma(distance_alignment)
+# We save the tree in a object so we can access the leaf labes with $tip.label
+```
+
+# Prepare the labels 
+
+We will use a function called `parse` to italicize only the species name. It evaluates the text and executes functions inside it! Example, in:
+
+`"'TYDC '~italic('Narcissus pseudonarcissus')"`
+
+The texts `'TYDC '` and `'Narcissus pseudonarcissus'` (in italic) are joined by the symbol `~`.
+
+In this case, the protein name has just letters and numbers and is at the start of the sequence name, followed by the species name. So we can use `gsub` to create the label we want.
+
+```{r}
+Seqnames_tree <- 
+	gsub("(\\w+) (.+)", 
+	     "'\\1 '~italic('\\2')",
+	     upgma_tree$tip.label)
+upgma_tree$tip.label <- Seqnames_tree
+```
+
+:::{.callout-note}
+Check the result before plotting. See that your result looks like the example with `TYDC` above, as you need to use both double and single quotes.
+:::
+
+# Plot the labels
+
+
+```{r}
+ggtree(upgma_tree) +
+	# use geom_tiplab to plot the seqnames
+	# add parse = T so R executes the function inside the text
+	geom_tiplab(parse = T) +
+	xlim(c(0, 0.7)) 
+	# the upper x limit may change depending on the length of your labels, play around until you get the whole label but little empty space
+```
+
+:::
+
+## More customization
+
+Let's say you want to add bars marking different groups in a tree, like the vertical bars marking the clades in the figure below ([Figure 3 in Hori et al. 2006]((https://doi.org/10.1266/GGS.81.243)):
+
+![](https://d3i71xaburhd42.cloudfront.net/82a7b788497724f0aee9b8b3ff45650c3489edfb/5-Figure3-1.png){width=40%}
+
+:::{.panel-tabset}
+
+# Identify the nodes
+
+Just as we added the names of the leaves, we can add the names of the nodes with `geom_text(aes(label=node))`
+
+We may need to play around with the `hjust`, which goes after `aes()`, inside `geom_text()`
+
+```{r}
+ggtree(upgma_tree) +
+	geom_text(aes(label = node), hjust = -.2) +
+	geom_tiplab(parse = T, hjust = -.15) +
+	xlim(c(0, 0.8))
+```
+
+# Mark groups
+
+In our example tree, there are 2 main groups: nodes 12 and 13. We can use the function`geom_cladelabel` to mark each one
+
+:::{.callout-note}
+There is also `geom_cladelab`, but you cannot change the color of the text with it
+:::
+
+```{r}
+ggtree(upgma_tree) +
+	# we do not need the line below anymore
+	#geom_text(aes(label = node), hjust = -.2) +
+	geom_tiplab(parse = T) +
+	geom_cladelabel(node = 12, label = "Node 12",
+			color = "red", offset = .35) +
+	geom_cladelabel(node = 13, label = "Node 13",
+			color = "green4", offset = .35,
+			barsize = 2) +
+	xlim(c(0, .9))
 
 ```
 
+# Highlight groups
+
+You can draw a rectangle around the node and its branches using `geom_highlight`
+
+```{r}
+ggtree(upgma_tree) +
+	# we do not need the line below anymore
+	#geom_text(aes(label = node), hjust = -.2) +
+	geom_tiplab(parse = T) +
+	geom_highlight(node = 12,
+		       fill = "red") +
+	# change the transparency of the rectangle with alpha
+	geom_cladelabel(node = 13, label = "Node 13",
+			color = "green4", offset = .35,
+			barsize = 2) +
+	xlim(c(0, .9))
+```
+:::
+
+## Resources
+
+- [Multiple sequence alignment in R - msa](https://www.bioconductor.org/packages/release/bioc/vignettes/msa/inst/doc/msa.pdf)
+- [ape: phylogenetic trees](https://cran.r-project.org/web/packages/ape/vignettes/DrawingPhylogenies.pdf)
+- [ggmsa](https://yulab-smu.top/ggmsa/)
+- [ggtree](https://bioconnector.github.io/workshops/r-ggtree.html)
+- [phangorn](https://cran.r-project.org/web/packages/phangorn/vignettes/Trees.html)
