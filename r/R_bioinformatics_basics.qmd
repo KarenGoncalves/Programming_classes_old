@@ -91,12 +91,13 @@ In future, just come back here, copy the code below and change the list of packa
 
 ```{r}
 #| output: false
+#| warning: false
 
 devtools::source_gist("https://gist.github.com/KarenGoncalves/0db105bceff4ff69547ee25460dda978")
 
 install_from_dif_sources(
 	cran_packages = c("tidyverse", "tinytex"),
-	bioconductor_packages = c("Biostrings", "msa", "treeio", "ggtree"),
+	bioconductor_packages = c("Biostrings", "msa", "treeio", "ggtree", "ape", "seqinr"),
 	github_packages = "YuLab-SMU/ggmsa"
 )
 ```
@@ -110,10 +111,7 @@ So you just need to give the link to the function `devtools::source_gist()` and 
 
 ## Reading and writing fasta files
 
-Put in your script the codes from the two previous slides, as we will use the packages "tidyverse", "Biostrings", "msa" and "ggmsa".
-
-
-If you have protein sequences in a  fasta file, copy it to your `inputs` folder, else use the following:  [reductases.fasta](./exampleData/Reductases.fasta)
+If you have protein sequences in a fasta file, copy it to your `inputs` folder, else use the following:  [Reductases.fasta](./exampleData/Reductases.fasta)
 
 ```{r}
 # To open a fasta file with multiple sequences, use the function readDNAStringSet() or readAAStringSet()
@@ -172,11 +170,15 @@ print(myFirstAlignment, show = "complete", showConsensus = T)
 
 To see the alignment as a plot, we can use `ggmsa`.
 
-However, we need to change the type of object of the alignment result, as ggmsa only accepts "AAMultipleAlignment" objects
+:::{.callout-note}
+
+We need to change the type of object of the alignment result, as `ggmsa` only accepts `"AAMultipleAlignment"` objects
+
+:::
 
 ```{r}
 # The original result is of class MsaAAMultipleAlignment
-myFirstAlignment2 <- myFirstAlignment
+myFirstAlignment2 <- myFirstAlignment # keep the original, make a copy to modify it
 class(myFirstAlignment2) <-  "AAMultipleAlignment"
 
 # We will plot only a part of the alignment - from the AA 220 to the AA 250 - so it is visible 
@@ -188,6 +190,73 @@ ggmsa(myFirstAlignment2,
 ggmsa(myFirstAlignment2, 
       start = 220, end = 250, 
       seq_name = T, consensus_views = T)
+
+# Remove the # below if you want to save the figure
 #ggsave("First_alignment_consensus_220_250.tiff")
+```
+
+# More `ggmsa` options
+
+:::{.panel-tabset}
+
+# Residue size
+We can set the width of the characters (use `char_width = #`), so the residues are not so big
+
+```{r}
+ggmsa(myFirstAlignment2, 
+      start = 220, end = 250, 
+      seq_name = T, char_width = 0.5)
+
+```
+
+# SeqLogo
+
+A seqlogo is a plot with letters on top of each other representing their frequency at each position in the alignment. 
+
+- The higher and bigger a letter, the more frequent it is at a given position. 
+- We can add this plot with `+ geom_seqlogo()`
+	- you can use different color schemes with `geom_seqlogo(color = #)`<sup>1</sup>
+	- you can set your color scheme with `geom_seqlogo(custom_color = data.frame)`<sup>1</sup>
+	
+
+```{r}
+ggmsa(myFirstAlignment2, 
+      start = 220, end = 250, 
+      seq_name = T, char_width = 0.5) + 
+	geom_seqlogo() 
+# Note that the gaps are also represented in the seqlogo!
+
+```
+
+:::{.callout-tip}
+<sup>1</sup> Check the options with `?geom_seqlogo`
+:::
+
+# Consensus as bar graph
+
+```{r}
+ggmsa(myFirstAlignment2, 
+      start = 220, end = 250, 
+      seq_name = T, char_width = 0.5) + 
+	geom_seqlogo() +
+	geom_msaBar()
+```
+
+:::
+
+## Make a phylogenetic tree with seqinr and ape
+
+We will use `ape` and `seqinr` to create a tree from the alignment. But we need to again transform the type of object we got from the `msa`
+
+```{r}
+myFirstAlignment3 <- 
+	msaConvert(myFirstAlignment,
+		   type="seqinr::alignment")
+
+# Then, we create a distance matrix
+distance_alignment <- 
+	dist.alignment(myFirstAlignment3 )
+
+
 ```
 
