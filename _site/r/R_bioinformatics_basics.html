@@ -483,7 +483,7 @@ Karen C. Goncalves, Ph.D.
 <span id="cb4-2"><a href="#cb4-2"></a></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="fu">install_from_dif_sources</span>(</span>
 <span id="cb4-4"><a href="#cb4-4"></a>    <span class="at">cran_packages =</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"tinytex"</span>),</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    <span class="at">bioconductor_packages =</span> <span class="fu">c</span>(<span class="st">"Biostrings"</span>, <span class="st">"msa"</span>, <span class="st">"treeio"</span>, <span class="st">"ggtree"</span>),</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="at">bioconductor_packages =</span> <span class="fu">c</span>(<span class="st">"Biostrings"</span>, <span class="st">"msa"</span>, <span class="st">"treeio"</span>, <span class="st">"ggtree"</span>, <span class="st">"ape"</span>, <span class="st">"seqinr"</span>),</span>
 <span id="cb4-6"><a href="#cb4-6"></a>    <span class="at">github_packages =</span> <span class="st">"YuLab-SMU/ggmsa"</span></span>
 <span id="cb4-7"><a href="#cb4-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -501,8 +501,7 @@ Karen C. Goncalves, Ph.D.
 </section>
 <section id="reading-and-writing-fasta-files" class="slide level2">
 <h2>Reading and writing fasta files</h2>
-<p>Put in your script the codes from the two previous slides, as we will use the packages “tidyverse”, “Biostrings”, “msa” and “ggmsa”.</p>
-<p>If you have protein sequences in a fasta file, copy it to your <code>inputs</code> folder, else use the following: <a href="./exampleData/Reductases.fasta">reductases.fasta</a></p>
+<p>If you have protein sequences in a fasta file, copy it to your <code>inputs</code> folder, else use the following: <a href="./exampleData/Reductases.fasta">Reductases.fasta</a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># To open a fasta file with multiple sequences, use the function readDNAStringSet() or readAAStringSet()</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>fasta_input <span class="ot">=</span> <span class="st">"https://karengoncalves.github.io/Programming_classes/r/exampleData/Reductases.fasta"</span> <span class="sc">%&gt;%</span></span>
@@ -604,10 +603,19 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 <section id="use-ggmsa-for-visualization" class="slide level2">
 <h2>Use ggmsa for visualization</h2>
 <p>To see the alignment as a plot, we can use <code>ggmsa</code>.</p>
-<p>However, we need to change the type of object of the alignment result, as ggmsa only accepts “AAMultipleAlignment” objects</p>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>We need to change the type of object of the alignment result, as <code>ggmsa</code> only accepts <code>"AAMultipleAlignment"</code> objects</p>
+</div>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># The original result is of class MsaAAMultipleAlignment</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>myFirstAlignment2 <span class="ot">&lt;-</span> myFirstAlignment</span>
+<span id="cb13-2"><a href="#cb13-2"></a>myFirstAlignment2 <span class="ot">&lt;-</span> myFirstAlignment <span class="co"># keep the original, make a copy to modify it</span></span>
 <span id="cb13-3"><a href="#cb13-3"></a><span class="fu">class</span>(myFirstAlignment2) <span class="ot">&lt;-</span>  <span class="st">"AAMultipleAlignment"</span></span>
 <span id="cb13-4"><a href="#cb13-4"></a></span>
 <span id="cb13-5"><a href="#cb13-5"></a><span class="co"># We will plot only a part of the alignment - from the AA 220 to the AA 250 - so it is visible </span></span>
@@ -624,13 +632,90 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 <div class="cell-output-display">
 <p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-4-2.png" width="960"></p>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">#ggsave("First_alignment_consensus_220_250.tiff")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Remove the # below if you want to save the figure</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#ggsave("First_alignment_consensus_220_250.tiff")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section>
+<section id="more-ggmsa-options" class="title-slide slide level1 center">
+<h1>More <code>ggmsa</code> options</h1>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Residue size</a></li><li><a href="#tabset-2-2">SeqLogo</a></li><li><a href="#tabset-2-3">Consensus as bar graph</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<p>We can set the width of the characters (use <code>char_width = #</code>), so the residues are not so big</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
+<span id="cb16-2"><a href="#cb16-2"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
+<span id="cb16-3"><a href="#cb16-3"></a>      <span class="at">seq_name =</span> T, <span class="at">char_width =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
+</div>
+</div>
+</div>
+<div id="tabset-2-2">
+<p>A seqlogo is a plot with letters on top of each other representing their frequency at each position in the alignment.</p>
+<ul>
+<li>The higher and bigger a letter, the more frequent it is at a given position.</li>
+<li>We can add this plot with <code>+ geom_seqlogo()</code>
+<ul>
+<li>you can use different color schemes with <code>geom_seqlogo(color = #)</code><sup>1</sup></li>
+<li>you can set your color scheme with <code>geom_seqlogo(custom_color = data.frame)</code><sup>1</sup></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
+<span id="cb17-2"><a href="#cb17-2"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
+<span id="cb17-3"><a href="#cb17-3"></a>      <span class="at">seq_name =</span> T, <span class="at">char_width =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb17-4"><a href="#cb17-4"></a>    <span class="fu">geom_seqlogo</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Note that the gaps are also represented in the seqlogo!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-tip callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p><sup>1</sup> Check the options with <code>?geom_seqlogo</code></p>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-3">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
+<span id="cb19-2"><a href="#cb19-2"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
+<span id="cb19-3"><a href="#cb19-3"></a>      <span class="at">seq_name =</span> T, <span class="at">char_width =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb19-4"><a href="#cb19-4"></a>    <span class="fu">geom_seqlogo</span>() <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>    <span class="fu">geom_msaBar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="make-a-phylogenetic-tree-with-seqinr-and-ape" class="slide level2">
+<h2>Make a phylogenetic tree with seqinr and ape</h2>
+<p>We will use <code>ape</code> and <code>seqinr</code> to create a tree from the alignment. But we need to again transform the type of object we got from the <code>msa</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>myFirstAlignment3 <span class="ot">&lt;-</span> </span>
+<span id="cb20-2"><a href="#cb20-2"></a>    <span class="fu">msaConvert</span>(myFirstAlignment,</span>
+<span id="cb20-3"><a href="#cb20-3"></a>           <span class="at">type=</span><span class="st">"seqinr::alignment"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4"></a></span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="co"># Then, we create a distance matrix</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a>distance_alignment <span class="ot">&lt;-</span> </span>
+<span id="cb20-7"><a href="#cb20-7"></a>    <span class="fu">dist.alignment</span>(myFirstAlignment3 )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="footer footer-default">
 
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
