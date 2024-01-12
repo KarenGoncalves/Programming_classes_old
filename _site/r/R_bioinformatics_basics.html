@@ -636,9 +636,8 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 <span id="cb15-2"><a href="#cb15-2"></a><span class="co">#ggsave("First_alignment_consensus_220_250.tiff")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section>
-<section id="more-ggmsa-options" class="title-slide slide level1 center">
-<h1>More <code>ggmsa</code> options</h1>
+<section id="more-ggmsa-options" class="slide level2">
+<h2>More <code>ggmsa</code> options</h2>
 <div class="panel-tabset">
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Residue size</a></li><li><a href="#tabset-2-2">SeqLogo</a></li><li><a href="#tabset-2-3">Consensus as bar graph</a></li></ul>
 <div class="tab-content">
@@ -654,15 +653,7 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </div>
 </div>
 <div id="tabset-2-2">
-<p>A seqlogo is a plot with letters on top of each other representing their frequency at each position in the alignment.</p>
-<ul>
-<li>The higher and bigger a letter, the more frequent it is at a given position.</li>
-<li>We can add this plot with <code>+ geom_seqlogo()</code>
-<ul>
-<li>you can use different color schemes with <code>geom_seqlogo(color = #)</code><sup>1</sup></li>
-<li>you can set your color scheme with <code>geom_seqlogo(custom_color = data.frame)</code><sup>1</sup></li>
-</ul></li>
-</ul>
+<p>A seqlogo is a plot with letters on top of each other representing their frequency at each position in the alignment. The bigger a letter, the more frequent it is at a given position. - We can add this plot with <code>+ geom_seqlogo()</code> - you can use different color schemes with <code>geom_seqlogo(color = #)</code><sup>1</sup> - you can set your color scheme with <code>geom_seqlogo(custom_color = data.frame)</code><sup>1</sup></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
 <span id="cb17-2"><a href="#cb17-2"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
@@ -699,8 +690,8 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </div>
 </div>
 </section>
-<section id="make-a-phylogenetic-tree-with-seqinr-and-ape" class="slide level2">
-<h2>Make a phylogenetic tree with seqinr and ape</h2>
+<section id="make-a-phylogenetic-tree" class="slide level2">
+<h2>Make a phylogenetic tree</h2>
 <p>We will use <code>ape</code> and <code>seqinr</code> to create a tree from the alignment. But we need to again transform the type of object we got from the <code>msa</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>myFirstAlignment3 <span class="ot">&lt;-</span> </span>
@@ -715,7 +706,7 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 <div class="footer footer-default">
 
 </div>
-</section></section>
+</section>
     </div>
   </div>
 

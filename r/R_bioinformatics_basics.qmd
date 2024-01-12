@@ -195,7 +195,7 @@ ggmsa(myFirstAlignment2,
 #ggsave("First_alignment_consensus_220_250.tiff")
 ```
 
-# More `ggmsa` options
+## More `ggmsa` options
 
 :::{.panel-tabset}
 
@@ -211,14 +211,11 @@ ggmsa(myFirstAlignment2,
 
 # SeqLogo
 
-A seqlogo is a plot with letters on top of each other representing their frequency at each position in the alignment. 
-
-- The higher and bigger a letter, the more frequent it is at a given position. 
+A seqlogo is a plot with letters on top of each other representing their frequency at each position in the alignment. The bigger a letter, the more frequent it is at a given position. 
 - We can add this plot with `+ geom_seqlogo()`
 	- you can use different color schemes with `geom_seqlogo(color = #)`<sup>1</sup>
 	- you can set your color scheme with `geom_seqlogo(custom_color = data.frame)`<sup>1</sup>
 	
-
 ```{r}
 ggmsa(myFirstAlignment2, 
       start = 220, end = 250, 
@@ -244,7 +241,7 @@ ggmsa(myFirstAlignment2,
 
 :::
 
-## Make a phylogenetic tree with seqinr and ape
+## Make a phylogenetic tree
 
 We will use `ape` and `seqinr` to create a tree from the alignment. But we need to again transform the type of object we got from the `msa`
 
