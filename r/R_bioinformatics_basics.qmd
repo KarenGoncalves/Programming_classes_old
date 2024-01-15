@@ -50,7 +50,7 @@ if (length(pkgs.To.Install) != 0) {
 ```
 
 :::{.callout-tip}
-In `BiocManager::install`, the `::` indicates that the function "install" comes from the package "BiocManager".
+In `BiocManager::install`, the `::` indicates that the function `install` comes from the package `BiocManager`.
 
 So even if there is another package with the same function, R will know which one to use.
 :::
@@ -200,6 +200,7 @@ ggmsa(myFirstAlignment2,
 :::{.panel-tabset}
 
 # Residue size
+
 We can set the width of the characters (use `char_width = #`), so the residues are not so big
 
 ```{r}
@@ -212,6 +213,7 @@ ggmsa(myFirstAlignment2,
 # SeqLogo
 
 A seqlogo is a plot with letters on top of each other representing their frequency at each position in the alignment. The bigger a letter, the more frequent it is at a given position. 
+
 - We can add this plot with `+ geom_seqlogo()`
 	- you can use different color schemes with `geom_seqlogo(color = #)`<sup>1</sup>
 	- you can set your color scheme with `geom_seqlogo(custom_color = data.frame)`<sup>1</sup>
@@ -328,7 +330,7 @@ wpgma(distance_alignment) %>% plot(main = "WPGMA")
 
 ## Customizing the plot
 
-We can use dplyr to separate protein and species names ggplot to plot the tree and the labels separately, and finally join tree and labels with ggarrange.
+We can use dplyr to separate protein and species names.
 
 :::{.panel-tabset}
 
@@ -363,7 +365,6 @@ Check the result before plotting. See that your result looks like the example wi
 
 # Plot the labels
 
-
 ```{r}
 ggtree(upgma_tree) +
 	# use geom_tiplab to plot the seqnames
@@ -377,9 +378,11 @@ ggtree(upgma_tree) +
 
 ## More customization
 
-Let's say you want to add bars marking different groups in a tree, like the vertical bars marking the clades in the figure below ([Figure 3 in Hori et al. 2006]((https://doi.org/10.1266/GGS.81.243)):
+Let's say you want to add bars marking different groups in a tree, like the vertical bars marking the clades in the figure below [(Figure 3 in Hori et al. 2006)](https://doi.org/10.1266/GGS.81.243):
 
 ![](https://d3i71xaburhd42.cloudfront.net/82a7b788497724f0aee9b8b3ff45650c3489edfb/5-Figure3-1.png){width=40%}
+
+## Highlight important nodes
 
 :::{.panel-tabset}
 
@@ -435,6 +438,7 @@ ggtree(upgma_tree) +
 			barsize = 2) +
 	xlim(c(0, .9))
 ```
+
 :::
 
 ## Resources
@@ -444,3 +448,36 @@ ggtree(upgma_tree) +
 - [ggmsa](https://yulab-smu.top/ggmsa/)
 - [ggtree](https://bioconnector.github.io/workshops/r-ggtree.html)
 - [phangorn](https://cran.r-project.org/web/packages/phangorn/vignettes/Trees.html)
+
+
+## About figures
+
+As discussed in the lab meeting, graphs should be at 1200 dpi and either 8 or 17 cm wide. We can create functions that set these as default!
+
+With this, we can now use these functions to save our plots, instead of using ggsave.
+
+```{r my_ggsave}
+# The function below is simply ggsave with 2 differences
+my_ggsave <- function(plot = last_plot(),
+		      dpi = 1200, 
+		      columns = NA, ## NEED TO SET
+		      device = NULL, 
+		      path = NULL, 
+		      scale = 1,  
+		      height = NA, 
+		      units = c("in", "cm", "mm", "px"),
+		      limitsize = TRUE, 
+		      bg = NULL) {
+	# by setting dpi = 1200, we specify that, if not changed, dpi will be 1200
+	# columns will be either 1 or 2. So if we want a figure to take one column, the width will be 8; if the figure takes 2 columns, the width will be 17
+	if (!is.numeric(columns)) {
+		stop("'columns' must be numeric!")
+	} 
+	width = ifelse(columns == 1, 8, 17)
+	ggsave(plot = plot, 
+	       filename = filename,
+	       width = width,
+	       dpi = dpi
+	       )
+}
+```

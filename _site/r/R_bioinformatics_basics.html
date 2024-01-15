@@ -434,7 +434,7 @@ Karen C. Goncalves, Ph.D.
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>In <code>BiocManager::install</code>, the <code>::</code> indicates that the function “install” comes from the package “BiocManager”.</p>
+<p>In <code>BiocManager::install</code>, the <code>::</code> indicates that the function <code>install</code> comes from the package <code>BiocManager</code>.</p>
 <p>So even if there is another package with the same function, R will know which one to use.</p>
 </div>
 </div>
@@ -653,7 +653,14 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </div>
 </div>
 <div id="tabset-2-2">
-<p>A seqlogo is a plot with letters on top of each other representing their frequency at each position in the alignment. The bigger a letter, the more frequent it is at a given position. - We can add this plot with <code>+ geom_seqlogo()</code> - you can use different color schemes with <code>geom_seqlogo(color = #)</code><sup>1</sup> - you can set your color scheme with <code>geom_seqlogo(custom_color = data.frame)</code><sup>1</sup></p>
+<p>A seqlogo is a plot with letters on top of each other representing their frequency at each position in the alignment. The bigger a letter, the more frequent it is at a given position.</p>
+<ul>
+<li>We can add this plot with <code>+ geom_seqlogo()</code>
+<ul>
+<li>you can use different color schemes with <code>geom_seqlogo(color = #)</code><sup>1</sup></li>
+<li>you can set your color scheme with <code>geom_seqlogo(custom_color = data.frame)</code><sup>1</sup></li>
+</ul></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
 <span id="cb17-2"><a href="#cb17-2"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
@@ -793,7 +800,7 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </section>
 <section id="customizing-the-plot" class="slide level2">
 <h2>Customizing the plot</h2>
-<p>We can use dplyr to separate protein and species names ggplot to plot the tree and the labels separately, and finally join tree and labels with ggarrange.</p>
+<p>We can use dplyr to separate protein and species names.</p>
 <div class="panel-tabset">
 <ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Get the tree</a></li><li><a href="#tabset-4-2">Prepare the labels</a></li><li><a href="#tabset-4-3">Plot the labels</a></li></ul>
 <div class="tab-content">
@@ -844,8 +851,11 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </section>
 <section id="more-customization" class="slide level2">
 <h2>More customization</h2>
-<p>Let’s say you want to add bars marking different groups in a tree, like the vertical bars marking the clades in the figure below (<a href="(https://doi.org/10.1266/GGS.81.243)">Figure 3 in Hori et al.&nbsp;2006</a>:</p>
-<p><img data-src="https://d3i71xaburhd42.cloudfront.net/82a7b788497724f0aee9b8b3ff45650c3489edfb/5-Figure3-1.png" style="width:40.0%"></p>
+<p>Let’s say you want to add bars marking different groups in a tree, like the vertical bars marking the clades in the figure below <a href="https://doi.org/10.1266/GGS.81.243">(Figure 3 in Hori et al.&nbsp;2006)</a>:</p>
+
+<img data-src="https://d3i71xaburhd42.cloudfront.net/82a7b788497724f0aee9b8b3ff45650c3489edfb/5-Figure3-1.png" style="width:40.0%" class="r-stretch"></section>
+<section id="highlight-important-nodes" class="slide level2">
+<h2>Highlight important nodes</h2>
 <div class="panel-tabset">
 <ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">Identify the nodes</a></li><li><a href="#tabset-5-2">Mark groups</a></li><li><a href="#tabset-5-3">Highlight groups</a></li></ul>
 <div class="tab-content">
@@ -921,6 +931,36 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 <li><a href="https://bioconnector.github.io/workshops/r-ggtree.html">ggtree</a></li>
 <li><a href="https://cran.r-project.org/web/packages/phangorn/vignettes/Trees.html">phangorn</a></li>
 </ul>
+</section>
+<section id="about-figures" class="slide level2">
+<h2>About figures</h2>
+<p>As discussed in the lab meeting, graphs should be at 1200 dpi and either 8 or 17 cm wide. We can create functions that set these as default!</p>
+<p>With this, we can now use these functions to save our plots, instead of using ggsave.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># The function below is simply ggsave with 2 differences</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>my_ggsave <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">plot =</span> <span class="fu">last_plot</span>(),</span>
+<span id="cb36-3"><a href="#cb36-3"></a>              <span class="at">dpi =</span> <span class="dv">1200</span>, </span>
+<span id="cb36-4"><a href="#cb36-4"></a>              <span class="at">columns =</span> <span class="cn">NA</span>, <span class="do">## NEED TO SET</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a>              <span class="at">device =</span> <span class="cn">NULL</span>, </span>
+<span id="cb36-6"><a href="#cb36-6"></a>              <span class="at">path =</span> <span class="cn">NULL</span>, </span>
+<span id="cb36-7"><a href="#cb36-7"></a>              <span class="at">scale =</span> <span class="dv">1</span>,  </span>
+<span id="cb36-8"><a href="#cb36-8"></a>              <span class="at">height =</span> <span class="cn">NA</span>, </span>
+<span id="cb36-9"><a href="#cb36-9"></a>              <span class="at">units =</span> <span class="fu">c</span>(<span class="st">"in"</span>, <span class="st">"cm"</span>, <span class="st">"mm"</span>, <span class="st">"px"</span>),</span>
+<span id="cb36-10"><a href="#cb36-10"></a>              <span class="at">limitsize =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb36-11"><a href="#cb36-11"></a>              <span class="at">bg =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb36-12"><a href="#cb36-12"></a>    <span class="co"># by setting dpi = 1200, we specify that, if not changed, dpi will be 1200</span></span>
+<span id="cb36-13"><a href="#cb36-13"></a>    <span class="co"># columns will be either 1 or 2. So if we want a figure to take one column, the width will be 8; if the figure takes 2 columns, the width will be 17</span></span>
+<span id="cb36-14"><a href="#cb36-14"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(columns)) {</span>
+<span id="cb36-15"><a href="#cb36-15"></a>        <span class="fu">stop</span>(<span class="st">"'columns' must be numeric!"</span>)</span>
+<span id="cb36-16"><a href="#cb36-16"></a>    } </span>
+<span id="cb36-17"><a href="#cb36-17"></a>    width <span class="ot">=</span> <span class="fu">ifelse</span>(columns <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">17</span>)</span>
+<span id="cb36-18"><a href="#cb36-18"></a>    <span class="fu">ggsave</span>(<span class="at">plot =</span> plot, </span>
+<span id="cb36-19"><a href="#cb36-19"></a>           <span class="at">filename =</span> filename,</span>
+<span id="cb36-20"><a href="#cb36-20"></a>           <span class="at">width =</span> width,</span>
+<span id="cb36-21"><a href="#cb36-21"></a>           <span class="at">dpi =</span> dpi</span>
+<span id="cb36-22"><a href="#cb36-22"></a>           )</span>
+<span id="cb36-23"><a href="#cb36-23"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 <div class="footer footer-default">
 
