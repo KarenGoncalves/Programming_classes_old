@@ -262,17 +262,20 @@ Then we calculate a distance matrix.
 :::{.callout-tip}
 A distance matrix shows how different each sequence is from the others. It has as many rows as columns, since every sequence is compared to the others. 
 
-Its diagonal is all `0`s, since the difference between a sequence and itself is `0`.
+- Its diagonal is all `0`s, since the difference between a sequence and itself is `0`. 
+- The other rows and columns are values that indicate the amount of mismatches between two sequences. The greater the number, the less similar the two sequences are.
+
 :::
 
 ```{r}
+# We need to first export the alignment and import it again to transform it 
 myFirstAlignment3 <- 
-	msaConvert(x = myFirstAlignment,
-		   type = "seqinr::alignment")
+	myFirstAlignment %>% as.phyDat()
 
 # Then, we create a distance matrix
 distance_alignment <- 
-	dist.alignment(x = myFirstAlignment3)
+	dist.ml(x = myFirstAlignment3, 
+		model = "Blosum62")
 ```
 
 
@@ -370,7 +373,7 @@ ggtree(upgma_tree) +
 	# use geom_tiplab to plot the seqnames
 	# add parse = T so R executes the function inside the text
 	geom_tiplab(parse = T) +
-	xlim(c(0, 0.7)) 
+	xlim(c(0, 2)) 
 	# the upper x limit may change depending on the length of your labels, play around until you get the whole label but little empty space
 ```
 
@@ -396,7 +399,7 @@ We may need to play around with the `hjust`, which goes after `aes()`, inside `g
 ggtree(upgma_tree) +
 	geom_text(aes(label = node), hjust = -.2) +
 	geom_tiplab(parse = T, hjust = -.15) +
-	xlim(c(0, 0.8))
+	xlim(c(0, 2))
 ```
 
 # Mark groups
@@ -413,11 +416,11 @@ ggtree(upgma_tree) +
 	#geom_text(aes(label = node), hjust = -.2) +
 	geom_tiplab(parse = T) +
 	geom_cladelabel(node = 12, label = "Node 12",
-			color = "red", offset = .35) +
+			color = "red", offset = 1) +
 	geom_cladelabel(node = 13, label = "Node 13",
-			color = "green4", offset = .35,
+			color = "green4", offset = 1,
 			barsize = 2) +
-	xlim(c(0, .9))
+	xlim(c(0, 2.5))
 
 ```
 
@@ -434,9 +437,91 @@ ggtree(upgma_tree) +
 		       fill = "red") +
 	# change the transparency of the rectangle with alpha
 	geom_cladelabel(node = 13, label = "Node 13",
-			color = "green4", offset = .35,
+			color = "green4", offset = 1,
 			barsize = 2) +
-	xlim(c(0, .9))
+	xlim(c(0, 2.5))
+```
+
+:::
+
+## Statistical support
+
+The statistical support on phylogenetic trees is calculated with bootstrap. In simple terms, bootstrap is repetition. In more complicated terms, the tree computation (including the calculation of the distance matrix) is repeated *n times*<sup>`1`</sup>, and the result shows the proportion of times the node appeared.
+
+If out of 1000 times, a given group appears 100 times, its support is 10%.
+
+<sup>`1`</sup> n is determined by the number of sequences you are working with. 
+
+- n is the number of times the calculation was repeated, so it includes the first time. That is why you may see it reported as 'bootstrap was performed with 999 replicates' (plus the original tree calculation, you get 1&nbsp;000 replicates)
+- Although more is better, using n=10&nbsp;000 for a tree of 10 sequences is overkill and may take too much time to calculate.
+- The most typical n used (for < 50 sequences in a tree) is 999
+
+## Bootstrap support
+
+Let's consider that we want to use `upgma` to calculate our tree and we want to calculate the support of the branches.
+
+:::{.panel-tabset}
+
+# Computation
+
+We use the function `bootstrap.phyDat` the same way we use `sapply`: using this dataset, perform this set of functions.
+
+```{r}
+upgma_tree <- myFirstAlignment3 |>
+	dist.ml() |> upgma()
+bs_upgma <- bootstrap.phyDat(
+	myFirstAlignment3, 
+	bs = 100, \(x){
+		dist.ml (x) |> upgma()
+	})
+
+bs_plot <- plotBS(upgma_tree, bs_upgma)
+# The data stored in bs_plot is exactly what we need for ggtree
+```
+
+# Tree preparation
+
+Since this is a new file, we need to correct the sequence names again.
+
+We also set a threshold for bootstrap. Only values passing the threshold are shown.
+
+```{r}
+bs_plot2 <- bs_plot
+
+# We correct the sequence names
+Seqnames_tree <- 
+	gsub("(\\w+) (.+)", 
+	     "'\\1 '~italic('\\2')",
+	     bs_plot$tip.label)
+bs_plot2$tip.label <- Seqnames_tree
+
+# Bootstrap threshold
+bs_threshold <- 50
+bs_plot2$node.label <- 
+	ifelse(bs_plot$node.label < bs_threshold,
+	       "", bs_plot$node.label)
+```
+
+# Plot
+
+```{r}
+ggtree(bs_plot2) +
+	geom_tiplab(parse = T) +
+	geom_highlight(node = 12,
+		       fill = "red") +
+	geom_nodelab(nudge_x = 0.03) +
+	# we use nudge_x to move the label away from the branches
+	xlim(c(0, 1.5))
+```
+
+# Export
+
+We export the trees to a newick (.nwk) file
+
+This format is readable by any program working with trees
+
+```{r}
+write.tree(bs_upgma, file = "bootstrap_upgma_trees.nwk")
 ```
 
 :::
@@ -449,6 +534,28 @@ ggtree(upgma_tree) +
 - [ggtree](https://bioconnector.github.io/workshops/r-ggtree.html)
 - [phangorn](https://cran.r-project.org/web/packages/phangorn/vignettes/Trees.html)
 
+## Aminoacid substitution models for `dist.ml()`
+
+- ['BLOSUM62'](https://www.nature.com/articles/nbt0804-1035)
+- ['WAG'](doi.org/10.1093/oxfordjournals.molbev.a003851)
+- ['JTT'](http://dx.doi.org/10.1093/bioinformatics/8.3.275)
+- ['LG'](http://dx.doi.org/10.1093/molbev/msn067)
+- ['Dayhoff'](http://profs.scienze.univr.it/~liptak/ALBioinfo/2011_2012/files/pam1.pdf)
+- ['cpREV'](http://dx.doi.org/10.1007/s002399910038)
+- ['VT'](http://dx.doi.org/10.1089/10665270050514918)
+- ['rtREV'](http://dx.doi.org/10.1007/s00239-001-2304-y)
+- ['Dayhoff_DCMut'and 'JTT_DCMut'](http://dx.doi.org/10.1093/molbev/msi005)
+
+
+
+Specific
+
+- Mitochondrial  
+	- ['mtmam'](http://dx.doi.org/10.1093/oxfordjournals.molbev.a025888)
+	- ['mtzoa'](https://doi.org/10.1016/j.ympev.2009.01.011)
+	- ['mtREV24'](http://stat.sys.i.kyoto-u.ac.jp/titech/class/doc/csm96.pdf)
+	- Arthropoda:  ['mtart'](http://dx.doi.org/10.1093/molbev/msl136)
+	- HIV:  ['HIVb' and 'HIVw'](http://dx.doi.org/10.1007/s00239-001-2304-y)
 
 ## About figures
 
