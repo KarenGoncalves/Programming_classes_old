@@ -109,6 +109,38 @@ The link [https://gist.github.com/KarenGoncalves/0db105bceff4ff69547ee25460dda97
 So you just need to give the link to the function `devtools::source_gist()` and then you can use the function `install_from_dif_sources`
 :::
 
+## A note about classes
+
+R objects (the things in the environment tab) belong to different classes. The basic ones you already know:
+
+- vectors have one dimension and data inside has to be all the same type: character vector; numeric vector; factor vector
+- matrices: vectors, but with columns and rows
+- data.frames: table made of vectors (columns) of the same size
+- lists: anything goes! If the objects stored in it have names, you can access them like `list$object_name`, as if the object inside was a column of a table
+
+. . .
+
+To check the class of an object you can use:
+
+```{.r}
+class(object)
+```
+
+. . .
+
+A package may create it's own object class. Sometimes you need to convert an object from one class to another, like:
+```{r}
+(numeric_vector <- 1:10)
+class(numeric_vector)
+
+(character_vector <- as.character(numeric_vector)) # change class
+class(character_vector)
+```
+
+. . .
+
+So, just remember that, if a function starts with `as.`, it is changing the class of the object.
+
 ## Reading and writing fasta files
 
 If you have protein sequences in a fasta file, copy it to your `inputs` folder, else use the following:  [Reductases.fasta](./exampleData/Reductases.fasta)
@@ -139,7 +171,7 @@ Make things easy for yourself later, add the names of the parameters of each fun
 		- `cluster` parameter can be either NJ (`"neighborjoining"`) or UPGMA (`"upgma"`) - UPGMA gives better results [<sup>3</sup>](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC517706/)
 	- `msa` - you can set the method with the argument `method` or just put the sequences and use the default (`"Clustalw"`) (other options: `"ClustalOmega"`, `"Muscle"`)
 
-- Add `verbose = T` so that the parameters used are printed to the screen and you can take not for your publications.
+- Add `verbose = T` so that the parameters used are printed to the screen and you can take note for your publications.
 
 ## Running MSA
 
@@ -518,7 +550,7 @@ ggtree(bs_plot2) +
 
 We export the trees to a newick (.nwk) file
 
-This format is readable by any program working with trees
+This format is readable by any program working with trees. 
 
 ```{r}
 write.tree(bs_upgma, file = "bootstrap_upgma_trees.nwk")

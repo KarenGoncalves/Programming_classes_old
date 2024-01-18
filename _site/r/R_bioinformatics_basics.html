@@ -499,14 +499,52 @@ Karen C. Goncalves, Ph.D.
 </div>
 </div>
 </section>
+<section id="a-note-about-classes" class="slide level2">
+<h2>A note about classes</h2>
+<p>R objects (the things in the environment tab) belong to different classes. The basic ones you already know:</p>
+<ul>
+<li>vectors have one dimension and data inside has to be all the same type: character vector; numeric vector; factor vector</li>
+<li>matrices: vectors, but with columns and rows</li>
+<li>data.frames: table made of vectors (columns) of the same size</li>
+<li>lists: anything goes! If the objects stored in it have names, you can access them like <code>list$object_name</code>, as if the object inside was a column of a table</li>
+</ul>
+<div class="fragment">
+<p>To check the class of an object you can use:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">class</span>(object)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>A package may create it’s own object class. Sometimes you need to convert an object from one class to another, like:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>(numeric_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">class</span>(numeric_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>(character_vector <span class="ot">&lt;-</span> <span class="fu">as.character</span>(numeric_vector)) <span class="co"># change class</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">class</span>(character_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>So, just remember that, if a function starts with <code>as.</code>, it is changing the class of the object.</p>
+</div>
+</section>
 <section id="reading-and-writing-fasta-files" class="slide level2">
 <h2>Reading and writing fasta files</h2>
 <p>If you have protein sequences in a fasta file, copy it to your <code>inputs</code> folder, else use the following: <a href="./exampleData/Reductases.fasta">Reductases.fasta</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># To open a fasta file with multiple sequences, use the function readDNAStringSet() or readAAStringSet()</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>fasta_input <span class="ot">=</span> <span class="st">"https://karengoncalves.github.io/Programming_classes/r/exampleData/Reductases.fasta"</span> <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>    <span class="fu">readAAStringSet</span>(<span class="at">format =</span> <span class="st">"fasta"</span>)</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="fu">head</span>(fasta_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># To open a fasta file with multiple sequences, use the function readDNAStringSet() or readAAStringSet()</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>fasta_input <span class="ot">=</span> <span class="st">"https://karengoncalves.github.io/Programming_classes/r/exampleData/Reductases.fasta"</span> <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>    <span class="fu">readAAStringSet</span>(<span class="at">format =</span> <span class="st">"fasta"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="fu">head</span>(fasta_input)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>AAStringSet object of length 6:
     width seq                                               names               
@@ -517,10 +555,10 @@ Karen C. Goncalves, Ph.D.
 [5]   314 MEENGMKSKILIFGGTGYIGNHM...FTTIDELLDIFVHDPPPPASAAF EGS1 Ocimum basil...
 [6]   310 MVASEKSKILIIGGTGYIGKYLV...VEATELYPKVKYTTVDEFYNKFV IFRH Nicotiana gl...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># If you want to select just one or two sequences and export it, you can do:</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">writeXStringSet</span>(fasta_input[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], </span>
-<span id="cb7-3"><a href="#cb7-3"></a>        <span class="at">filepath =</span> <span class="st">"input_subset.fasta"</span>, </span>
-<span id="cb7-4"><a href="#cb7-4"></a>        <span class="at">format =</span> <span class="st">"fasta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># If you want to select just one or two sequences and export it, you can do:</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">writeXStringSet</span>(fasta_input[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], </span>
+<span id="cb16-3"><a href="#cb16-3"></a>        <span class="at">filepath =</span> <span class="st">"input_subset.fasta"</span>, </span>
+<span id="cb16-4"><a href="#cb16-4"></a>        <span class="at">format =</span> <span class="st">"fasta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="multiple-sequence-alignment-msa" class="slide level2">
@@ -546,24 +584,24 @@ Karen C. Goncalves, Ph.D.
 </ul></li>
 <li><code>msa</code> - you can set the method with the argument <code>method</code> or just put the sequences and use the default (<code>"Clustalw"</code>) (other options: <code>"ClustalOmega"</code>, <code>"Muscle"</code>)</li>
 </ul></li>
-<li>Add <code>verbose = T</code> so that the parameters used are printed to the screen and you can take not for your publications.</li>
+<li>Add <code>verbose = T</code> so that the parameters used are printed to the screen and you can take note for your publications.</li>
 </ul>
 </section>
 <section id="running-msa" class="slide level2">
 <h2>Running MSA</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># The dataset used as example has 48 sequences, we will subset it for the alignment, selecting only 10</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>fasta_for_alignment <span class="ot">&lt;-</span> fasta_input[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="co"># use ?msa to know what you need to put in the function and what the default values are</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>myFirstAlignment <span class="ot">&lt;-</span> <span class="fu">msa</span>(fasta_for_alignment, </span>
-<span id="cb8-5"><a href="#cb8-5"></a>            <span class="at">method =</span> <span class="st">"ClustalOmega"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6"></a>            <span class="at">verbose =</span> T</span>
-<span id="cb8-7"><a href="#cb8-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># The dataset used as example has 48 sequences, we will subset it for the alignment, selecting only 10</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>fasta_for_alignment <span class="ot">&lt;-</span> fasta_input[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="co"># use ?msa to know what you need to put in the function and what the default values are</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>myFirstAlignment <span class="ot">&lt;-</span> <span class="fu">msa</span>(fasta_for_alignment, </span>
+<span id="cb17-5"><a href="#cb17-5"></a>            <span class="at">method =</span> <span class="st">"ClustalOmega"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6"></a>            <span class="at">verbose =</span> T</span>
+<span id="cb17-7"><a href="#cb17-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>params: clustalo --R -o tempClustalOmega.aln --outfmt=clustal --seqtype=protein --force --gapopen=6.000000 --gapext=1.000000 --cluster-size=100 --iter=0 --output-order=tree-order
 using Gonnet</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>myFirstAlignment</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>myFirstAlignment</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ClustalOmega 1.2.0 
 
@@ -595,7 +633,7 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </div>
 <div class="callout-content">
 <p>Just calling the MSA result will not show the whole alignment. For that you can use <code>print()</code></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">print</span>(myFirstAlignment, <span class="at">show =</span> <span class="st">"complete"</span>, <span class="at">showConsensus =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">print</span>(myFirstAlignment, <span class="at">show =</span> <span class="st">"complete"</span>, <span class="at">showConsensus =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -614,26 +652,26 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># The original result is of class MsaAAMultipleAlignment</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>myFirstAlignment2 <span class="ot">&lt;-</span> myFirstAlignment <span class="co"># keep the original, make a copy to modify it</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="fu">class</span>(myFirstAlignment2) <span class="ot">&lt;-</span>  <span class="st">"AAMultipleAlignment"</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co"># We will plot only a part of the alignment - from the AA 220 to the AA 250 - so it is visible </span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
-<span id="cb13-7"><a href="#cb13-7"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
-<span id="cb13-8"><a href="#cb13-8"></a>      <span class="at">seq_name =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># The original result is of class MsaAAMultipleAlignment</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>myFirstAlignment2 <span class="ot">&lt;-</span> myFirstAlignment <span class="co"># keep the original, make a copy to modify it</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="fu">class</span>(myFirstAlignment2) <span class="ot">&lt;-</span>  <span class="st">"AAMultipleAlignment"</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="co"># We will plot only a part of the alignment - from the AA 220 to the AA 250 - so it is visible </span></span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
+<span id="cb22-7"><a href="#cb22-7"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
+<span id="cb22-8"><a href="#cb22-8"></a>      <span class="at">seq_name =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># We can see also the consensus highlighted</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
-<span id="cb14-3"><a href="#cb14-3"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
-<span id="cb14-4"><a href="#cb14-4"></a>      <span class="at">seq_name =</span> T, <span class="at">consensus_views =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># We can see also the consensus highlighted</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
+<span id="cb23-3"><a href="#cb23-3"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
+<span id="cb23-4"><a href="#cb23-4"></a>      <span class="at">seq_name =</span> T, <span class="at">consensus_views =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-4-2.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-5-2.png" width="960"></p>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Remove the # below if you want to save the figure</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#ggsave("First_alignment_consensus_220_250.tiff")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Remove the # below if you want to save the figure</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="co">#ggsave("First_alignment_consensus_220_250.tiff")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="more-ggmsa-options" class="slide level2">
@@ -644,11 +682,11 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 <div id="tabset-2-1">
 <p>We can set the width of the characters (use <code>char_width = #</code>), so the residues are not so big</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
-<span id="cb16-2"><a href="#cb16-2"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
-<span id="cb16-3"><a href="#cb16-3"></a>      <span class="at">seq_name =</span> T, <span class="at">char_width =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
+<span id="cb25-2"><a href="#cb25-2"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
+<span id="cb25-3"><a href="#cb25-3"></a>      <span class="at">seq_name =</span> T, <span class="at">char_width =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -662,14 +700,14 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
-<span id="cb17-2"><a href="#cb17-2"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
-<span id="cb17-3"><a href="#cb17-3"></a>      <span class="at">seq_name =</span> T, <span class="at">char_width =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb17-4"><a href="#cb17-4"></a>    <span class="fu">geom_seqlogo</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
+<span id="cb26-2"><a href="#cb26-2"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
+<span id="cb26-3"><a href="#cb26-3"></a>      <span class="at">seq_name =</span> T, <span class="at">char_width =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb26-4"><a href="#cb26-4"></a>    <span class="fu">geom_seqlogo</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Note that the gaps are also represented in the seqlogo!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Note that the gaps are also represented in the seqlogo!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-tip callout-style-simple">
 <div class="callout-body">
@@ -684,13 +722,13 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </div>
 <div id="tabset-2-3">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
-<span id="cb19-2"><a href="#cb19-2"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
-<span id="cb19-3"><a href="#cb19-3"></a>      <span class="at">seq_name =</span> T, <span class="at">char_width =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb19-4"><a href="#cb19-4"></a>    <span class="fu">geom_seqlogo</span>() <span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a>    <span class="fu">geom_msaBar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">ggmsa</span>(myFirstAlignment2, </span>
+<span id="cb28-2"><a href="#cb28-2"></a>      <span class="at">start =</span> <span class="dv">220</span>, <span class="at">end =</span> <span class="dv">250</span>, </span>
+<span id="cb28-3"><a href="#cb28-3"></a>      <span class="at">seq_name =</span> T, <span class="at">char_width =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb28-4"><a href="#cb28-4"></a>    <span class="fu">geom_seqlogo</span>() <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a>    <span class="fu">geom_msaBar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-8-1.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -726,14 +764,14 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># We need to first export the alignment and import it again to transform it </span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>myFirstAlignment3 <span class="ot">&lt;-</span> </span>
-<span id="cb20-3"><a href="#cb20-3"></a>    myFirstAlignment <span class="sc">%&gt;%</span> <span class="fu">as.phyDat</span>()</span>
-<span id="cb20-4"><a href="#cb20-4"></a></span>
-<span id="cb20-5"><a href="#cb20-5"></a><span class="co"># Then, we create a distance matrix</span></span>
-<span id="cb20-6"><a href="#cb20-6"></a>distance_alignment <span class="ot">&lt;-</span> </span>
-<span id="cb20-7"><a href="#cb20-7"></a>    <span class="fu">dist.ml</span>(<span class="at">x =</span> myFirstAlignment3, </span>
-<span id="cb20-8"><a href="#cb20-8"></a>        <span class="at">model =</span> <span class="st">"Blosum62"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># We need to first export the alignment and import it again to transform it </span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>myFirstAlignment3 <span class="ot">&lt;-</span> </span>
+<span id="cb29-3"><a href="#cb29-3"></a>    myFirstAlignment <span class="sc">%&gt;%</span> <span class="fu">as.phyDat</span>()</span>
+<span id="cb29-4"><a href="#cb29-4"></a></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="co"># Then, we create a distance matrix</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a>distance_alignment <span class="ot">&lt;-</span> </span>
+<span id="cb29-7"><a href="#cb29-7"></a>    <span class="fu">dist.ml</span>(<span class="at">x =</span> myFirstAlignment3, </span>
+<span id="cb29-8"><a href="#cb29-8"></a>        <span class="at">model =</span> <span class="st">"Blosum62"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="tree-computation" class="slide level2">
@@ -745,40 +783,40 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 <div id="tabset-3-1">
 <p>This function performs the neighbor-joining tree estimation of <a href="https://academic.oup.com/mbe/article/4/4/406/1029664?login=false">Saitou and Nei (1987)</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">nj</span>(<span class="at">X =</span> distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"ape::nj()"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">nj</span>(<span class="at">X =</span> distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"ape::nj()"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-9-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">nj</span>(<span class="at">X =</span> distance_alignment) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-2"><a href="#cb22-2"></a>    <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"phangorn::NJ()"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">nj</span>(<span class="at">X =</span> distance_alignment) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2"></a>    <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"phangorn::NJ()"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-9-2.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-10-2.png" width="960"></p>
 </div>
 </div>
 </div>
 <div id="tabset-3-2">
 <p>This function performs the BIONJ algorithm of <a href="https://academic.oup.com/mbe/article/14/7/685/1119804?login=false">Gascuel (1997)</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">bionj</span>(<span class="at">X =</span> distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"ape::bionj"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">bionj</span>(<span class="at">X =</span> distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"ape::bionj"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">UNJ</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"phangorn::UNJ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">UNJ</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"phangorn::UNJ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-10-2.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-11-2.png" width="960"></p>
 </div>
 </div>
 </div>
 <div id="tabset-3-3">
 <p>The two FastME (fast minimum evolution) functions (balanced - bal - and ordinary least-squares - ols) perform the minimum evolution algorithm of <a href="https://www.liebertpub.com/doi/10.1089/106652702761034136">Desper and Gascuel (2002)</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">fastme.bal</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"FastME BAL"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">fastme.bal</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"FastME BAL"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">fastme.ols</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"FastME OLS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">fastme.ols</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"FastME OLS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-11-2.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-12-2.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -789,13 +827,13 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </ul>
 <p>Run <code>?hclust</code> then look the section “Details”: the methods are explained with more details with references.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">upgma</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"UPGMA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">upgma</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"UPGMA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">wpgma</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"WPGMA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">wpgma</span>(distance_alignment) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"WPGMA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-12-2.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-13-2.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -810,8 +848,8 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 <div class="tab-content">
 <div id="tabset-4-1">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>upgma_tree <span class="ot">&lt;-</span> <span class="fu">upgma</span>(distance_alignment)</span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="co"># We save the tree in a object so we can access the leaf labes with $tip.label</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>upgma_tree <span class="ot">&lt;-</span> <span class="fu">upgma</span>(distance_alignment)</span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="co"># We save the tree in a object so we can access the leaf labes with $tip.label</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-4-2">
@@ -820,11 +858,11 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 <p>The texts <code>'TYDC '</code> and <code>'Narcissus pseudonarcissus'</code> (in italic) are joined by the symbol <code>~</code>.</p>
 <p>In this case, the protein name has just letters and numbers and is at the start of the sequence name, followed by the species name. So we can use <code>gsub</code> to create the label we want.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>Seqnames_tree <span class="ot">&lt;-</span> </span>
-<span id="cb30-2"><a href="#cb30-2"></a>    <span class="fu">gsub</span>(<span class="st">"(</span><span class="sc">\\</span><span class="st">w+) (.+)"</span>, </span>
-<span id="cb30-3"><a href="#cb30-3"></a>         <span class="st">"'</span><span class="sc">\\</span><span class="st">1 '~italic('</span><span class="sc">\\</span><span class="st">2')"</span>,</span>
-<span id="cb30-4"><a href="#cb30-4"></a>         upgma_tree<span class="sc">$</span>tip.label)</span>
-<span id="cb30-5"><a href="#cb30-5"></a>upgma_tree<span class="sc">$</span>tip.label <span class="ot">&lt;-</span> Seqnames_tree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>Seqnames_tree <span class="ot">&lt;-</span> </span>
+<span id="cb39-2"><a href="#cb39-2"></a>    <span class="fu">gsub</span>(<span class="st">"(</span><span class="sc">\\</span><span class="st">w+) (.+)"</span>, </span>
+<span id="cb39-3"><a href="#cb39-3"></a>         <span class="st">"'</span><span class="sc">\\</span><span class="st">1 '~italic('</span><span class="sc">\\</span><span class="st">2')"</span>,</span>
+<span id="cb39-4"><a href="#cb39-4"></a>         upgma_tree<span class="sc">$</span>tip.label)</span>
+<span id="cb39-5"><a href="#cb39-5"></a>upgma_tree<span class="sc">$</span>tip.label <span class="ot">&lt;-</span> Seqnames_tree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
@@ -839,15 +877,15 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </div>
 <div id="tabset-4-3">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">ggtree</span>(upgma_tree) <span class="sc">+</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a>    <span class="co"># use geom_tiplab to plot the seqnames</span></span>
-<span id="cb31-3"><a href="#cb31-3"></a>    <span class="co"># add parse = T so R executes the function inside the text</span></span>
-<span id="cb31-4"><a href="#cb31-4"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T) <span class="sc">+</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">ggtree</span>(upgma_tree) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>    <span class="co"># use geom_tiplab to plot the seqnames</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a>    <span class="co"># add parse = T so R executes the function inside the text</span></span>
+<span id="cb40-4"><a href="#cb40-4"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T) <span class="sc">+</span></span>
+<span id="cb40-5"><a href="#cb40-5"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-16-1.png" width="960"></p>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>    <span class="co"># the upper x limit may change depending on the length of your labels, play around until you get the whole label but little empty space</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>    <span class="co"># the upper x limit may change depending on the length of your labels, play around until you get the whole label but little empty space</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -867,12 +905,12 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 <p>Just as we added the names of the leaves, we can add the names of the nodes with <code>geom_text(aes(label=node))</code></p>
 <p>We may need to play around with the <code>hjust</code>, which goes after <code>aes()</code>, inside <code>geom_text()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">ggtree</span>(upgma_tree) <span class="sc">+</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> node), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb33-3"><a href="#cb33-3"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T, <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">15</span>) <span class="sc">+</span></span>
-<span id="cb33-4"><a href="#cb33-4"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">ggtree</span>(upgma_tree) <span class="sc">+</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> node), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T, <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb42-4"><a href="#cb42-4"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-16-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -889,37 +927,37 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">ggtree</span>(upgma_tree) <span class="sc">+</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a>    <span class="co"># we do not need the line below anymore</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a>    <span class="co">#geom_text(aes(label = node), hjust = -.2) +</span></span>
-<span id="cb34-4"><a href="#cb34-4"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T) <span class="sc">+</span></span>
-<span id="cb34-5"><a href="#cb34-5"></a>    <span class="fu">geom_cladelabel</span>(<span class="at">node =</span> <span class="dv">12</span>, <span class="at">label =</span> <span class="st">"Node 12"</span>,</span>
-<span id="cb34-6"><a href="#cb34-6"></a>            <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">offset =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb34-7"><a href="#cb34-7"></a>    <span class="fu">geom_cladelabel</span>(<span class="at">node =</span> <span class="dv">13</span>, <span class="at">label =</span> <span class="st">"Node 13"</span>,</span>
-<span id="cb34-8"><a href="#cb34-8"></a>            <span class="at">color =</span> <span class="st">"green4"</span>, <span class="at">offset =</span> <span class="dv">1</span>,</span>
-<span id="cb34-9"><a href="#cb34-9"></a>            <span class="at">barsize =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb34-10"><a href="#cb34-10"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">2.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">ggtree</span>(upgma_tree) <span class="sc">+</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a>    <span class="co"># we do not need the line below anymore</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a>    <span class="co">#geom_text(aes(label = node), hjust = -.2) +</span></span>
+<span id="cb43-4"><a href="#cb43-4"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T) <span class="sc">+</span></span>
+<span id="cb43-5"><a href="#cb43-5"></a>    <span class="fu">geom_cladelabel</span>(<span class="at">node =</span> <span class="dv">12</span>, <span class="at">label =</span> <span class="st">"Node 12"</span>,</span>
+<span id="cb43-6"><a href="#cb43-6"></a>            <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">offset =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb43-7"><a href="#cb43-7"></a>    <span class="fu">geom_cladelabel</span>(<span class="at">node =</span> <span class="dv">13</span>, <span class="at">label =</span> <span class="st">"Node 13"</span>,</span>
+<span id="cb43-8"><a href="#cb43-8"></a>            <span class="at">color =</span> <span class="st">"green4"</span>, <span class="at">offset =</span> <span class="dv">1</span>,</span>
+<span id="cb43-9"><a href="#cb43-9"></a>            <span class="at">barsize =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb43-10"><a href="#cb43-10"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">2.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
 </div>
 </div>
 </div>
 <div id="tabset-5-3">
 <p>You can draw a rectangle around the node and its branches using <code>geom_highlight</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">ggtree</span>(upgma_tree) <span class="sc">+</span></span>
-<span id="cb35-2"><a href="#cb35-2"></a>    <span class="co"># we do not need the line below anymore</span></span>
-<span id="cb35-3"><a href="#cb35-3"></a>    <span class="co">#geom_text(aes(label = node), hjust = -.2) +</span></span>
-<span id="cb35-4"><a href="#cb35-4"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T) <span class="sc">+</span></span>
-<span id="cb35-5"><a href="#cb35-5"></a>    <span class="fu">geom_highlight</span>(<span class="at">node =</span> <span class="dv">12</span>,</span>
-<span id="cb35-6"><a href="#cb35-6"></a>               <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb35-7"><a href="#cb35-7"></a>    <span class="co"># change the transparency of the rectangle with alpha</span></span>
-<span id="cb35-8"><a href="#cb35-8"></a>    <span class="fu">geom_cladelabel</span>(<span class="at">node =</span> <span class="dv">13</span>, <span class="at">label =</span> <span class="st">"Node 13"</span>,</span>
-<span id="cb35-9"><a href="#cb35-9"></a>            <span class="at">color =</span> <span class="st">"green4"</span>, <span class="at">offset =</span> <span class="dv">1</span>,</span>
-<span id="cb35-10"><a href="#cb35-10"></a>            <span class="at">barsize =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb35-11"><a href="#cb35-11"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">2.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">ggtree</span>(upgma_tree) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>    <span class="co"># we do not need the line below anymore</span></span>
+<span id="cb44-3"><a href="#cb44-3"></a>    <span class="co">#geom_text(aes(label = node), hjust = -.2) +</span></span>
+<span id="cb44-4"><a href="#cb44-4"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T) <span class="sc">+</span></span>
+<span id="cb44-5"><a href="#cb44-5"></a>    <span class="fu">geom_highlight</span>(<span class="at">node =</span> <span class="dv">12</span>,</span>
+<span id="cb44-6"><a href="#cb44-6"></a>               <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb44-7"><a href="#cb44-7"></a>    <span class="co"># change the transparency of the rectangle with alpha</span></span>
+<span id="cb44-8"><a href="#cb44-8"></a>    <span class="fu">geom_cladelabel</span>(<span class="at">node =</span> <span class="dv">13</span>, <span class="at">label =</span> <span class="st">"Node 13"</span>,</span>
+<span id="cb44-9"><a href="#cb44-9"></a>            <span class="at">color =</span> <span class="st">"green4"</span>, <span class="at">offset =</span> <span class="dv">1</span>,</span>
+<span id="cb44-10"><a href="#cb44-10"></a>            <span class="at">barsize =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb44-11"><a href="#cb44-11"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">2.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-19-1.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -946,60 +984,60 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 <div id="tabset-6-1">
 <p>We use the function <code>bootstrap.phyDat</code> the same way we use <code>sapply</code>: using this dataset, perform this set of functions.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>upgma_tree <span class="ot">&lt;-</span> myFirstAlignment3 <span class="sc">|&gt;</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a>    <span class="fu">dist.ml</span>() <span class="sc">|&gt;</span> <span class="fu">upgma</span>()</span>
-<span id="cb36-3"><a href="#cb36-3"></a>bs_upgma <span class="ot">&lt;-</span> <span class="fu">bootstrap.phyDat</span>(</span>
-<span id="cb36-4"><a href="#cb36-4"></a>    myFirstAlignment3, </span>
-<span id="cb36-5"><a href="#cb36-5"></a>    <span class="at">bs =</span> <span class="dv">100</span>, \(x){</span>
-<span id="cb36-6"><a href="#cb36-6"></a>        <span class="fu">dist.ml</span> (x) <span class="sc">|&gt;</span> <span class="fu">upgma</span>()</span>
-<span id="cb36-7"><a href="#cb36-7"></a>    })</span>
-<span id="cb36-8"><a href="#cb36-8"></a></span>
-<span id="cb36-9"><a href="#cb36-9"></a>bs_plot <span class="ot">&lt;-</span> <span class="fu">plotBS</span>(upgma_tree, bs_upgma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>upgma_tree <span class="ot">&lt;-</span> myFirstAlignment3 <span class="sc">|&gt;</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a>    <span class="fu">dist.ml</span>() <span class="sc">|&gt;</span> <span class="fu">upgma</span>()</span>
+<span id="cb45-3"><a href="#cb45-3"></a>bs_upgma <span class="ot">&lt;-</span> <span class="fu">bootstrap.phyDat</span>(</span>
+<span id="cb45-4"><a href="#cb45-4"></a>    myFirstAlignment3, </span>
+<span id="cb45-5"><a href="#cb45-5"></a>    <span class="at">bs =</span> <span class="dv">100</span>, \(x){</span>
+<span id="cb45-6"><a href="#cb45-6"></a>        <span class="fu">dist.ml</span> (x) <span class="sc">|&gt;</span> <span class="fu">upgma</span>()</span>
+<span id="cb45-7"><a href="#cb45-7"></a>    })</span>
+<span id="cb45-8"><a href="#cb45-8"></a></span>
+<span id="cb45-9"><a href="#cb45-9"></a>bs_plot <span class="ot">&lt;-</span> <span class="fu">plotBS</span>(upgma_tree, bs_upgma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-19-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># The data stored in bs_plot is exactly what we need for ggtree</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># The data stored in bs_plot is exactly what we need for ggtree</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-6-2">
 <p>Since this is a new file, we need to correct the sequence names again.</p>
 <p>We also set a threshold for bootstrap. Only values passing the threshold are shown.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>bs_plot2 <span class="ot">&lt;-</span> bs_plot</span>
-<span id="cb38-2"><a href="#cb38-2"></a></span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="co"># We correct the sequence names</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a>Seqnames_tree <span class="ot">&lt;-</span> </span>
-<span id="cb38-5"><a href="#cb38-5"></a>    <span class="fu">gsub</span>(<span class="st">"(</span><span class="sc">\\</span><span class="st">w+) (.+)"</span>, </span>
-<span id="cb38-6"><a href="#cb38-6"></a>         <span class="st">"'</span><span class="sc">\\</span><span class="st">1 '~italic('</span><span class="sc">\\</span><span class="st">2')"</span>,</span>
-<span id="cb38-7"><a href="#cb38-7"></a>         bs_plot<span class="sc">$</span>tip.label)</span>
-<span id="cb38-8"><a href="#cb38-8"></a>bs_plot2<span class="sc">$</span>tip.label <span class="ot">&lt;-</span> Seqnames_tree</span>
-<span id="cb38-9"><a href="#cb38-9"></a></span>
-<span id="cb38-10"><a href="#cb38-10"></a><span class="co"># Bootstrap threshold</span></span>
-<span id="cb38-11"><a href="#cb38-11"></a>bs_threshold <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb38-12"><a href="#cb38-12"></a>bs_plot2<span class="sc">$</span>node.label <span class="ot">&lt;-</span> </span>
-<span id="cb38-13"><a href="#cb38-13"></a>    <span class="fu">ifelse</span>(bs_plot<span class="sc">$</span>node.label <span class="sc">&lt;</span> bs_threshold,</span>
-<span id="cb38-14"><a href="#cb38-14"></a>           <span class="st">""</span>, bs_plot<span class="sc">$</span>node.label)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>bs_plot2 <span class="ot">&lt;-</span> bs_plot</span>
+<span id="cb47-2"><a href="#cb47-2"></a></span>
+<span id="cb47-3"><a href="#cb47-3"></a><span class="co"># We correct the sequence names</span></span>
+<span id="cb47-4"><a href="#cb47-4"></a>Seqnames_tree <span class="ot">&lt;-</span> </span>
+<span id="cb47-5"><a href="#cb47-5"></a>    <span class="fu">gsub</span>(<span class="st">"(</span><span class="sc">\\</span><span class="st">w+) (.+)"</span>, </span>
+<span id="cb47-6"><a href="#cb47-6"></a>         <span class="st">"'</span><span class="sc">\\</span><span class="st">1 '~italic('</span><span class="sc">\\</span><span class="st">2')"</span>,</span>
+<span id="cb47-7"><a href="#cb47-7"></a>         bs_plot<span class="sc">$</span>tip.label)</span>
+<span id="cb47-8"><a href="#cb47-8"></a>bs_plot2<span class="sc">$</span>tip.label <span class="ot">&lt;-</span> Seqnames_tree</span>
+<span id="cb47-9"><a href="#cb47-9"></a></span>
+<span id="cb47-10"><a href="#cb47-10"></a><span class="co"># Bootstrap threshold</span></span>
+<span id="cb47-11"><a href="#cb47-11"></a>bs_threshold <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb47-12"><a href="#cb47-12"></a>bs_plot2<span class="sc">$</span>node.label <span class="ot">&lt;-</span> </span>
+<span id="cb47-13"><a href="#cb47-13"></a>    <span class="fu">ifelse</span>(bs_plot<span class="sc">$</span>node.label <span class="sc">&lt;</span> bs_threshold,</span>
+<span id="cb47-14"><a href="#cb47-14"></a>           <span class="st">""</span>, bs_plot<span class="sc">$</span>node.label)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-6-3">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">ggtree</span>(bs_plot2) <span class="sc">+</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T) <span class="sc">+</span></span>
-<span id="cb39-3"><a href="#cb39-3"></a>    <span class="fu">geom_highlight</span>(<span class="at">node =</span> <span class="dv">12</span>,</span>
-<span id="cb39-4"><a href="#cb39-4"></a>               <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb39-5"><a href="#cb39-5"></a>    <span class="fu">geom_nodelab</span>(<span class="at">nudge_x =</span> <span class="fl">0.03</span>) <span class="sc">+</span></span>
-<span id="cb39-6"><a href="#cb39-6"></a>    <span class="co"># we use nudge_x to move the label away from the branches</span></span>
-<span id="cb39-7"><a href="#cb39-7"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">ggtree</span>(bs_plot2) <span class="sc">+</span></span>
+<span id="cb48-2"><a href="#cb48-2"></a>    <span class="fu">geom_tiplab</span>(<span class="at">parse =</span> T) <span class="sc">+</span></span>
+<span id="cb48-3"><a href="#cb48-3"></a>    <span class="fu">geom_highlight</span>(<span class="at">node =</span> <span class="dv">12</span>,</span>
+<span id="cb48-4"><a href="#cb48-4"></a>               <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb48-5"><a href="#cb48-5"></a>    <span class="fu">geom_nodelab</span>(<span class="at">nudge_x =</span> <span class="fl">0.03</span>) <span class="sc">+</span></span>
+<span id="cb48-6"><a href="#cb48-6"></a>    <span class="co"># we use nudge_x to move the label away from the branches</span></span>
+<span id="cb48-7"><a href="#cb48-7"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-21-1.png" width="960"></p>
+<p><img data-src="R_bioinformatics_basics_files/figure-revealjs/unnamed-chunk-22-1.png" width="960"></p>
 </div>
 </div>
 </div>
 <div id="tabset-6-4">
 <p>We export the trees to a newick (.nwk) file</p>
-<p>This format is readable by any program working with trees</p>
+<p>This format is readable by any program working with trees.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">write.tree</span>(bs_upgma, <span class="at">file =</span> <span class="st">"bootstrap_upgma_trees.nwk"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">write.tree</span>(bs_upgma, <span class="at">file =</span> <span class="st">"bootstrap_upgma_trees.nwk"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1045,29 +1083,29 @@ MsaAAMultipleAlignment with 10 rows and 780 columns
 <p>As discussed in the lab meeting, graphs should be at 1200 dpi and either 8 or 17 cm wide. We can create functions that set these as default!</p>
 <p>With this, we can now use these functions to save our plots, instead of using ggsave.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="co"># The function below is simply ggsave with 2 differences</span></span>
-<span id="cb41-2"><a href="#cb41-2"></a>my_ggsave <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">plot =</span> <span class="fu">last_plot</span>(),</span>
-<span id="cb41-3"><a href="#cb41-3"></a>              <span class="at">dpi =</span> <span class="dv">1200</span>, </span>
-<span id="cb41-4"><a href="#cb41-4"></a>              <span class="at">columns =</span> <span class="cn">NA</span>, <span class="do">## NEED TO SET</span></span>
-<span id="cb41-5"><a href="#cb41-5"></a>              <span class="at">device =</span> <span class="cn">NULL</span>, </span>
-<span id="cb41-6"><a href="#cb41-6"></a>              <span class="at">path =</span> <span class="cn">NULL</span>, </span>
-<span id="cb41-7"><a href="#cb41-7"></a>              <span class="at">scale =</span> <span class="dv">1</span>,  </span>
-<span id="cb41-8"><a href="#cb41-8"></a>              <span class="at">height =</span> <span class="cn">NA</span>, </span>
-<span id="cb41-9"><a href="#cb41-9"></a>              <span class="at">units =</span> <span class="fu">c</span>(<span class="st">"in"</span>, <span class="st">"cm"</span>, <span class="st">"mm"</span>, <span class="st">"px"</span>),</span>
-<span id="cb41-10"><a href="#cb41-10"></a>              <span class="at">limitsize =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb41-11"><a href="#cb41-11"></a>              <span class="at">bg =</span> <span class="cn">NULL</span>) {</span>
-<span id="cb41-12"><a href="#cb41-12"></a>    <span class="co"># by setting dpi = 1200, we specify that, if not changed, dpi will be 1200</span></span>
-<span id="cb41-13"><a href="#cb41-13"></a>    <span class="co"># columns will be either 1 or 2. So if we want a figure to take one column, the width will be 8; if the figure takes 2 columns, the width will be 17</span></span>
-<span id="cb41-14"><a href="#cb41-14"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(columns)) {</span>
-<span id="cb41-15"><a href="#cb41-15"></a>        <span class="fu">stop</span>(<span class="st">"'columns' must be numeric!"</span>)</span>
-<span id="cb41-16"><a href="#cb41-16"></a>    } </span>
-<span id="cb41-17"><a href="#cb41-17"></a>    width <span class="ot">=</span> <span class="fu">ifelse</span>(columns <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">17</span>)</span>
-<span id="cb41-18"><a href="#cb41-18"></a>    <span class="fu">ggsave</span>(<span class="at">plot =</span> plot, </span>
-<span id="cb41-19"><a href="#cb41-19"></a>           <span class="at">filename =</span> filename,</span>
-<span id="cb41-20"><a href="#cb41-20"></a>           <span class="at">width =</span> width,</span>
-<span id="cb41-21"><a href="#cb41-21"></a>           <span class="at">dpi =</span> dpi</span>
-<span id="cb41-22"><a href="#cb41-22"></a>           )</span>
-<span id="cb41-23"><a href="#cb41-23"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="co"># The function below is simply ggsave with 2 differences</span></span>
+<span id="cb50-2"><a href="#cb50-2"></a>my_ggsave <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">plot =</span> <span class="fu">last_plot</span>(),</span>
+<span id="cb50-3"><a href="#cb50-3"></a>              <span class="at">dpi =</span> <span class="dv">1200</span>, </span>
+<span id="cb50-4"><a href="#cb50-4"></a>              <span class="at">columns =</span> <span class="cn">NA</span>, <span class="do">## NEED TO SET</span></span>
+<span id="cb50-5"><a href="#cb50-5"></a>              <span class="at">device =</span> <span class="cn">NULL</span>, </span>
+<span id="cb50-6"><a href="#cb50-6"></a>              <span class="at">path =</span> <span class="cn">NULL</span>, </span>
+<span id="cb50-7"><a href="#cb50-7"></a>              <span class="at">scale =</span> <span class="dv">1</span>,  </span>
+<span id="cb50-8"><a href="#cb50-8"></a>              <span class="at">height =</span> <span class="cn">NA</span>, </span>
+<span id="cb50-9"><a href="#cb50-9"></a>              <span class="at">units =</span> <span class="fu">c</span>(<span class="st">"in"</span>, <span class="st">"cm"</span>, <span class="st">"mm"</span>, <span class="st">"px"</span>),</span>
+<span id="cb50-10"><a href="#cb50-10"></a>              <span class="at">limitsize =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb50-11"><a href="#cb50-11"></a>              <span class="at">bg =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb50-12"><a href="#cb50-12"></a>    <span class="co"># by setting dpi = 1200, we specify that, if not changed, dpi will be 1200</span></span>
+<span id="cb50-13"><a href="#cb50-13"></a>    <span class="co"># columns will be either 1 or 2. So if we want a figure to take one column, the width will be 8; if the figure takes 2 columns, the width will be 17</span></span>
+<span id="cb50-14"><a href="#cb50-14"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(columns)) {</span>
+<span id="cb50-15"><a href="#cb50-15"></a>        <span class="fu">stop</span>(<span class="st">"'columns' must be numeric!"</span>)</span>
+<span id="cb50-16"><a href="#cb50-16"></a>    } </span>
+<span id="cb50-17"><a href="#cb50-17"></a>    width <span class="ot">=</span> <span class="fu">ifelse</span>(columns <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">17</span>)</span>
+<span id="cb50-18"><a href="#cb50-18"></a>    <span class="fu">ggsave</span>(<span class="at">plot =</span> plot, </span>
+<span id="cb50-19"><a href="#cb50-19"></a>           <span class="at">filename =</span> filename,</span>
+<span id="cb50-20"><a href="#cb50-20"></a>           <span class="at">width =</span> width,</span>
+<span id="cb50-21"><a href="#cb50-21"></a>           <span class="at">dpi =</span> dpi</span>
+<span id="cb50-22"><a href="#cb50-22"></a>           )</span>
+<span id="cb50-23"><a href="#cb50-23"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="footer footer-default">
