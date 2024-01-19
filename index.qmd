@@ -42,6 +42,8 @@ line-height: 1.75em
 
 ## Bioinformatics
 
+1. [Multiple sequence alignment and phylogenetic trees](./r/MSA_phylogenetic_trees.html)
+
 # Statistics
 
 Coming soon

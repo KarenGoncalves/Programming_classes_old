@@ -23,7 +23,8 @@ website:
     background: primary
     left:
       - useful_unix.qmd
-      - useful_R.qmd
+      - href: https://karengoncalves.github.io/useful_r_commands/
+        text: "R - useful commands"
     right:
       - href: https://karengoncalves.github.io/Karen/
         text: Karen Goncalves

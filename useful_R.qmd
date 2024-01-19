@@ -1,5 +1,5 @@
 ---
-title: "Useful R  commands"
+title: "Useful R commands"
 author: "Karen Goncalves"
 callout-appearance: simple
 format: 
